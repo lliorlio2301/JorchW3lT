@@ -1,4 +1,5 @@
 import axios from 'axios';
+import i18n from '../i18n';
 import type { Resume } from '../types/resume';
 
 const API_BASE_URL = 'http://localhost:8080/api/resume';
@@ -8,6 +9,12 @@ const api = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+});
+
+// Add interceptor to include language header
+api.interceptors.request.use((config) => {
+    config.headers['Accept-Language'] = i18n.language;
+    return config;
 });
 
 export const resumeService = {
