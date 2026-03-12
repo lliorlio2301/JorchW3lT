@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import songService from '../services/songService';
 import type { Song } from '../types/song';
 import './SongsPage.css';
 
 const SongsPage: React.FC = () => {
+    const { t } = useTranslation();
     const [songs, setSongs] = useState<Song[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -15,14 +17,14 @@ const SongsPage: React.FC = () => {
                 setSongs(data);
             } catch (err) {
                 console.error('Failed to fetch songs:', err);
-                setError('Failed to load songs.');
+                setError(t('songs.error'));
             } finally {
                 setLoading(false);
             }
         };
 
         fetchSongs();
-    }, []);
+    }, [t]);
 
     const getYoutubeEmbedUrl = (url: string) => {
         const videoId = url.split('v=')[1];
@@ -32,12 +34,12 @@ const SongsPage: React.FC = () => {
         return null;
     };
 
-    if (loading) return <div className="songs-status">Loading songs...</div>;
+    if (loading) return <div className="songs-status">{t('songs.loading')}</div>;
     if (error) return <div className="songs-status error">{error}</div>;
 
     return (
         <div className="songs-container">
-            <h1>Guitar Songbook</h1>
+            <h1>{t('songs.title')}</h1>
             <div className="songs-grid">
                 {songs.map((song) => (
                     <div key={song.id} className="song-card">
@@ -61,13 +63,13 @@ const SongsPage: React.FC = () => {
                         )}
                         <div className="song-actions">
                             <a href={song.youtubeUrl} target="_blank" rel="noopener noreferrer" className="btn-link">
-                                Open on YouTube
+                                {t('songs.youtube')}
                             </a>
                         </div>
                     </div>
                 ))}
             </div>
-            {songs.length === 0 && <p>No songs found.</p>}
+            {songs.length === 0 && <p>{t('songs.noData')}</p>}
         </div>
     );
 };

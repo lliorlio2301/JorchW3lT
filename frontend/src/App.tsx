@@ -1,24 +1,38 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ResumePage from './pages/ResumePage';
 import SongsPage from './pages/SongsPage';
 import './App.css'
 
 function App() {
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <Router>
       <div className="app-layout">
         <nav className="main-nav">
-          <Link to="/">Home</Link>
-          <Link to="/resume">Resume</Link>
-          <Link to="/songs">Songs</Link>
+          <div className="nav-links">
+            <Link to="/">{t('nav.home')}</Link>
+            <Link to="/resume">{t('nav.resume')}</Link>
+            <Link to="/songs">{t('nav.songs')}</Link>
+          </div>
+          <div className="language-switcher">
+            <button onClick={() => changeLanguage('de')} className={i18n.language === 'de' ? 'active' : ''}>DE</button>
+            <button onClick={() => changeLanguage('en')} className={i18n.language === 'en' ? 'active' : ''}>EN</button>
+            <button onClick={() => changeLanguage('es')} className={i18n.language === 'es' ? 'active' : ''}>ES</button>
+          </div>
         </nav>
 
         <main className="content">
           <Routes>
             <Route path="/" element={
               <div className="home-welcome">
-                <h1>Welcome to Jorch's Portfolio</h1>
-                <p>Select a section from the navigation above.</p>
+                <h1>{t('welcome.title')}</h1>
+                <p>{t('welcome.subtitle')}</p>
               </div>
             } />
             <Route path="/resume" element={<ResumePage />} />
