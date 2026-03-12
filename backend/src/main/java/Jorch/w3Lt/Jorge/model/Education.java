@@ -1,5 +1,6 @@
 package Jorch.w3Lt.Jorge.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,10 +19,24 @@ public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String degree;
+    
     private String institution;
-    private String location;
     private String startDate;
     private String endDate;
-    private String description;
+
+    // Localized fields
+    private String degreeDe;
+    private String degreeEn;
+    private String degreeEs;
+
+    private String locationDe;
+    private String locationEn;
+    private String locationEs;
+
+    @Column(columnDefinition = "TEXT")
+    private String descriptionDe;
+    @Column(columnDefinition = "TEXT")
+    private String descriptionEn;
+    @Column(columnDefinition = "TEXT")
+    private String descriptionEs;
 }

@@ -21,8 +21,18 @@ public class Resume {
     private String name;
     private String email;
     private String phone;
-    private String location;
-    private String summary;
+
+    // Localized fields
+    private String locationDe;
+    private String locationEn;
+    private String locationEs;
+
+    @Column(columnDefinition = "TEXT")
+    private String summaryDe;
+    @Column(columnDefinition = "TEXT")
+    private String summaryEn;
+    @Column(columnDefinition = "TEXT")
+    private String summaryEs;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "resume_id")
