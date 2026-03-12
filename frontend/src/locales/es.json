@@ -1,0 +1,26 @@
+{
+    "nav": {
+      "home": "Inicio",
+      "resume": "Currículum",
+      "songs": "Cancionero"
+    },
+    "welcome": {
+      "title": "Bienvenido al Portafolio de Jorch",
+      "subtitle": "Seleccione una sección de la navegación anterior."
+    },
+    "resume": {
+      "summary": "Resumen",
+      "experience": "Experiencia",
+      "education": "Educación",
+      "loading": "Cargando currículum...",
+      "error": "Error al cargar el currículum. ¿Está funcionando el backend?",
+      "noData": "No se foundaron datos del currículum."
+    },
+    "songs": {
+      "title": "Cancionero de guitarra",
+      "loading": "Cargando canciones...",
+      "error": "Error al cargar las canciones.",
+      "noData": "No se foundaron canciones.",
+      "youtube": "Abrir en YouTube"
+    }
+}

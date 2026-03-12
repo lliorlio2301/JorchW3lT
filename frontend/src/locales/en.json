@@ -1,0 +1,26 @@
+{
+    "nav": {
+      "home": "Home",
+      "resume": "Resume",
+      "songs": "Songs"
+    },
+    "welcome": {
+      "title": "Welcome to Jorch's Portfolio",
+      "subtitle": "Select a section from the navigation above."
+    },
+    "resume": {
+      "summary": "Summary",
+      "experience": "Experience",
+      "education": "Education",
+      "loading": "Loading resume...",
+      "error": "Failed to load resume. Is the backend running?",
+      "noData": "No resume data found."
+    },
+    "songs": {
+      "title": "Guitar Songbook",
+      "loading": "Loading songs...",
+      "error": "Failed to load songs.",
+      "noData": "No songs found.",
+      "youtube": "Open on YouTube"
+    }
+}

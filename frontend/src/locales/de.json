@@ -1,0 +1,26 @@
+{
+    "nav": {
+      "home": "Startseite",
+      "resume": "Lebenslauf",
+      "songs": "Songbuch"
+    },
+    "welcome": {
+      "title": "Willkommen zu Jorch's Portfolio",
+      "subtitle": "Wähle einen Bereich aus der Navigation oben."
+    },
+    "resume": {
+      "summary": "Zusammenfassung",
+      "experience": "Erfahrung",
+      "education": "Ausbildung",
+      "loading": "Lebenslauf wird geladen...",
+      "error": "Fehler beim Laden des Lebenslaufs. Läuft das Backend?",
+      "noData": "Keine Lebenslaufdaten gefunden."
+    },
+    "songs": {
+      "title": "Gitarren-Songbuch",
+      "loading": "Songs werden geladen...",
+      "error": "Fehler beim Laden der Songs.",
+      "noData": "Keine Songs gefunden.",
+      "youtube": "Auf YouTube öffnen"
+    }
+}
