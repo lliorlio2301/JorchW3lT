@@ -16,13 +16,13 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     @GetMapping
-    public List<ResumeDTO> getAllResumes() {
-        return resumeService.getAllResumes();
+    public List<ResumeDTO> getAllResumes(@RequestHeader(value = "Accept-Language", required = false) String locale) {
+        return resumeService.getAllResumes(locale);
     }
 
     @GetMapping("/{id}")
-    public ResumeDTO getResumeById(@PathVariable Long id) {
-        return resumeService.getResumeById(id);
+    public ResumeDTO getResumeById(@PathVariable Long id, @RequestHeader(value = "Accept-Language", required = false) String locale) {
+        return resumeService.getResumeById(id, locale);
     }
 
     @PostMapping
