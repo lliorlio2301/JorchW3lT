@@ -1,0 +1,79 @@
+.resume-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: left;
+    line-height: 1.6;
+}
+
+.resume-header {
+    border-bottom: 2px solid #00D8FF;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.resume-header h1 {
+    margin: 0;
+    color: #242424;
+}
+
+.contact-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.resume-section {
+    margin-bottom: 2rem;
+}
+
+.resume-section h2 {
+    color: #00D8FF;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.experience-item, .education-item {
+    margin-bottom: 1.5rem;
+}
+
+.experience-item h3, .education-item h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.item-meta {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.resume-status {
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.resume-status.error {
+    color: #e74c3c;
+}
+
+/* Adjustments for dark mode if user prefers it */
+@media (prefers-color-scheme: dark) {
+    .resume-container {
+        background-color: #1a1a1a;
+        color: #eee;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    .resume-header h1 {
+        color: #fff;
+    }
+    .resume-section h2 {
+        border-color: #444;
+    }
+}

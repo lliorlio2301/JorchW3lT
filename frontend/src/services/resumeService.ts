@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Resume } from '../types/resume';
+import type { Resume } from '../types/resume';
 
 const API_BASE_URL = 'http://localhost:8080/api/resume';
 
