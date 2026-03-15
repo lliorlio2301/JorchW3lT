@@ -42,12 +42,12 @@ INSERT INTO project (id, title_de, title_en, title_es, description_de, descripti
 'Diese Webseite, gebaut mit Spring Boot und React.',
 'This very website, built with Spring Boot and React.',
 'Este sitio web, construido con Spring Boot und React.',
-'https://via.placeholder.com/400x250', 'https://github.com/lliorlio2301/JorchW3lT', 'https://jorch.w3lt'),
+'/projects/portafolio.png', 'https://github.com/lliorlio2301/JorchW3lT', 'https://jorch.w3lt'),
 (2, 'Einkaufsliste App', 'Shopping List App', 'Aplicación de Lista de Compras',
 'Eine einfache App zur Verwaltung von Einkaufslisten.',
 'A simple app to manage shopping lists.',
-'Una aplicación sencilla para gestionar listas de la compra.',
-'https://via.placeholder.com/400x250', 'https://github.com/lliorlio2301/shopping-list', NULL);
+'Una aplicación sencilla für die Verwaltung von Einkaufslisten.',
+'/projects/einkaufsliste.png', 'https://github.com/lliorlio2301/shopping-list', NULL);
 
 -- Insert Project Tags
 INSERT INTO project_tags (project_id, tag) VALUES
