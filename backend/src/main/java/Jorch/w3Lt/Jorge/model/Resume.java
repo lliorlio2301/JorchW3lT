@@ -34,11 +34,11 @@ public class Resume {
     @Column(columnDefinition = "TEXT")
     private String summaryEs;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "resume_id")
     private List<Experience> experiences;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "resume_id")
     private List<Education> education;
 }
