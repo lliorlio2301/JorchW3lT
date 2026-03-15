@@ -2,11 +2,20 @@
     "nav": {
       "home": "Inicio",
       "resume": "Currículum",
-      "songs": "Cancionero"
+      "songs": "Cancionero",
+      "projects": "Proyectos"
     },
     "welcome": {
       "title": "Bienvenido al Portafolio de Jorch",
       "subtitle": "Seleccione una sección de la navegación anterior."
+    },
+    "projects": {
+      "title": "Mis Proyectos",
+      "loading": "Cargando proyectos...",
+      "error": "Error al cargar los proyectos.",
+      "noData": "No se encontraron proyectos.",
+      "github": "Repositorio de GitHub",
+      "demo": "Demo en vivo"
     },
     "resume": {
       "summary": "Resumen",

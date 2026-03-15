@@ -2,11 +2,20 @@
     "nav": {
       "home": "Home",
       "resume": "Resume",
-      "songs": "Songs"
+      "songs": "Songs",
+      "projects": "Projects"
     },
     "welcome": {
       "title": "Welcome to Jorch's Portfolio",
       "subtitle": "Select a section from the navigation above."
+    },
+    "projects": {
+      "title": "My Projects",
+      "loading": "Loading projects...",
+      "error": "Failed to load projects.",
+      "noData": "No projects found.",
+      "github": "GitHub Repository",
+      "demo": "Live Demo"
     },
     "resume": {
       "summary": "Summary",
