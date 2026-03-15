@@ -27,7 +27,7 @@ const ResumePage: React.FC = () => {
         };
 
         fetchResume();
-    }, [i18n.language, t]); // Refetch when language changes
+    }, [i18n.language, t]);
 
     if (loading) return <div className="resume-status">{t('resume.loading')}</div>;
     if (error) return <div className="resume-status error">{error}</div>;
@@ -35,51 +35,64 @@ const ResumePage: React.FC = () => {
 
     return (
         <div className="resume-container">
-            <header className="resume-header">
-                <h1>{resume.name}</h1>
+            <aside className="resume-sidebar">
+                <header className="resume-header">
+                    <h1>{resume.name}</h1>
+                    <div className="title">Software Engineer</div>
+                </header>
+
                 <div className="contact-info">
-                    <span>{resume.email}</span> | 
-                    <span>{resume.phone}</span> | 
-                    <span>{resume.location}</span>
+                    <div className="contact-item">
+                        <b>Email</b>
+                        <div>{resume.email}</div>
+                    </div>
+                    <div className="contact-item">
+                        <b>Phone</b>
+                        <div>{resume.phone}</div>
+                    </div>
+                    <div className="contact-item">
+                        <b>Location</b>
+                        <div>{resume.location}</div>
+                    </div>
                 </div>
-            </header>
 
-            <section className="resume-section">
-                <h2>{t('resume.summary')}</h2>
-                <p>{resume.summary}</p>
-            </section>
+                <section className="resume-section">
+                    <h2>{t('resume.summary')}</h2>
+                    <p>{resume.summary}</p>
+                </section>
+            </aside>
 
-            <section className="resume-section">
-                <h2>{t('resume.experience')}</h2>
-                <div className="experience-list">
-                    {resume.experiences.map((exp) => (
-                        <div key={exp.id} className="experience-item">
-                            <h3>{exp.title} at {exp.company}</h3>
-                            <div className="item-meta">
-                                <span>{exp.location}</span> | 
-                                <span>{exp.startDate} - {exp.endDate}</span>
+            <main className="resume-main">
+                <section className="resume-section">
+                    <h2>{t('resume.experience')}</h2>
+                    <div className="experience-list">
+                        {resume.experiences.map((exp) => (
+                            <div key={exp.id} className="experience-item">
+                                <h3>{exp.title}</h3>
+                                <div className="item-meta">
+                                    {exp.company} | {exp.startDate} - {exp.endDate}
+                                </div>
+                                <p>{exp.description}</p>
                             </div>
-                            <p>{exp.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                        ))}
+                    </div>
+                </section>
 
-            <section className="resume-section">
-                <h2>{t('resume.education')}</h2>
-                <div className="education-list">
-                    {resume.education.map((edu) => (
-                        <div key={edu.id} className="education-item">
-                            <h3>{edu.degree}</h3>
-                            <div className="item-meta">
-                                <span>{edu.institution}, {edu.location}</span> | 
-                                <span>{edu.startDate} - {edu.endDate}</span>
+                <section className="resume-section">
+                    <h2>{t('resume.education')}</h2>
+                    <div className="education-list">
+                        {resume.education.map((edu) => (
+                            <div key={edu.id} className="education-item">
+                                <h3>{edu.degree}</h3>
+                                <div className="item-meta">
+                                    {edu.institution} | {edu.startDate} - {edu.endDate}
+                                </div>
+                                <p>{edu.description}</p>
                             </div>
-                            <p>{edu.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                        ))}
+                    </div>
+                </section>
+            </main>
         </div>
     );
 };
