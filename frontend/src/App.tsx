@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ResumePage from './pages/ResumePage';
 import SongsPage from './pages/SongsPage';
+import ProjectsPage from './pages/ProjectsPage';
 import './App.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <nav className="main-nav">
           <div className="nav-links">
             <Link to="/">{t('nav.home')}</Link>
+            <Link to="/projects">{t('nav.projects')}</Link>
             <Link to="/resume">{t('nav.resume')}</Link>
             <Link to="/songs">{t('nav.songs')}</Link>
           </div>
@@ -35,6 +37,7 @@ function App() {
                 <p>{t('welcome.subtitle')}</p>
               </div>
             } />
+            <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/resume" element={<ResumePage />} />
             <Route path="/songs" element={<SongsPage />} />
           </Routes>
