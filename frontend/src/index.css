@@ -23,6 +23,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Explicit Light Theme class */
+:root.light {
+  --color-bg: #e7e9ee;
+  --color-surface: #ffffff;
+  --color-text: #035bff;
+  --color-contrast: #b0bbce;
+  --color-primary: #011335;
+  --color-secondary: #486ed7;
+  --color-accent: #3fb0f3;
+  --color-muted: #657191;
+}
+
+/* Explicit Dark Theme class (in case we want to force it) */
+:root.dark {
+  --color-bg: #1d1f2b;
+  --color-surface: #2a2e41;
+  --color-text: #e6e8f0;
+  --color-contrast: #2e3452;
+  --color-primary: #5a8dff;
+  --color-secondary: #4b6db8;
+  --color-accent: #3fb0f3;
+  --color-muted: #8a95b5;
+}
+
 a {
   font-weight: 500;
   color: var(--color-primary);
@@ -66,7 +90,7 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not(.dark) {
     --color-bg: #e7e9ee;
     --color-surface: #ffffff;
     --color-text: #035bff;
@@ -75,14 +99,5 @@ button:focus-visible {
     --color-secondary: #486ed7;
     --color-accent: #3fb0f3;
     --color-muted: #657191;
-  }
-
-  a:hover {
-    color: var(--color-accent);
-  }
-
-  button {
-    background-color: var(--color-surface);
-    color: var(--color-text);
   }
 }
