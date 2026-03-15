@@ -52,3 +52,21 @@ CREATE TABLE song (
     youtube_url VARCHAR(255),
     category VARCHAR(255)
 );
+
+CREATE TABLE project (
+    id BIGSERIAL PRIMARY KEY,
+    title_de VARCHAR(255),
+    title_en VARCHAR(255),
+    title_es VARCHAR(255),
+    description_de TEXT,
+    description_en TEXT,
+    description_es TEXT,
+    image_url VARCHAR(255),
+    github_url VARCHAR(255),
+    demo_url VARCHAR(255)
+);
+
+CREATE TABLE project_tags (
+    project_id BIGINT REFERENCES project(id),
+    tag VARCHAR(255)
+);

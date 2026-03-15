@@ -36,8 +36,27 @@ INSERT INTO song (id, title, artist, youtube_url, category) VALUES
 (2, 'Wish You Were Here', 'Pink Floyd', 'https://www.youtube.com/watch?v=IXdNnw99-Ic', 'Acoustic'),
 (3, 'Enter Sandman', 'Metallica', 'https://www.youtube.com/watch?v=CD-E-LDc384', 'Electric');
 
+-- Insert Projects
+INSERT INTO project (id, title_de, title_en, title_es, description_de, description_en, description_es, image_url, github_url, demo_url) VALUES
+(1, 'Portfolio Webseite', 'Portfolio Website', 'Sitio Web de Portafolio',
+'Diese Webseite, gebaut mit Spring Boot und React.',
+'This very website, built with Spring Boot and React.',
+'Este sitio web, construido con Spring Boot und React.',
+'https://via.placeholder.com/400x250', 'https://github.com/lliorlio2301/JorchW3lT', 'https://jorch.w3lt'),
+(2, 'Einkaufsliste App', 'Shopping List App', 'Aplicación de Lista de Compras',
+'Eine einfache App zur Verwaltung von Einkaufslisten.',
+'A simple app to manage shopping lists.',
+'Una aplicación sencilla para gestionar listas de la compra.',
+'https://via.placeholder.com/400x250', 'https://github.com/lliorlio2301/shopping-list', NULL);
+
+-- Insert Project Tags
+INSERT INTO project_tags (project_id, tag) VALUES
+(1, 'Java'), (1, 'Spring Boot'), (1, 'React'), (1, 'TypeScript'),
+(2, 'Java'), (2, 'Spring Boot'), (2, 'H2');
+
 -- Update the auto-increment sequences
 ALTER TABLE resume ALTER COLUMN id RESTART WITH 2;
 ALTER TABLE experience ALTER COLUMN id RESTART WITH 3;
 ALTER TABLE education ALTER COLUMN id RESTART WITH 2;
 ALTER TABLE song ALTER COLUMN id RESTART WITH 4;
+ALTER TABLE project ALTER COLUMN id RESTART WITH 3;
