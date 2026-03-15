@@ -39,7 +39,7 @@ const SongsPage: React.FC = () => {
 
     return (
         <div className="songs-container">
-            <h1>{t('songs.title')}</h1>
+            <h1 style={{ marginBottom: '5rem' }}>{t('songs.title')}</h1>
             <div className="songs-grid">
                 {songs.map((song) => (
                     <div key={song.id} className="song-card chaos-card">

@@ -32,7 +32,7 @@ const ProjectsPage: React.FC = () => {
 
     return (
         <div className="projects-container">
-            <h1>{t('projects.title')}</h1>
+            <h1 style={{ marginBottom: '5rem' }}>{t('projects.title')}</h1>
             <div className="projects-grid">
                 {projects.map((project) => (
                     <div key={project.id} className="project-card chaos-card">
