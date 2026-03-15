@@ -13,13 +13,13 @@
 
 .main-nav {
   padding: 1.5rem;
-  background-color: #242424;
+  background-color: var(--color-surface);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-left: 5rem;
   padding-right: 5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .nav-links {
@@ -28,14 +28,14 @@
 }
 
 .nav-links a {
-  color: #fff;
+  color: var(--color-text);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s;
 }
 
 .nav-links a:hover {
-  color: #00D8FF;
+  color: var(--color-primary);
 }
 
 .language-switcher {
@@ -46,21 +46,21 @@
 .language-switcher button {
   padding: 0.3rem 0.6rem;
   font-size: 0.8rem;
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #444;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--color-text);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   cursor: pointer;
   border-radius: 4px;
 }
 
 .language-switcher button:hover {
-  background-color: #444;
+  background-color: rgba(255, 255, 255, 0.14);
 }
 
 .language-switcher button.active {
-  background-color: #00D8FF;
-  border-color: #00D8FF;
-  color: #242424;
+  background-color: var(--color-primary);
+  border-color: var(--color-secondary);
+  color: var(--color-contrast);
   font-weight: bold;
 }
 
@@ -74,25 +74,25 @@
 }
 
 .home-welcome h1 {
-  color: #00D8FF;
+  color: var(--color-primary);
 }
 
 @media (prefers-color-scheme: light) {
   .main-nav {
-    background-color: #f9f9f9;
+    background-color: var(--color-surface);
   }
   .nav-links a {
-    color: #213547;
+    color: var(--color-text);
   }
   .nav-links a:hover {
-    color: #00D8FF;
+    color: var(--color-primary);
   }
   .language-switcher button {
-    background-color: #eee;
-    color: #333;
-    border-color: #ccc;
+    background-color: rgba(0, 0, 0, 0.04);
+    color: var(--color-text);
+    border-color: rgba(0, 0, 0, 0.12);
   }
   .language-switcher button:hover {
-    background-color: #e0e0e0;
+    background-color: rgba(0, 0, 0, 0.06);
   }
 }
