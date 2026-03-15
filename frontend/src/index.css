@@ -1,19 +1,19 @@
 :root {
-  /* color palette updated for a more 'architectural' feel */
-  --color-bg: #0f111a;
-  --color-surface: #1a1d2b;
-  --color-text: #e6e8f0;
-  --color-contrast: #24293d;
-  --color-primary: #5a8dff;
-  --color-secondary: #4b6db8;
-  --color-accent: #3fb0f3;
-  --color-muted: #8a95b5;
+  /* Dark Mode Palette with playful colors */
+  --color-bg: #121212;
+  --color-surface: #1e1e1e;
+  --color-text: #f0f0f0;
+  --color-contrast: #2a2a2a;
+  --color-primary: #ff79c6; 
+  --color-secondary: #8be9fd;
+  --color-accent: #ffb86c;
+  --color-muted: #6272a4;
 
-  /* Typography based on your drafts */
-  --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-header: 'Covered By Your Grace', cursive;
+  --font-ui: 'Space Grotesk', sans-serif;
   
-  font-family: var(--font-main);
-  line-height: 1.6;
+  font-family: var(--font-ui);
+  line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -22,103 +22,98 @@
 }
 
 :root.light {
-  /* Paper-style light theme from your 'Henry Scott' draft */
-  --color-bg: #f5f2ed; /* Slight beige/paper tone */
-  --color-surface: #ffffff;
+  /* Canvas colors from 'lightmode_farben.jpg' */
+  --color-bg: #e8e4d9; 
+  --color-surface: #fdfaf3;
   --color-text: #1a1a1a;
-  --color-contrast: #e8e4dc;
-  --color-primary: #000000;
-  --color-secondary: #333333;
-  --color-accent: #5a8dff;
-  --color-muted: #666666;
-}
-
-:root.dark {
-  --color-bg: #0f111a;
-  --color-surface: #1a1d2b;
-  --color-text: #e6e8f0;
-  --color-contrast: #24293d;
-  --color-primary: #5a8dff;
-  --color-secondary: #4b6db8;
-  --color-accent: #3fb0f3;
-  --color-muted: #8a95b5;
+  --color-contrast: #d1ccbe;
+  --color-primary: #e43f3f;
+  --color-secondary: #ff8c00;
+  --color-accent: #45b39d;
+  --color-muted: #7a7569;
 }
 
 body {
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Bold Architectural Headlines */
+/* Handwritten Chaos Typography */
+h1, h2, h3 {
+  font-family: var(--font-header);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-weight: 400; /* Font only supports 400 */
+}
+
 h1 {
-  font-size: 4rem;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
+  font-size: 6rem; /* Increased size for impact */
+  color: var(--color-primary);
+  line-height: 0.8;
+  transform: rotate(-2deg);
   margin-bottom: 2rem;
 }
 
 h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: 3.5rem;
+  color: var(--color-secondary);
+  transform: rotate(1deg);
   margin-bottom: 1.5rem;
 }
 
 h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  color: var(--color-accent);
 }
 
 p {
-  max-width: 65ch; /* Better readability */
-  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  max-width: 60ch;
 }
 
-a {
-  font-weight: 600;
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: all 0.2s ease;
+/* Card 'Chaos' */
+.chaos-card {
+  border: 3px solid var(--color-text);
+  border-radius: 10px 40px 10px 30px;
+  background-color: var(--color-surface);
+  transition: transform 0.3s ease;
 }
 
-a:hover {
-  color: var(--color-accent);
-  text-decoration: underline;
+.chaos-card:nth-child(even) { transform: rotate(1.5deg); }
+.chaos-card:nth-child(odd) { transform: rotate(-1deg); }
+
+.chaos-card:hover {
+  transform: scale(1.03) rotate(0deg) !important;
+  box-shadow: 12px 12px 0px var(--color-primary);
 }
 
 button {
-  border-radius: 4px; /* More rectangular like the draft */
-  border: 1px solid var(--color-primary);
-  padding: 0.8em 1.5em;
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-family: inherit;
-  background-color: transparent;
-  color: var(--color-primary);
+  font-family: var(--font-header);
+  font-size: 1.5rem; /* Larger for the handwritten font */
+  border-radius: 12px;
+  border: 2px solid var(--color-text);
+  padding: 0.3em 1.2em;
+  background: var(--color-accent);
+  color: var(--color-text);
   cursor: pointer;
+  transform: rotate(-1deg);
   transition: all 0.2s ease;
 }
 
 button:hover {
-  background-color: var(--color-primary);
-  color: var(--color-bg);
+  transform: rotate(0deg) scale(1.1);
+  box-shadow: 4px 4px 0px var(--color-text);
 }
 
 @media (prefers-color-scheme: light) {
   :root:not(.dark) {
-    --color-bg: #f5f2ed;
-    --color-surface: #ffffff;
+    --color-bg: #e8e4d9;
+    --color-surface: #fdfaf3;
     --color-text: #1a1a1a;
-    --color-contrast: #e8e4dc;
-    --color-primary: #000000;
-    --color-secondary: #333333;
-    --color-accent: #5a8dff;
-    --color-muted: #666666;
+    --color-contrast: #d1ccbe;
+    --color-primary: #e43f3f;
+    --color-secondary: #ff8c00;
+    --color-accent: #45b39d;
+    --color-muted: #7a7569;
   }
 }
