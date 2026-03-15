@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ResumePage from './pages/ResumePage';
 import SongsPage from './pages/SongsPage';
 import ProjectsPage from './pages/ProjectsPage';
+import ShoppingListPage from './pages/ShoppingListPage';
 import './App.css'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Link to="/projects">{t('nav.projects')}</Link>
             <Link to="/resume">{t('nav.resume')}</Link>
             <Link to="/songs">{t('nav.songs')}</Link>
+            <Link to="/shopping">{t('nav.shopping')}</Link>
           </div>
           <div className="language-switcher">
             <button onClick={() => changeLanguage('de')} className={i18n.language === 'de' ? 'active' : ''}>DE</button>
@@ -40,6 +42,7 @@ function App() {
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/resume" element={<ResumePage />} />
             <Route path="/songs" element={<SongsPage />} />
+            <Route path="/shopping" element={<ShoppingListPage />} />
           </Routes>
         </main>
       </div>

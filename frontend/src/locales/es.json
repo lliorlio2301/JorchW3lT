@@ -3,9 +3,19 @@
       "home": "Inicio",
       "resume": "Currículum",
       "songs": "Cancionero",
-      "projects": "Proyectos"
+      "projects": "Proyectos",
+      "shopping": "Lista de Compras"
     },
-    "welcome": {
+    "shopping": {
+      "title": "Lista de Compras",
+      "add": "Añadir",
+      "placeholder": "Nombre del producto",
+      "quantity": "Cant",
+      "loading": "Cargando lista...",
+      "error": "Error al cargar la lista.",
+      "noData": "Tu lista está vacía."
+    },
+    "resume": {
       "title": "Bienvenido al Portafolio de Jorch",
       "subtitle": "Seleccione una sección de la navegación anterior."
     },

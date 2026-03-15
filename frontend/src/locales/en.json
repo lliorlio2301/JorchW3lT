@@ -3,7 +3,17 @@
       "home": "Home",
       "resume": "Resume",
       "songs": "Songs",
-      "projects": "Projects"
+      "projects": "Projects",
+      "shopping": "Shopping List"
+    },
+    "shopping": {
+      "title": "Shopping List",
+      "add": "Add",
+      "placeholder": "Product name",
+      "quantity": "Qty",
+      "loading": "Loading list...",
+      "error": "Failed to load list.",
+      "noData": "Your list is empty."
     },
     "welcome": {
       "title": "Welcome to Jorch's Portfolio",

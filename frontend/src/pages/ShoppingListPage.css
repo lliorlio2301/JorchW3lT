@@ -1,0 +1,127 @@
+.shopping-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-contrast);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.shopping-container h1 {
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+}
+
+.add-item-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.add-item-form input {
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-surface);
+    color: var(--color-text);
+    flex-grow: 1;
+}
+
+.add-item-form .qty-input {
+    flex-grow: 0;
+    width: 80px;
+}
+
+.add-item-form button {
+    background-color: var(--color-primary);
+    color: var(--color-contrast);
+    border: none;
+    font-weight: bold;
+    padding: 0 1.5rem;
+}
+
+.shopping-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.shopping-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--color-surface);
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.shopping-item:hover {
+    transform: translateX(5px);
+}
+
+.item-main {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--color-primary);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+.item-name {
+    font-size: 1.1rem;
+    color: var(--color-text);
+}
+
+.item-qty {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+}
+
+.shopping-item.completed .item-name {
+    text-decoration: line-through;
+    color: var(--color-muted);
+}
+
+.shopping-item.completed .checkbox {
+    background-color: rgba(90, 141, 255, 0.1);
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.delete-btn:hover {
+    color: #e74c3c;
+}
+
+.no-data {
+    color: var(--color-muted);
+    margin-top: 2rem;
+}
+
+.shopping-status {
+    padding: 2rem;
+    color: var(--color-text);
+}
+
+.shopping-status.error {
+    color: #e74c3c;
+}
