@@ -1,93 +1,99 @@
 .shopping-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: var(--color-contrast);
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 3rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-contrast);
+    box-shadow: 20px 20px 0px var(--color-contrast);
 }
 
 .shopping-container h1 {
-    color: var(--color-primary);
-    margin-bottom: 2rem;
+    font-size: 4rem;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
 }
 
 .add-item-form {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-bottom: 3rem;
 }
 
 .add-item-form input {
-    padding: 0.8rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: var(--color-surface);
+    padding: 1rem;
+    background: transparent;
+    border: 2px solid var(--color-contrast);
     color: var(--color-text);
+    font-family: inherit;
+    font-weight: 600;
     flex-grow: 1;
 }
 
-.add-item-form .qty-input {
-    flex-grow: 0;
-    width: 80px;
+.add-item-form input:focus {
+    outline: none;
+    border-color: var(--color-primary);
 }
 
-.add-item-form button {
-    background-color: var(--color-primary);
-    color: var(--color-contrast);
-    border: none;
-    font-weight: bold;
-    padding: 0 1.5rem;
+.add-item-form .qty-input {
+    width: 100px;
+    flex-grow: 0;
 }
 
 .shopping-list {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1rem;
 }
 
 .shopping-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background-color: var(--color-surface);
-    border-radius: 8px;
-    transition: transform 0.2s;
+    padding: 1.2rem;
+    border: 1px solid var(--color-contrast);
+    background: var(--color-surface);
+    transition: transform 0.2s ease;
 }
 
 .shopping-item:hover {
-    transform: translateX(5px);
+    transform: scale(1.02);
+    border-color: var(--color-primary);
 }
 
 .item-main {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     cursor: pointer;
     flex-grow: 1;
 }
 
 .checkbox {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border: 2px solid var(--color-primary);
-    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-accent);
-    font-weight: bold;
+    font-weight: 900;
+    color: var(--color-primary);
 }
 
 .item-name {
-    font-size: 1.1rem;
-    color: var(--color-text);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .item-qty {
-    color: var(--color-muted);
+    color: var(--color-accent);
+    font-weight: 600;
     font-size: 0.9rem;
+}
+
+.shopping-item.completed {
+    opacity: 0.6;
 }
 
 .shopping-item.completed .item-name {
@@ -95,33 +101,31 @@
     color: var(--color-muted);
 }
 
-.shopping-item.completed .checkbox {
-    background-color: rgba(90, 141, 255, 0.1);
-}
-
 .delete-btn {
     background: transparent;
     border: none;
     color: var(--color-muted);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 900;
     cursor: pointer;
     padding: 0.5rem;
+    line-height: 1;
 }
 
 .delete-btn:hover {
-    color: #e74c3c;
+    color: #ff4d4d;
 }
 
 .no-data {
+    font-weight: 800;
+    text-transform: uppercase;
     color: var(--color-muted);
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .shopping-status {
-    padding: 2rem;
-    color: var(--color-text);
-}
-
-.shopping-status.error {
-    color: #e74c3c;
+    padding: 3rem;
+    text-align: center;
+    font-weight: 900;
+    text-transform: uppercase;
 }
