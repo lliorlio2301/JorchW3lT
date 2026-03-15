@@ -67,7 +67,7 @@ const ShoppingListPage: React.FC = () => {
     if (loading) return <div className="shopping-status">{t('shopping.loading')}</div>;
 
     return (
-        <div className="shopping-container">
+        <div className="shopping-container chaos-card">
             <h1>{t('shopping.title')}</h1>
             
             <form className="add-item-form" onSubmit={handleAddItem}>

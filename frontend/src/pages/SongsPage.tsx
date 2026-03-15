@@ -42,7 +42,7 @@ const SongsPage: React.FC = () => {
             <h1>{t('songs.title')}</h1>
             <div className="songs-grid">
                 {songs.map((song) => (
-                    <div key={song.id} className="song-card">
+                    <div key={song.id} className="song-card chaos-card">
                         <div className="song-info">
                             <h3>{song.title}</h3>
                             <p className="artist">{song.artist}</p>

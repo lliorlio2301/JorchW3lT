@@ -35,7 +35,7 @@ const ProjectsPage: React.FC = () => {
             <h1>{t('projects.title')}</h1>
             <div className="projects-grid">
                 {projects.map((project) => (
-                    <div key={project.id} className="project-card">
+                    <div key={project.id} className="project-card chaos-card">
                         <div className="project-image">
                             <img src={project.imageUrl} alt={project.title} />
                         </div>

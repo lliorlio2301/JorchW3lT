@@ -1,17 +1,12 @@
 .shopping-container {
-    max-width: 700px;
+    max-width: 600px;
     margin: 4rem auto;
     padding: 3rem;
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-contrast);
-    box-shadow: 20px 20px 0px var(--color-contrast);
 }
 
 .shopping-container h1 {
-    font-size: 4rem;
-    line-height: 0.9;
-    text-transform: uppercase;
-    margin-bottom: 3rem;
+    font-size: 5rem;
+    margin-bottom: 2rem;
 }
 
 .add-item-form {
@@ -21,111 +16,51 @@
 }
 
 .add-item-form input {
-    padding: 1rem;
-    background: transparent;
+    padding: 0.8rem;
     border: 2px solid var(--color-contrast);
+    background: transparent;
     color: var(--color-text);
-    font-family: inherit;
-    font-weight: 600;
+    font-family: var(--font-ui);
     flex-grow: 1;
 }
 
-.add-item-form input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-}
-
-.add-item-form .qty-input {
-    width: 100px;
-    flex-grow: 0;
-}
-
-.shopping-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.add-item-form button {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
 }
 
 .shopping-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem;
-    border: 1px solid var(--color-contrast);
-    background: var(--color-surface);
-    transition: transform 0.2s ease;
-}
-
-.shopping-item:hover {
-    transform: scale(1.02);
-    border-color: var(--color-primary);
+    padding: 1rem;
+    border-bottom: 1px dashed var(--color-contrast);
 }
 
 .item-main {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     cursor: pointer;
-    flex-grow: 1;
 }
 
 .checkbox {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border: 2px solid var(--color-primary);
+    border-radius: 50%; /* Round checkboxes for this style */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 900;
-    color: var(--color-primary);
 }
 
 .item-name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-family: var(--font-header);
+    font-size: 1.8rem;
 }
 
 .item-qty {
-    color: var(--color-accent);
-    font-weight: 600;
+    font-family: var(--font-ui);
     font-size: 0.9rem;
-}
-
-.shopping-item.completed {
-    opacity: 0.6;
-}
-
-.shopping-item.completed .item-name {
-    text-decoration: line-through;
-    color: var(--color-muted);
-}
-
-.delete-btn {
-    background: transparent;
-    border: none;
-    color: var(--color-muted);
-    font-size: 1.5rem;
-    font-weight: 900;
-    cursor: pointer;
-    padding: 0.5rem;
-    line-height: 1;
-}
-
-.delete-btn:hover {
-    color: #ff4d4d;
-}
-
-.no-data {
-    font-weight: 800;
-    text-transform: uppercase;
-    color: var(--color-muted);
-    margin-top: 3rem;
-}
-
-.shopping-status {
-    padding: 3rem;
-    text-align: center;
-    font-weight: 900;
-    text-transform: uppercase;
+    color: var(--color-accent);
 }

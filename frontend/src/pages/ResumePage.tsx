@@ -34,7 +34,7 @@ const ResumePage: React.FC = () => {
     if (!resume) return <div className="resume-status">{t('resume.noData')}</div>;
 
     return (
-        <div className="resume-container">
+        <div className="resume-container chaos-card">
             <aside className="resume-sidebar">
                 <header className="resume-header">
                     <h1>{resume.name}</h1>
