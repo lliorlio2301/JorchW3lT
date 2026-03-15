@@ -54,9 +54,16 @@ INSERT INTO project_tags (project_id, tag) VALUES
 (1, 'Java'), (1, 'Spring Boot'), (1, 'React'), (1, 'TypeScript'),
 (2, 'Java'), (2, 'Spring Boot'), (2, 'H2');
 
+-- Insert List Items
+INSERT INTO list_item (id, name, quantity, completed) VALUES
+(1, 'Milch', '2 Liter', false),
+(2, 'Brot', '1 Leib', true),
+(3, 'Eier', '10 Stück', false);
+
 -- Update the auto-increment sequences
 ALTER TABLE resume ALTER COLUMN id RESTART WITH 2;
 ALTER TABLE experience ALTER COLUMN id RESTART WITH 3;
 ALTER TABLE education ALTER COLUMN id RESTART WITH 2;
 ALTER TABLE song ALTER COLUMN id RESTART WITH 4;
 ALTER TABLE project ALTER COLUMN id RESTART WITH 3;
+ALTER TABLE list_item ALTER COLUMN id RESTART WITH 4;

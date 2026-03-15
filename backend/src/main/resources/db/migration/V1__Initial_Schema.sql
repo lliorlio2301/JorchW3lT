@@ -70,3 +70,10 @@ CREATE TABLE project_tags (
     project_id BIGINT REFERENCES project(id),
     tag VARCHAR(255)
 );
+
+CREATE TABLE list_item (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    quantity VARCHAR(255),
+    completed BOOLEAN DEFAULT FALSE
+);
