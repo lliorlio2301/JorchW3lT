@@ -2,39 +2,37 @@ import axios from 'axios';
 import i18n from '../i18n';
 import type { Song } from '../types/song';
 
-const API_BASE_URL = 'http://localhost:8080/api/songs';
+const API_URL = '/api/songs';
 
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-// Add interceptor to include language header
-api.interceptors.request.use((config) => {
+// Use a custom interceptor for the language header on the default axios instance
+axios.interceptors.request.use((config) => {
     config.headers['Accept-Language'] = i18n.language;
     return config;
 });
 
 export const songService = {
     getAllSongs: async (): Promise<Song[]> => {
-        const response = await api.get<Song[]>('');
+        const response = await axios.get<Song[]>(API_URL);
         return response.data;
     },
 
     getSongById: async (id: number): Promise<Song> => {
-        const response = await api.get<Song>(`/${id}`);
+        const response = await axios.get<Song>(`${API_URL}/${id}`);
         return response.data;
     },
 
-    saveSong: async (song: Song): Promise<Song> => {
-        const response = await api.post<Song>('', song);
+    saveSong: async (song: Omit<Song, 'id'>): Promise<Song> => {
+        const response = await axios.post<Song>(API_URL, song);
+        return response.data;
+    },
+
+    updateSong: async (id: number, song: Omit<Song, 'id'>): Promise<Song> => {
+        const response = await axios.put<Song>(`${API_URL}/${id}`, song);
         return response.data;
     },
 
     deleteSong: async (id: number): Promise<void> => {
-        await api.delete(`/${id}`);
+        await axios.delete(`${API_URL}/${id}`);
     },
 };
 
