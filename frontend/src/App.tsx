@@ -6,7 +6,8 @@ import SongsPage from './pages/SongsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ShoppingListPage from './pages/ShoppingListPage';
 import LoginPage from './pages/LoginPage';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthProvider';
+import { useAuth } from './hooks/useAuth';
 import './App.css'
 
 function NavContent() {

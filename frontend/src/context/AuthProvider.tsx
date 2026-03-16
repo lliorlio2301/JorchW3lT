@@ -1,17 +1,8 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import React, { useState, useEffect, type ReactNode } from 'react';
 import type { User, AuthenticationRequest } from '../types/auth';
 import * as authService from '../services/authService';
 import axios from 'axios';
-
-interface AuthContextType {
-    user: User | null;
-    token: string | null;
-    login: (request: AuthenticationRequest) => Promise<void>;
-    logout: () => void;
-    isAuthenticated: boolean;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import { AuthContext } from './AuthContext';
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
@@ -20,16 +11,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     useEffect(() => {
         if (token) {
             localStorage.setItem('token', token);
-            // Setup axios default header
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            // For now, we just set a dummy user since we don't have a /me endpoint yet
-            setUser({ username: 'admin' }); 
+            if (!user) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
+                setUser({ username: 'admin' });
+            }
         } else {
             localStorage.removeItem('token');
             delete axios.defaults.headers.common['Authorization'];
-            setUser(null);
+            if (user) {
+                setUser(null);
+            }
         }
-    }, [token]);
+    }, [token, user]);
 
     const login = async (request: AuthenticationRequest) => {
         try {
@@ -50,12 +44,4 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             {children}
         </AuthContext.Provider>
     );
-};
-
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
 };

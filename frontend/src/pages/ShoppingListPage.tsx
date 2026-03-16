@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import shoppingListService from '../services/shoppingListService';
 import type { ListItem } from '../types/listItem';
@@ -12,21 +12,21 @@ const ShoppingListPage: React.FC = () => {
     const [newItemName, setNewItemName] = useState('');
     const [newItemQuantity, setNewItemQuantity] = useState('');
 
-    const fetchItems = async () => {
+    const fetchItems = useCallback(async () => {
         try {
             const data = await shoppingListService.getAllItems();
             setItems(data);
-        } catch (err) {
-            console.error('Failed to fetch items:', err);
+        } catch {
+            console.error('Failed to fetch items');
             setError(t('shopping.error'));
         } finally {
             setLoading(false);
         }
-    };
+    }, [t]);
 
     useEffect(() => {
         fetchItems();
-    }, []);
+    }, [fetchItems]);
 
     const handleAddItem = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,8 +41,8 @@ const ShoppingListPage: React.FC = () => {
             setItems([...items, newItem]);
             setNewItemName('');
             setNewItemQuantity('');
-        } catch (err) {
-            console.error('Failed to add item:', err);
+        } catch {
+            console.error('Failed to add item');
         }
     };
 
@@ -50,8 +50,8 @@ const ShoppingListPage: React.FC = () => {
         try {
             const updated = await shoppingListService.toggleCompleted(id);
             setItems(items.map(item => item.id === id ? updated : item));
-        } catch (err) {
-            console.error('Failed to toggle item:', err);
+        } catch {
+            console.error('Failed to toggle item');
         }
     };
 
@@ -59,8 +59,8 @@ const ShoppingListPage: React.FC = () => {
         try {
             await shoppingListService.deleteItem(id);
             setItems(items.filter(item => item.id !== id));
-        } catch (err) {
-            console.error('Failed to delete item:', err);
+        } catch {
+            console.error('Failed to delete item');
         }
     };
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import songService from '../services/songService';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import type { Song } from '../types/song';
 import './SongsPage.css';
 
@@ -22,7 +22,7 @@ const SongsPage: React.FC = () => {
         category: ''
     });
 
-    const fetchSongs = async () => {
+    const fetchSongs = useCallback(async () => {
         try {
             const data = await songService.getAllSongs();
             setSongs(data);
@@ -32,11 +32,11 @@ const SongsPage: React.FC = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [t]);
 
     useEffect(() => {
         fetchSongs();
-    }, [t]);
+    }, [fetchSongs]);
 
     const getYoutubeEmbedUrl = (url: string) => {
         if (!url) return null;
@@ -63,7 +63,7 @@ const SongsPage: React.FC = () => {
             try {
                 await songService.deleteSong(id);
                 setSongs(songs.filter(s => s.id !== id));
-            } catch (err) {
+            } catch {
                 alert('Failed to delete song');
             }
         }
@@ -72,16 +72,16 @@ const SongsPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            if (editingSong) {
+            if (editingSong && editingSong.id !== undefined) {
                 await songService.updateSong(editingSong.id, formData);
-            } else {
+            } else if (!editingSong) {
                 await songService.saveSong(formData);
             }
             setIsFormOpen(false);
             setEditingSong(null);
             setFormData({ title: '', artist: '', youtubeUrl: '', category: '' });
             fetchSongs();
-        } catch (err) {
+        } catch {
             alert('Failed to save song');
         }
     };
@@ -175,7 +175,7 @@ const SongsPage: React.FC = () => {
                             {isAuthenticated && (
                                 <div className="admin-actions">
                                     <button onClick={() => handleEdit(song)} className="btn-edit">✏️</button>
-                                    <button onClick={() => handleDelete(song.id)} className="btn-delete">🗑️</button>
+                                    <button onClick={() => song.id !== undefined && handleDelete(song.id)} className="btn-delete">🗑️</button>
                                 </div>
                             )}
                         </div>
