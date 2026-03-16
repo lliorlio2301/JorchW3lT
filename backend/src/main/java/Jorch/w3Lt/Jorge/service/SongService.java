@@ -35,6 +35,18 @@ public class SongService {
         return songMapper.toDto(savedSong);
     }
 
+    public SongDTO updateSong(Long id, SongDTO songDTO) {
+        return songRepository.findById(id)
+                .map(existingSong -> {
+                    existingSong.setTitle(songDTO.getTitle());
+                    existingSong.setArtist(songDTO.getArtist());
+                    existingSong.setYoutubeUrl(songDTO.getYoutubeUrl());
+                    existingSong.setCategory(songDTO.getCategory());
+                    return songMapper.toDto(songRepository.save(existingSong));
+                })
+                .orElse(null);
+    }
+
     public void deleteSong(Long id) {
         songRepository.deleteById(id);
     }
