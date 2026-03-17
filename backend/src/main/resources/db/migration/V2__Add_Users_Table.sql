@@ -5,6 +5,6 @@ CREATE TABLE users (
     role VARCHAR(50) NOT NULL
 );
 
--- Insert a default admin user (password: admin)
+-- Insert a default admin user (password: JORGE)
 INSERT INTO users (username, password, role) 
-VALUES ('admin', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xd00DMxs.7uBut13', 'ADMIN');
+VALUES ('admin', '$2a$10$uZ3.OGkQwAsCGKbzQLOwFuXjPwd09Ogp5GTv7FtbtG3PmPzUZ2X1C', 'ADMIN');
