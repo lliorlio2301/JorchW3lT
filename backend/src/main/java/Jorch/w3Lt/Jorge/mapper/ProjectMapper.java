@@ -1,5 +1,6 @@
 package Jorch.w3Lt.Jorge.mapper;
 
+import Jorch.w3Lt.Jorge.dto.ProjectCreateDTO;
 import Jorch.w3Lt.Jorge.dto.ProjectDTO;
 import Jorch.w3Lt.Jorge.model.Project;
 import org.mapstruct.Context;
@@ -13,6 +14,12 @@ public interface ProjectMapper {
     @Mapping(target = "title", source = "project", qualifiedByName = "mapTitle")
     @Mapping(target = "description", source = "project", qualifiedByName = "mapDescription")
     ProjectDTO toDto(Project project, @Context String locale);
+
+    @Mapping(target = "id", source = "id")
+    ProjectCreateDTO toCreateDto(Project project);
+
+    @Mapping(target = "id", source = "id")
+    Project toEntity(ProjectCreateDTO dto);
 
     @Named("mapTitle")
     default String mapTitle(Project project, @Context String locale) {
