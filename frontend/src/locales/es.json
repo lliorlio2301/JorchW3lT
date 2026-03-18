@@ -4,7 +4,19 @@
       "resume": "Currículum",
       "songs": "Cancionero",
       "projects": "Proyectos",
-      "shopping": "Lista de compras"
+      "shopping": "Lista de compras",
+      "notes": "Notas"
+    },
+    "notes": {
+      "title": "Notas Privadas",
+      "add": "Nueva Nota",
+      "placeholderTitle": "Título de la nota",
+      "placeholderItem": "Añadir elemento...",
+      "loading": "Cargando notas...",
+      "error": "Error al cargar las notas.",
+      "noData": "No se encontraron notas.",
+      "lastEdited": "Última edición",
+      "newItem": "Nuevo elemento"
     },
     "common": {
       "accessDenied": "Acceso denegado. Solo administradores.",

@@ -4,7 +4,19 @@
       "resume": "Lebenslauf",
       "songs": "Songbuch",
       "projects": "Projekte",
-      "shopping": "Einkaufsliste"
+      "shopping": "Einkaufsliste",
+      "notes": "Notizen"
+    },
+    "notes": {
+      "title": "Private Notizen",
+      "add": "Neue Notiz",
+      "placeholderTitle": "Titel der Notiz",
+      "placeholderItem": "Eintrag hinzufügen...",
+      "loading": "Notizen werden geladen...",
+      "error": "Fehler beim Laden der Notizen.",
+      "noData": "Keine Notizen vorhanden.",
+      "lastEdited": "Zuletzt bearbeitet",
+      "newItem": "Neuer Eintrag"
     },
     "common": {
       "accessDenied": "Zugriff verweigert. Nur für Admins.",

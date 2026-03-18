@@ -5,6 +5,7 @@ import ResumePage from './pages/ResumePage';
 import SongsPage from './pages/SongsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ShoppingListPage from './pages/ShoppingListPage';
+import NotesPage from './pages/NotesPage';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider } from './context/AuthProvider';
 import { useAuth } from './hooks/useAuth';
@@ -36,7 +37,12 @@ function NavContent() {
           <Link to="/projects">{t('nav.projects')}</Link>
           <Link to="/resume">{t('nav.resume')}</Link>
           <Link to="/songs">{t('nav.songs')}</Link>
-          {isAuthenticated && <Link to="/shopping">{t('nav.shopping')}</Link>}
+          {isAuthenticated && (
+            <>
+              <Link to="/shopping">{t('nav.shopping')}</Link>
+              <Link to="/notes">{t('nav.notes')}</Link>
+            </>
+          )}
         </div>
         <div className="language-switcher">
           <button onClick={toggleTheme} className="theme-toggle" title="Toggle Theme">
@@ -65,6 +71,7 @@ function NavContent() {
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/songs" element={<SongsPage />} />
           <Route path="/shopping" element={<ShoppingListPage />} />
+          <Route path="/notes" element={<NotesPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>

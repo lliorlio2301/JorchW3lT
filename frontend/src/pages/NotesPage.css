@@ -1,0 +1,138 @@
+.notes-container {
+    display: flex;
+    height: calc(100vh - 120px);
+    gap: 20px;
+    padding: 20px;
+}
+
+.notes-sidebar {
+    flex: 1;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.notes-editor {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    position: relative;
+    overflow-y: auto;
+}
+
+.note-summary-card {
+    padding: 15px;
+    cursor: pointer;
+    border: 2px solid var(--color-text);
+    background-color: var(--color-surface);
+    transition: all 0.2s ease;
+}
+
+.note-summary-card.active {
+    background-color: var(--color-accent);
+    transform: scale(1.05) rotate(0deg) !important;
+    box-shadow: 6px 6px 0px var(--color-text);
+}
+
+.note-summary-card h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note-summary-card p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+}
+
+.editor-header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editor-title-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--color-muted);
+    font-family: var(--font-header);
+    font-size: 3rem;
+    color: var(--color-primary);
+    width: 100%;
+    outline: none;
+}
+
+.editor-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.note-item-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.note-item-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--color-text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: var(--color-surface);
+    flex-shrink: 0;
+}
+
+.note-item-checkbox.completed {
+    background: var(--color-primary);
+    color: white;
+}
+
+.note-item-input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    font-family: var(--font-ui);
+    font-size: 1.1rem;
+    color: var(--color-text);
+    outline: none;
+}
+
+.note-item-input.completed {
+    text-decoration: line-through;
+    color: var(--color-muted);
+}
+
+.add-note-btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.editor-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .notes-container {
+        flex-direction: column;
+        height: auto;
+    }
+    .notes-sidebar {
+        max-width: none;
+        max-height: 200px;
+    }
+}

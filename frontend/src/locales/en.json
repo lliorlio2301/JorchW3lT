@@ -4,7 +4,19 @@
       "resume": "Resume",
       "songs": "Songbook",
       "projects": "Projects",
-      "shopping": "Shopping List"
+      "shopping": "Shopping List",
+      "notes": "Notes"
+    },
+    "notes": {
+      "title": "Private Notes",
+      "add": "New Note",
+      "placeholderTitle": "Note Title",
+      "placeholderItem": "Add item...",
+      "loading": "Loading notes...",
+      "error": "Error loading notes.",
+      "noData": "No notes found.",
+      "lastEdited": "Last edited",
+      "newItem": "New item"
     },
     "common": {
       "accessDenied": "Access denied. Admins only.",
