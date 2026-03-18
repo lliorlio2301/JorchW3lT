@@ -1,0 +1,47 @@
+package Jorch.w3Lt.Jorge.service;
+
+import Jorch.w3Lt.Jorge.dto.NoteDTO;
+import Jorch.w3Lt.Jorge.mapper.NoteMapper;
+import Jorch.w3Lt.Jorge.model.Note;
+import Jorch.w3Lt.Jorge.repository.NoteRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class NoteService {
+
+    private final NoteRepository noteRepository;
+    private final NoteMapper noteMapper;
+
+    public List<NoteDTO> getAllNotes() {
+        return noteRepository.findAllByOrderByCreatedAtDesc().stream()
+                .map(noteMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public NoteDTO getNoteById(Long id) {
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Note not found"));
+        return noteMapper.toDto(note);
+    }
+
+    @Transactional
+    public NoteDTO saveNote(NoteDTO noteDTO) {
+        Note note = noteMapper.toEntity(noteDTO);
+        // Ensure parent reference is set (handled by mapper @AfterMapping, but let's be safe)
+        if (note.getNoteItems() != null) {
+            note.getNoteItems().forEach(item -> item.setNote(note));
+        }
+        return noteMapper.toDto(noteRepository.save(note));
+    }
+
+    @Transactional
+    public void deleteNote(Long id) {
+        noteRepository.deleteById(id);
+    }
+}
