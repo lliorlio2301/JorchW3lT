@@ -1,32 +1,25 @@
-import axios from 'axios';
+import api from './api';
 import type { ListItem } from '../types/listItem';
 
-const API_BASE_URL = 'http://localhost:8080/api/shopping-list';
-
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+const ENDPOINT = '/shopping-list';
 
 export const shoppingListService = {
     getAllItems: async (): Promise<ListItem[]> => {
-        const response = await api.get<ListItem[]>('');
+        const response = await api.get<ListItem[]>(ENDPOINT);
         return response.data;
     },
 
     saveItem: async (item: Partial<ListItem>): Promise<ListItem> => {
-        const response = await api.post<ListItem>('', item);
+        const response = await api.post<ListItem>(ENDPOINT, item);
         return response.data;
     },
 
     deleteItem: async (id: number): Promise<void> => {
-        await api.delete(`/${id}`);
+        await api.delete(`${ENDPOINT}/${id}`);
     },
 
     toggleCompleted: async (id: number): Promise<ListItem> => {
-        const response = await api.patch<ListItem>(`/${id}/toggle`);
+        const response = await api.patch<ListItem>(`${ENDPOINT}/${id}/toggle`);
         return response.data;
     },
 };
