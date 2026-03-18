@@ -54,13 +54,12 @@ const BlogPage: React.FC = () => {
                             <h2 className="entry-title">{post.title}</h2>
                         </Link>
                         {post.summary && <p className="entry-summary">{post.summary}</p>}
-                        {post.coverImageUrl && (
-                            <Link to={`/blog/${post.slug}`} className="entry-image-link">
-                                <div className="entry-cover">
-                                    <img src={post.coverImageUrl} alt={post.title} />
-                                </div>
-                            </Link>
-                        )}
+                        <div className="entry-preview">
+                            {post.content.length > 160 ? post.content.substring(0, 160) + '...' : post.content}
+                        </div>
+                        <Link to={`/blog/${post.slug}`} className="read-more">
+                            {t('blog.readMore')} →
+                        </Link>
                     </article>
                 ))}
             </div>

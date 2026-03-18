@@ -100,7 +100,7 @@ const BlogAdminPage: React.FC = () => {
                                     <p>{post.slug}</p>
                                 </div>
                                 <div className="admin-actions">
-                                    <button onClick={() => setEditingPost(post)}>{t('common.save')}</button>
+                                    <button onClick={() => setEditingPost(post)}>{t('common.edit')}</button>
                                     <button onClick={() => handleDelete(post.id!)} style={{background: 'var(--color-primary)'}}>{t('common.delete')}</button>
                                 </div>
                             </div>

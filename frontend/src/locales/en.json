@@ -39,6 +39,7 @@
       "confirmDelete": "Are you sure you want to delete this item?",
       "save": "Save",
       "cancel": "Cancel",
+      "edit": "Edit",
       "delete": "Delete",
       "offlineMode": "You are offline",
       "offlineDataAvailable": "Stored data is still available",
