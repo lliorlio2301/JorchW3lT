@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
         setError('');
         try {
             await login({ username, password });
-            navigate('/');
+            navigate('/shopping');
         } catch {
             setError('Invalid credentials');
         }
