@@ -28,7 +28,6 @@ const NotesPage: React.FC = () => {
             const data = await noteService.getAllNotes();
             setNotes(data);
             if (data.length > 0 && !selectedNote) {
-                // Keep selected note if it still exists in the list
                 setSelectedNote(data[0]);
             }
         } catch (err) {
@@ -46,7 +45,7 @@ const NotesPage: React.FC = () => {
     const handleAddNote = () => {
         const newNote: Note = {
             title: '',
-            noteItems: [{ text: '', completed: false }]
+            noteItems: [{ text: '', completed: false, isChecklist: true }]
         };
         setSelectedNote(newNote);
     };
@@ -54,14 +53,12 @@ const NotesPage: React.FC = () => {
     const handleSaveNote = async () => {
         if (!selectedNote) return;
         
-        // Filter out empty items
         const noteToSave = {
             ...selectedNote,
             noteItems: selectedNote.noteItems.filter(item => item.text.trim() !== '')
         };
 
         if (noteToSave.noteItems.length === 0 && !noteToSave.title) {
-            alert(t('common.error'));
             return;
         }
 
@@ -107,14 +104,25 @@ const NotesPage: React.FC = () => {
         setSelectedNote({ ...selectedNote, noteItems: newItems });
     };
 
+    const toggleMode = (e: React.MouseEvent, index: number) => {
+        e.preventDefault();
+        if (!selectedNote) return;
+        const current = selectedNote.noteItems[index].isChecklist;
+        updateNoteItem(index, { isChecklist: !current, completed: false });
+    };
+
     const handleItemKeyDown = (e: React.KeyboardEvent, index: number) => {
         if (e.key === 'Enter') {
             e.preventDefault();
+            const currentItem = selectedNote?.noteItems[index];
             const newItems = [...(selectedNote?.noteItems || [])];
-            newItems.splice(index + 1, 0, { text: '', completed: false });
+            newItems.splice(index + 1, 0, { 
+                text: '', 
+                completed: false, 
+                isChecklist: currentItem?.isChecklist ?? true 
+            });
             setSelectedNote({ ...selectedNote!, noteItems: newItems });
             
-            // Focus new item in next tick
             setTimeout(() => {
                 const inputs = document.querySelectorAll('.note-item-input');
                 (inputs[index + 1] as HTMLInputElement)?.focus();
@@ -125,7 +133,6 @@ const NotesPage: React.FC = () => {
             newItems.splice(index, 1);
             setSelectedNote({ ...selectedNote, noteItems: newItems });
             
-            // Focus previous item
             setTimeout(() => {
                 const inputs = document.querySelectorAll('.note-item-input');
                 (inputs[index - 1] as HTMLInputElement)?.focus();
@@ -138,7 +145,7 @@ const NotesPage: React.FC = () => {
     return (
         <div className="notes-container">
             <div className="notes-sidebar">
-                <button className="add-note-btn" onClick={handleAddNote}>
+                <button className="add-note-btn chaos-card" onClick={handleAddNote}>
                     + {t('notes.add')}
                 </button>
                 {notes.map(note => (
@@ -169,13 +176,15 @@ const NotesPage: React.FC = () => {
                             {selectedNote.noteItems.map((item, index) => (
                                 <div key={index} className="note-item-row">
                                     <div 
-                                        className={`note-item-checkbox ${item.completed ? 'completed' : ''}`}
-                                        onClick={() => updateNoteItem(index, { completed: !item.completed })}
+                                        className={`note-item-checkbox ${item.completed ? 'completed' : ''} ${!item.isChecklist ? 'hidden' : ''}`}
+                                        onClick={() => item.isChecklist && updateNoteItem(index, { completed: !item.completed })}
+                                        onContextMenu={(e) => toggleMode(e, index)}
+                                        title="Click to toggle check, Right-click to toggle mode"
                                     >
-                                        {item.completed && '✓'}
+                                        {item.isChecklist ? (item.completed ? '✓' : '') : '•'}
                                     </div>
                                     <input 
-                                        className={`note-item-input ${item.completed ? 'completed' : ''}`}
+                                        className={`note-item-input ${item.completed ? 'completed' : ''} ${!item.isChecklist ? 'paragraph' : ''}`}
                                         value={item.text}
                                         onChange={(e) => updateNoteItem(index, { text: e.target.value })}
                                         onKeyDown={(e) => handleItemKeyDown(e, index)}
