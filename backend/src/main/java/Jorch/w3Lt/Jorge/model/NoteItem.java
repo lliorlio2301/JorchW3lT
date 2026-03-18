@@ -22,6 +22,9 @@ public class NoteItem {
 
     private boolean completed;
 
+    @Builder.Default
+    private boolean isChecklist = true;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "note_id", nullable = false)
     private Note note;

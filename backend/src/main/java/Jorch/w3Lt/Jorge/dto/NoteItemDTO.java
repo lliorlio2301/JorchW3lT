@@ -13,4 +13,6 @@ public class NoteItemDTO {
     private Long id;
     private String text;
     private boolean completed;
+    @Builder.Default
+    private boolean isChecklist = true;
 }
