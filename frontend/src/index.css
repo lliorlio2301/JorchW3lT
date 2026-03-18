@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Zen+Loop&display=swap');
+
 :root {
   /* Dark Mode Palette with playful colors */
   --color-bg: #121212;
@@ -15,10 +17,10 @@
   --color-accent-text: #8be9fd; 
 
   --font-header: 'Covered By Your Grace', cursive;
-  --font-ui: 'Space Grotesk', sans-serif;
+  --font-ui: 'Zen Loop', cursive;
   
   font-family: var(--font-ui);
-  line-height: 1.5;
+  line-height: 1.2;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -44,6 +46,7 @@
 body {
   margin: 0;
   overflow-x: hidden;
+  font-size: 1.4rem; /* Zen Loop needs more size to be legible */
 }
 
 /* Handwritten Chaos Typography */
