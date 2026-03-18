@@ -23,7 +23,9 @@
       "confirmDelete": "Are you sure you want to delete this item?",
       "save": "Save",
       "cancel": "Cancel",
-      "delete": "Delete"
+      "delete": "Delete",
+      "offlineMode": "You are offline",
+      "offlineDataAvailable": "Stored data is still available"
     },
     "shopping": {
       "title": "Shopping List",

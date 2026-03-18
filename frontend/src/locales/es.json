@@ -23,7 +23,9 @@
       "confirmDelete": "¿Estás seguro de que quieres eliminar este elemento?",
       "save": "Guardar",
       "cancel": "Cancelar",
-      "delete": "Eliminar"
+      "delete": "Eliminar",
+      "offlineMode": "Estás desconectado",
+      "offlineDataAvailable": "Los datos guardados siguen disponibles"
     },
     "shopping": {
       "title": "Lista de Compras",

@@ -15,11 +15,25 @@ function NavContent() {
   const { t, i18n } = useTranslation();
   const { isAuthenticated, logout } = useAuth();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
   useEffect(() => {
     document.documentElement.className = theme;
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -31,6 +45,11 @@ function NavContent() {
 
   return (
     <div className="app-layout">
+      {isOffline && (
+        <div className="offline-banner">
+          {t('common.offlineMode')} - {t('common.offlineDataAvailable')}
+        </div>
+      )}
       <nav className="main-nav">
         <div className="nav-links">
           <Link to="/">{t('nav.home')}</Link>

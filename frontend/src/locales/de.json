@@ -23,7 +23,9 @@
       "confirmDelete": "Möchtest du diesen Eintrag wirklich löschen?",
       "save": "Speichern",
       "cancel": "Abbrechen",
-      "delete": "Löschen"
+      "delete": "Löschen",
+      "offlineMode": "Du bist offline",
+      "offlineDataAvailable": "Gespeicherte Daten sind weiterhin verfügbar"
     },
     "shopping": {
       "title": "Einkaufsliste",
