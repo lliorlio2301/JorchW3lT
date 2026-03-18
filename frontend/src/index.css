@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Zen+Loop&display=swap');
 
 :root {
   /* Dark Mode Palette with playful colors */
@@ -17,7 +16,7 @@
   --color-accent-text: #8be9fd; 
 
   --font-header: 'Covered By Your Grace', cursive;
-  --font-ui: 'Zen Loop', cursive;
+  --font-ui: 'Space Grotesk', sans-serif;
   
   font-family: var(--font-ui);
   line-height: 1.2;
