@@ -1,7 +1,11 @@
+# Private stuff
 checklist.txt
-ROADMAP.md
-GEMINI.md
 Entweurfe.rnote
 .env
-Podman_Infrastruktur.md
 .geminiignore
+
+# Ignore temp files, but keep main documentation
+# We want GEMINI.md and ROADMAP.md to be tracked
+!GEMINI.md
+!ROADMAP.md
+!docs/*.md
