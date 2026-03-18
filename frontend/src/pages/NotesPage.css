@@ -161,6 +161,14 @@
     width: 100%;
     margin-bottom: 10px;
     font-size: 1.8rem;
+    background-color: var(--color-surface) !important;
+    color: #ff8c00 !important; /* Orange */
+    border: 3px solid var(--color-text);
+}
+
+.add-note-btn:hover {
+    background-color: var(--color-contrast) !important;
+    transform: scale(1.02) rotate(0deg) !important;
 }
 
 .editor-actions {
