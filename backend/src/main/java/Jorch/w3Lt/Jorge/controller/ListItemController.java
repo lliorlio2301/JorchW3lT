@@ -3,6 +3,7 @@ package Jorch.w3Lt.Jorge.controller;
 import Jorch.w3Lt.Jorge.dto.ListItemDTO;
 import Jorch.w3Lt.Jorge.service.ListItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api/shopping-list")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+@PreAuthorize("hasRole('ADMIN')")
 public class ListItemController {
 
     private final ListItemService listItemService;
