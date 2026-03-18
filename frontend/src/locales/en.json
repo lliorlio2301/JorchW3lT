@@ -2,9 +2,16 @@
     "nav": {
       "home": "Home",
       "resume": "Resume",
-      "songs": "Songs",
+      "songs": "Songbook",
       "projects": "Projects",
       "shopping": "Shopping List"
+    },
+    "common": {
+      "accessDenied": "Access denied. Admins only.",
+      "confirmDelete": "Are you sure you want to delete this item?",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete"
     },
     "shopping": {
       "title": "Shopping List",

@@ -4,7 +4,14 @@
       "resume": "Currículum",
       "songs": "Cancionero",
       "projects": "Proyectos",
-      "shopping": "Lista de Compras"
+      "shopping": "Lista de compras"
+    },
+    "common": {
+      "accessDenied": "Acceso denegado. Solo administradores.",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este elemento?",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar"
     },
     "shopping": {
       "title": "Lista de Compras",

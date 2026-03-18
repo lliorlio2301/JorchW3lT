@@ -6,6 +6,13 @@
       "projects": "Projekte",
       "shopping": "Einkaufsliste"
     },
+    "common": {
+      "accessDenied": "Zugriff verweigert. Nur für Admins.",
+      "confirmDelete": "Möchtest du diesen Eintrag wirklich löschen?",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "delete": "Löschen"
+    },
     "shopping": {
       "title": "Einkaufsliste",
       "add": "Hinzufügen",
