@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Zen+Loop&display=swap');
 
 :root {
   /* Dark Mode Palette with playful colors */
@@ -16,7 +17,7 @@
   --color-accent-text: #8be9fd; 
 
   --font-header: 'Covered By Your Grace', cursive;
-  --font-ui: 'Space Grotesk', sans-serif;
+  --font-ui: 'Zen Loop', cursive;
   
   font-family: var(--font-ui);
   line-height: 1.2;
@@ -40,6 +41,18 @@
   
   --color-on-accent: #ffffff;
   --color-accent-text: #45b39d;
+}
+
+/* Ensure form elements inherit font and color */
+input, textarea, button, select {
+  font-family: inherit;
+  color: inherit;
+  background: none;
+}
+
+::placeholder {
+  color: var(--color-muted);
+  opacity: 0.8;
 }
 
 body {

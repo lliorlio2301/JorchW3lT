@@ -39,6 +39,7 @@
     background-color: var(--color-accent);
     transform: scale(1.05) rotate(0deg) !important;
     box-shadow: 8px 8px 0px var(--color-text);
+    color: var(--color-on-accent);
 }
 
 .note-summary-card h3 {
@@ -50,11 +51,20 @@
     word-break: break-word;
 }
 
+.note-summary-card.active h3 {
+    color: var(--color-on-accent);
+}
+
 .note-summary-card p {
     margin: 10px 0 0;
     font-family: var(--font-ui);
     font-size: 0.85rem;
     color: var(--color-muted);
+}
+
+.note-summary-card.active p {
+    color: var(--color-on-accent);
+    opacity: 0.8;
 }
 
 .editor-header {
@@ -123,13 +133,18 @@
 
 .note-item-input {
     flex-grow: 1;
-    background: transparent;
+    background: transparent !important;
     border: none;
     font-family: var(--font-ui);
     font-size: 1.25rem;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     outline: none;
     padding: 2px 0;
+}
+
+.note-item-input::placeholder {
+    color: var(--color-muted);
+    opacity: 0.6;
 }
 
 .note-item-input.completed {
