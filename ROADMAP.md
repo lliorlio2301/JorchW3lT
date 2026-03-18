@@ -85,6 +85,11 @@
     - *Redirect:* Automatische Weiterleitung zur Einkaufsliste nach erfolgreichem Admin-Login.
     - *Mobile UI:* Optimierung der Buttons für einhändige Bedienung am Handy.
 
+## Phase 3.6: Frontend Quality Assurance (NEU)
+- [ ] **Technical:** Setup **Vitest** & **React Testing Library**.
+- [ ] **Unit Tests:** Tests für kritische Komponenten (z.B. `LoginPage`, `BlogService`).
+- [ ] **Integration:** Mocking von Axios-Requests zur Validierung des Datenflusses.
+
 ## Phase 4: Optimization (Hohe Komplexität)
 - [x] **Optimization:** Setup Maven **Native Build Profile** (GraalVM)
     - *Backend:* Konfiguration des `native` Profils für Spring Boot.
