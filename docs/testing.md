@@ -1,20 +1,26 @@
 # Übersicht der Test-Suite (Personal Portfolio & OS)
 
-Diese Dokumentation beschreibt alle automatisierten Tests, die zur Sicherstellung der Code-Qualität, Datenintegrität und Sicherheit implementiert wurden.
+Diese Dokumentation beschreibt alle automatisierten Tests, die zur Sicherstellung der Code-Qualität, Datenintegrität und Sicherheit implementiert wurden oder geplant sind.
 
 ---
 
 ## 1. Test-Infrastruktur
 
-Das Projekt nutzt eine moderne Test-Infrastruktur, die speziell auf **Podman (Rootless)** optimiert ist.
+Das Projekt nutzt eine moderne Test-Infrastruktur, die sowohl das Backend als auch das Frontend abdeckt.
 
+### Backend (Java/Spring Boot)
 *   **JUnit 5 & AssertJ:** Frameworks für Test-Struktur und flüssige Assertions.
 *   **Testcontainers (PostgreSQL 16-alpine):** Startet für jeden Integrationstest eine echte, isolierte Datenbank.
-*   **AbstractIntegrationTest:** Basisklasse, welche die Container-Infrastruktur und `@ServiceConnection` für Spring Boot 3 bereitstellt.
+*   **AbstractIntegrationTest:** Basisklasse für die Container-Infrastruktur und `@ServiceConnection`.
+
+### Frontend (React/Vite)
+*   **Vitest:** Schneller Test-Runner, der nativ mit Vite zusammenarbeitet.
+*   **React Testing Library (RTL):** Fokus auf das Testen von Komponenten aus Benutzersicht.
+*   **jsdom:** Browser-Umgebung für Node.js zur Simulation des DOM.
 
 ---
 
-## 2. Test-Klassen & Abdeckung
+## 2. Backend Test-Abdeckung
 
 ### A. Smoke Tests (Startfähigkeit)
 *   **`JorgeApplicationTests.java`**
@@ -22,55 +28,55 @@ Das Projekt nutzt eine moderne Test-Infrastruktur, die speziell auf **Podman (Ro
     *   **Umfang:** Bean-Verdrahtung, Konfigurations-Validierung.
 
 ### B. Unit Tests (Mapper & Logik)
-*   **`ResumeMapperTest.java`**
-    *   **Ziel:** Validierung der mehrsprachigen Datenumwandlung (MapStruct).
-    *   **Umfang:** Prüft, ob `summaryDe`, `summaryEn` etc. korrekt in das lokalisierte `summary`-Feld des DTOs gemappt werden.
-*   **`NoteMapperTest.java`**
-    *   **Ziel:** Verifizierung der komplexen Notiz-Struktur.
-    *   **Umfang:** 
-        *   Mapping von `Note` zu `NoteDTO`.
-        *   Überprüfung des `isChecklist`-Flags.
-        *   Sicherstellung der Parent-Referenz-Setzung (`note_id`) beim Mapping von DTO zu Entität.
+*   **`ResumeMapperTest.java` & `NoteMapperTest.java`**
+    *   **Ziel:** Validierung der Datenumwandlung (MapStruct) und Parent-Child-Beziehungen.
+    *   **Umfang:** Mehrsprachigkeit (i18n), Checklist-Logik und Referenz-Mapping.
 
 ### C. Integration Tests (End-to-End Backend)
-*   **`ResumeIntegrationTest.java`**
-    *   **Ziel:** Testet den vollständigen Pfad für den Lebenslauf.
-    *   **Umfang:** Controller-Aufruf via `TestRestTemplate`, JPA-Persistierung und JSON-Mapping.
-*   **`NoteIntegrationTest.java`**
-    *   **Ziel:** Absicherung der Notiz-Funktion und der Security-Logik.
-    *   **Umfang:**
-        *   **Security:** Verifiziert, dass ein Zugriff auf `/api/notes` ohne gültigen JWT-Token mit `403 Forbidden` abgelehnt wird.
-        *   **Persistenz:** Prüft die korrekte Speicherung von Notizen mit mehreren `NoteItems` in der PostgreSQL-Datenbank (inkl. Cascade-Delete und Schema-Validierung der Migrationen V3/V4).
+*   **`ResumeIntegrationTest.java` & `NoteIntegrationTest.java`**
+    *   **Ziel:** Vollständiger Pfad (Controller -> Service -> Repository -> DB).
+    *   **Umfang:** Security-Absicherung (JWT/403 Check), JPA-Persistierung und Schema-Validierung.
 
 ---
 
-## 3. Ausführung der Tests
+## 3. Frontend Test-Abdeckung (In Planung/Implementierung)
 
-Um die Tests lokal auszuführen, müssen die Podman-Umgebungsvariablen gesetzt sein:
+### A. Component Tests
+*   **`LoginPage.test.tsx`**
+    *   **Ziel:** Validierung des Login-Formulars und der Barrierefreiheit (Label-Input-Verknüpfung).
+*   **Admin-UI Komponenten:**
+    *   **Ziel:** Sicherstellung, dass sensitive UI-Elemente (Edit/Delete) nur für Admins sichtbar sind.
 
+### B. Service- & Sync-Tests
+*   **Offline-Logik (Dexie.js):**
+    *   **Ziel:** Testen der IndexedDB-Operationen für Notizen und Einkaufsliste.
+*   **Axios Interceptor:**
+    *   **Ziel:** Verifizierung, dass der Bearer-Token korrekt an API-Requests angehängt wird.
+
+### C. Internationalisierung (i18n)
+*   **Sprachumschaltung:**
+    *   **Ziel:** Prüfung, ob Komponenten nach einem Sprachwechsel die korrekten Übersetzungen laden.
+
+---
+
+## 4. End-to-End (E2E) & User Journeys
+
+### A. Critical Path: Admin Login & Content Management
+*   **Szenario:** User loggt sich ein -> Erstellt einen Blog-Post -> Lädt ein Bild hoch -> Verifiziert die Anzeige in der Liste.
+
+### B. Resilience: Offline-Verhalten
+*   **Szenario:** User öffnet die App -> Verbindung bricht ab -> Notiz wird lokal gespeichert -> Verbindung kehrt zurück -> Daten werden mit dem Server synchronisiert.
+
+---
+
+## 5. Ausführung der Tests
+
+### Backend
 ```bash
-export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
-export TESTCONTAINERS_RYUK_DISABLED=true
 ./mvnw test
 ```
 
----
-
-## 4. Zusammenfassung der Ergebnisse (Stand März 2026)
-
-| Test-Kategorie | Status | Letzter Lauf |
-| --- | --- | --- |
-| Context Load | ✅ Pass | 18.03.2026 |
-| Resume Mapping | ✅ Pass | 18.03.2026 |
-| Note Mapping | ✅ Pass | 18.03.2026 |
-| Note Persistence | ✅ Pass | 18.03.2026 |
-| Blog Base Logic | ✅ Pass | 18.03.2026 |
-| File Upload (API) | ✅ Pass | 18.03.2026 |
-| Security (403 Check) | ✅ Pass | 18.03.2026 |
-| Offline Fallback | ✅ Pass | 18.03.2026 |
-
----
-**Neu hinzugefügt (März 2026):**
-*   **Blog Schema:** Validierung der Slug-Generierung und Markdown-Inhalts-Speicherung.
-*   **Upload-Integrität:** Sicherstellung, dass Bilder im Container-Volume `/uploads` korrekt abgelegt werden.
-*   **IndexedDB Sync:** Manuelle Verifizierung des Offline-Modus via Browser DevTools (Application Tab).
+### Frontend
+```bash
+cd frontend && npm test
+```
