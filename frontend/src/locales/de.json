@@ -5,7 +5,23 @@
       "songs": "Songbuch",
       "projects": "Projekte",
       "shopping": "Einkaufsliste",
-      "notes": "Notizen"
+      "notes": "Notizen",
+      "blog": "Blog"
+    },
+    "blog": {
+      "title": "Gedankengut & Code",
+      "readMore": "Weiterlesen",
+      "noPosts": "Noch keine Beiträge vorhanden.",
+      "loading": "Beiträge werden geladen...",
+      "error": "Fehler beim Laden des Blogs.",
+      "adminTitle": "Blog-Verwaltung",
+      "createPost": "Neuer Beitrag",
+      "editPost": "Beitrag bearbeiten",
+      "placeholderTitle": "Titel des Beitrags",
+      "placeholderContent": "Inhalt in Markdown...",
+      "placeholderSummary": "Kurze Zusammenfassung...",
+      "uploadImage": "Bild hochladen",
+      "backToList": "Zurück zur Übersicht"
     },
     "notes": {
       "title": "Private Notizen",
@@ -25,7 +41,8 @@
       "cancel": "Abbrechen",
       "delete": "Löschen",
       "offlineMode": "Du bist offline",
-      "offlineDataAvailable": "Gespeicherte Daten sind weiterhin verfügbar"
+      "offlineDataAvailable": "Gespeicherte Daten sind weiterhin verfügbar",
+      "error": "Ein Fehler ist aufgetreten."
     },
     "shopping": {
       "title": "Einkaufsliste",

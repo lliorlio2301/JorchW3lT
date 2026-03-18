@@ -5,7 +5,23 @@
       "songs": "Songbook",
       "projects": "Projects",
       "shopping": "Shopping List",
-      "notes": "Notes"
+      "notes": "Notes",
+      "blog": "Blog"
+    },
+    "blog": {
+      "title": "Thoughts & Code",
+      "readMore": "Read More",
+      "noPosts": "No posts available yet.",
+      "loading": "Loading posts...",
+      "error": "Error loading blog.",
+      "adminTitle": "Blog Management",
+      "createPost": "New Post",
+      "editPost": "Edit Post",
+      "placeholderTitle": "Post Title",
+      "placeholderContent": "Markdown content...",
+      "placeholderSummary": "Short summary...",
+      "uploadImage": "Upload Image",
+      "backToList": "Back to list"
     },
     "notes": {
       "title": "Private Notes",
@@ -25,7 +41,8 @@
       "cancel": "Cancel",
       "delete": "Delete",
       "offlineMode": "You are offline",
-      "offlineDataAvailable": "Stored data is still available"
+      "offlineDataAvailable": "Stored data is still available",
+      "error": "An error occurred."
     },
     "shopping": {
       "title": "Shopping List",
@@ -33,17 +50,17 @@
       "placeholder": "Product name",
       "quantity": "Qty",
       "loading": "Loading list...",
-      "error": "Failed to load list.",
+      "error": "Error loading list.",
       "noData": "Your list is empty."
     },
     "welcome": {
       "title": "Welcome to Jorch's Portfolio",
-      "subtitle": "Select a section from the navigation above."
+      "subtitle": "Choose a section from the navigation above."
     },
     "projects": {
       "title": "My Projects",
       "loading": "Loading projects...",
-      "error": "Failed to load projects.",
+      "error": "Error loading projects.",
       "noData": "No projects found.",
       "github": "GitHub Repository",
       "demo": "Live Demo"
@@ -53,13 +70,13 @@
       "experience": "Experience",
       "education": "Education",
       "loading": "Loading resume...",
-      "error": "Failed to load resume. Is the backend running?",
+      "error": "Error loading resume. Is the backend running?",
       "noData": "No resume data found."
     },
     "songs": {
       "title": "Guitar Songbook",
       "loading": "Loading songs...",
-      "error": "Failed to load songs.",
+      "error": "Error loading songs.",
       "noData": "No songs found.",
       "youtube": "Open on YouTube"
     }

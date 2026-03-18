@@ -6,6 +6,9 @@ import SongsPage from './pages/SongsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ShoppingListPage from './pages/ShoppingListPage';
 import NotesPage from './pages/NotesPage';
+import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
+import BlogAdminPage from './pages/BlogAdminPage';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider } from './context/AuthProvider';
 import { useAuth } from './hooks/useAuth';
@@ -56,6 +59,7 @@ function NavContent() {
           <Link to="/projects">{t('nav.projects')}</Link>
           <Link to="/resume">{t('nav.resume')}</Link>
           <Link to="/songs">{t('nav.songs')}</Link>
+          <Link to="/blog">{t('nav.blog')}</Link>
           {isAuthenticated && (
             <>
               <Link to="/shopping">{t('nav.shopping')}</Link>
@@ -91,6 +95,9 @@ function NavContent() {
           <Route path="/songs" element={<SongsPage />} />
           <Route path="/shopping" element={<ShoppingListPage />} />
           <Route path="/notes" element={<NotesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/blog/admin" element={<BlogAdminPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>

@@ -5,7 +5,23 @@
       "songs": "Cancionero",
       "projects": "Proyectos",
       "shopping": "Lista de compras",
-      "notes": "Notas"
+      "notes": "Notas",
+      "blog": "Blog"
+    },
+    "blog": {
+      "title": "Pensamientos y Código",
+      "readMore": "Leer más",
+      "noPosts": "Aún no hay publicaciones disponibles.",
+      "loading": "Cargando publicaciones...",
+      "error": "Error al cargar el blog.",
+      "adminTitle": "Gestión del Blog",
+      "createPost": "Nueva publicación",
+      "editPost": "Editar publicación",
+      "placeholderTitle": "Título de la publicación",
+      "placeholderContent": "Contenido en Markdown...",
+      "placeholderSummary": "Breve resumen...",
+      "uploadImage": "Subir imagen",
+      "backToList": "Volver a la lista"
     },
     "notes": {
       "title": "Notas Privadas",
@@ -25,7 +41,8 @@
       "cancel": "Cancelar",
       "delete": "Eliminar",
       "offlineMode": "Estás desconectado",
-      "offlineDataAvailable": "Los datos guardados siguen disponibles"
+      "offlineDataAvailable": "Los datos guardados siguen disponibles",
+      "error": "Ha ocurrido un error."
     },
     "shopping": {
       "title": "Lista de Compras",
@@ -36,9 +53,9 @@
       "error": "Error al cargar la lista.",
       "noData": "Tu lista está vacía."
     },
-    "resume": {
+    "welcome": {
       "title": "Bienvenido al Portafolio de Jorch",
-      "subtitle": "Seleccione una sección de la navegación anterior."
+      "subtitle": "Elige una sección de la navegación superior."
     },
     "projects": {
       "title": "Mis Proyectos",
@@ -46,7 +63,7 @@
       "error": "Error al cargar los proyectos.",
       "noData": "No se encontraron proyectos.",
       "github": "Repositorio de GitHub",
-      "demo": "Demo en vivo"
+      "demo": "Demostración en vivo"
     },
     "resume": {
       "summary": "Resumen",
@@ -54,13 +71,13 @@
       "education": "Educación",
       "loading": "Cargando currículum...",
       "error": "Error al cargar el currículum. ¿Está funcionando el backend?",
-      "noData": "No se foundaron datos del currículum."
+      "noData": "No se encontraron datos del currículum."
     },
     "songs": {
-      "title": "Cancionero de guitarra",
+      "title": "Cancionero de Guitarra",
       "loading": "Cargando canciones...",
       "error": "Error al cargar las canciones.",
-      "noData": "No se foundaron canciones.",
+      "noData": "No se encontraron canciones.",
       "youtube": "Abrir en YouTube"
     }
 }
