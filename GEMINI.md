@@ -38,3 +38,7 @@
 * **Markdown:** Artikel werden in Markdown verfasst und via `react-markdown` gerendert.
 * **Sprache:** Blog-Inhalte sind flexibel (DE, EN, ES), basierend auf der Wahl des Autors (keine strikte i18n-Pflicht für Content).
 * **Bilder:** Bilder im Blog nutzen relative Pfade (`/uploads/...`) für maximale Portabilität.
+
+## 7. Dokumentations-Hygiene & Knowledge-Management
+* **Aktualität:** Wichtige technische Entscheidungen, Fixes oder neue Architektur-Muster werden zeitnah in den entsprechenden `.md`-Dateien (z.B. `infrastructure.md` oder `ROADMAP.md`) dokumentiert.
+* **Bereinigung:** Veraltete Informationen, überholte Pläne oder nicht mehr relevante Workarounds werden proaktiv gelöscht oder als "Deprecated" markiert, um die Dokumentation als "Single Source of Truth" sauber und effizient zu halten.

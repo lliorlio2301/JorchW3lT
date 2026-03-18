@@ -22,7 +22,6 @@ public class NoteItem {
 
     private boolean completed;
 
-    @Builder.Default
     private boolean isChecklist = true;
 
     @ManyToOne(fetch = FetchType.LAZY)

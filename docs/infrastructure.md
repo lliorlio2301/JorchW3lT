@@ -64,5 +64,16 @@ Die Tests sind in verschiedene Ebenen unterteilt, um sowohl Geschwindigkeit als 
 
 ---
 
+## 3. GraalVM Native Build (Optimierung)
+
+Für die Produktionsumgebung wird ein Native Image (AOT - Ahead of Time Compilation) verwendet, um den Speicherverbrauch zu minimieren und die Startzeit auf unter 1s zu senken.
+
+### Kritische Konfigurationen für den Native Build:
+
+* **JJWT Reflection Hints:** JJWT lädt Klassen dynamisch via Reflection. Da GraalVM alle genutzten Klassen zur Build-Zeit kennen muss, wurde eine `JjwtRuntimeHints.java` Konfiguration hinzugefügt, die JJWT-interne Klassen (z. B. `DefaultJwtParserBuilder`) explizit registriert.
+* **Shared Libraries (.so):** Der Native Build erzeugt neben dem Executable zusätzliche Bibliotheken (z. B. `libawt.so`), falls transitive Abhängigkeiten zu Java-UI-Modulen bestehen. Das `Dockerfile.native` muss diese Dateien explizit in das finale Image kopieren (`COPY --from=build /app/target/*.so ./`), um Laufzeitfehler zu vermeiden.
+
+---
+
 > [!IMPORTANT]
 > **Wichtiger Hinweis:** Durch die Umstellung auf `fetch = FetchType.EAGER` im `Resume-Model` wurde sichergestellt, dass der `Integration Test` nicht mehr an einer `LazyInitializationException` scheitert.

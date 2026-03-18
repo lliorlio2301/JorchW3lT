@@ -85,9 +85,12 @@
     - *Redirect:* Automatische Weiterleitung zur Einkaufsliste nach erfolgreichem Admin-Login.
     - *Mobile UI:* Optimierung der Buttons für einhändige Bedienung am Handy.
 
-## Phase 4: Security & Optimization (Sehr hohe Komplexität)
-- [ ] **Feature: Secure Document Vault** (PDF-Tresor)
-- [ ] **Optimization:** Setup Maven **Native Build Profile** (GraalVM)
+## Phase 4: Optimization (Hohe Komplexität)
+- [x] **Optimization:** Setup Maven **Native Build Profile** (GraalVM)
+    - *Backend:* Konfiguration des `native` Profils für Spring Boot.
+    - *Infrastructure:* Anpassung des Dockerfiles für mehrstufige Native-Builds (Podman-kompatibel).
+    - *Runtime-Fixes:* Implementierung von `JjwtRuntimeHints.java` und Integration von `.so`-Bibliotheken im Docker-Image zur Vermeidung von JJWT-Reflection-Fehlern.
+    - *Benefit:* Massiv reduzierter RAM-Verbrauch und Startzeiten unter 100ms.
 
 ## Phase 5: Infrastructure & DevOps (Produktivsetzung)
 - [ ] **Monitoring:** **Spring Boot Actuator**
