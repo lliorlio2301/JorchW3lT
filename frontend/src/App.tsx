@@ -36,7 +36,7 @@ function NavContent() {
           <Link to="/projects">{t('nav.projects')}</Link>
           <Link to="/resume">{t('nav.resume')}</Link>
           <Link to="/songs">{t('nav.songs')}</Link>
-          <Link to="/shopping">{t('nav.shopping')}</Link>
+          {isAuthenticated && <Link to="/shopping">{t('nav.shopping')}</Link>}
         </div>
         <div className="language-switcher">
           <button onClick={toggleTheme} className="theme-toggle" title="Toggle Theme">
