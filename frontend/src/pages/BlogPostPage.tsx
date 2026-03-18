@@ -36,7 +36,7 @@ const BlogPostPage: React.FC = () => {
         <div className="blog-post-container">
             <Link to="/blog" className="back-link">← {t('blog.backToList')}</Link>
             
-            <article className="blog-article chaos-card">
+            <article className="blog-article">
                 {post.coverImageUrl && (
                     <div className="article-cover">
                         <img src={post.coverImageUrl} alt={post.title} />
