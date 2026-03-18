@@ -1,35 +1,21 @@
-import axios from 'axios';
-import i18n from '../i18n';
+import api from './api';
 import type { Resume } from '../types/resume';
 
-const API_BASE_URL = 'http://localhost:8080/api/resume';
-
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-// Add interceptor to include language header
-api.interceptors.request.use((config) => {
-    config.headers['Accept-Language'] = i18n.language;
-    return config;
-});
+const ENDPOINT = '/resume';
 
 export const resumeService = {
     getAllResumes: async (): Promise<Resume[]> => {
-        const response = await api.get<Resume[]>('');
+        const response = await api.get<Resume[]>(ENDPOINT);
         return response.data;
     },
 
     getResumeById: async (id: number): Promise<Resume> => {
-        const response = await api.get<Resume>(`/${id}`);
+        const response = await api.get<Resume>(`${ENDPOINT}/${id}`);
         return response.data;
     },
 
     saveResume: async (resume: Resume): Promise<Resume> => {
-        const response = await api.post<Resume>('', resume);
+        const response = await api.post<Resume>(ENDPOINT, resume);
         return response.data;
     },
 };

@@ -1,9 +1,9 @@
-import axios from 'axios';
+import api from './api';
 import type { AuthenticationRequest, AuthenticationResponse } from '../types/auth';
 
-const API_URL = '/api/auth';
+const ENDPOINT = '/auth';
 
 export const login = async (request: AuthenticationRequest): Promise<AuthenticationResponse> => {
-    const response = await axios.post<AuthenticationResponse>(`${API_URL}/login`, request);
+    const response = await api.post<AuthenticationResponse>(`${ENDPOINT}/login`, request);
     return response.data;
 };
