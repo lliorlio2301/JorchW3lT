@@ -7,53 +7,56 @@
 
 .notes-sidebar {
     flex: 1;
-    max-width: 300px;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     overflow-y: auto;
-    padding-right: 10px;
+    padding-right: 15px;
 }
 
 .notes-editor {
     flex: 3;
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: 40px;
     position: relative;
     overflow-y: auto;
 }
 
 .note-summary-card {
-    padding: 15px;
+    padding: 20px;
     cursor: pointer;
-    border: 2px solid var(--color-text);
+    border: 3px solid var(--color-text);
     background-color: var(--color-surface);
     transition: all 0.2s ease;
+    text-align: left;
 }
 
 .note-summary-card.active {
     background-color: var(--color-accent);
     transform: scale(1.05) rotate(0deg) !important;
-    box-shadow: 6px 6px 0px var(--color-text);
+    box-shadow: 8px 8px 0px var(--color-text);
 }
 
 .note-summary-card h3 {
     margin: 0;
-    font-size: 1.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-family: var(--font-header);
+    font-size: 2rem;
+    color: var(--color-primary);
+    line-height: 1;
+    word-break: break-word;
 }
 
 .note-summary-card p {
-    margin: 5px 0 0;
-    font-size: 0.9rem;
+    margin: 10px 0 0;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
     color: var(--color-muted);
 }
 
 .editor-header {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,7 +67,7 @@
     border: none;
     border-bottom: 2px dashed var(--color-muted);
     font-family: var(--font-header);
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: var(--color-primary);
     width: 100%;
     outline: none;
@@ -73,18 +76,18 @@
 .editor-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .note-item-row {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 15px;
 }
 
 .note-item-checkbox {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border: 2px solid var(--color-text);
     border-radius: 50%;
     display: flex;
@@ -93,6 +96,13 @@
     cursor: pointer;
     background: var(--color-surface);
     flex-shrink: 0;
+    margin-top: 5px;
+    transition: all 0.2s ease;
+}
+
+.note-item-checkbox:hover {
+    background: var(--color-contrast);
+    transform: scale(1.1);
 }
 
 .note-item-checkbox.completed {
@@ -100,14 +110,24 @@
     color: white;
 }
 
+.note-item-checkbox.hidden {
+    opacity: 0.15;
+    border-style: dashed;
+}
+
+.note-item-checkbox.hidden:hover {
+    opacity: 0.8;
+}
+
 .note-item-input {
     flex-grow: 1;
     background: transparent;
     border: none;
     font-family: var(--font-ui);
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: var(--color-text);
     outline: none;
+    padding: 2px 0;
 }
 
 .note-item-input.completed {
@@ -115,15 +135,21 @@
     color: var(--color-muted);
 }
 
+.note-item-input.paragraph {
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
 .add-note-btn {
     width: 100%;
     margin-bottom: 10px;
+    font-size: 1.8rem;
 }
 
 .editor-actions {
-    margin-top: 30px;
+    margin-top: 40px;
     display: flex;
-    gap: 15px;
+    gap: 20px;
 }
 
 @media (max-width: 768px) {
@@ -133,6 +159,9 @@
     }
     .notes-sidebar {
         max-width: none;
-        max-height: 200px;
+        max-height: 250px;
+    }
+    .editor-title-input {
+        font-size: 2.5rem;
     }
 }

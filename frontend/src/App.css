@@ -83,6 +83,28 @@
   font-weight: bold;
 }
 
+.auth-toggle {
+  text-decoration: none;
+  font-family: var(--font-header);
+  font-size: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid var(--color-text);
+  padding: 0.3em 1.2em;
+  background: var(--color-accent);
+  color: var(--color-text);
+  cursor: pointer;
+  transform: rotate(-1deg);
+  transition: all 0.2s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.auth-toggle:hover {
+  transform: rotate(0deg) scale(1.1);
+  box-shadow: 4px 4px 0px var(--color-text);
+  color: var(--color-text);
+}
+
 .content {
   flex: 1;
   padding: 2rem;
