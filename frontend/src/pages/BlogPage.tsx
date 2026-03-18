@@ -42,24 +42,25 @@ const BlogPage: React.FC = () => {
                 )}
             </header>
 
-            <div className="blog-grid">
+            <div className="blog-list">
                 {posts.map((post) => (
-                    <article key={post.id} className="blog-card chaos-card">
-                        {post.coverImageUrl && (
-                            <div className="post-cover">
-                                <img src={post.coverImageUrl} alt={post.title} />
-                            </div>
-                        )}
-                        <div className="post-content">
-                            <h3>{post.title}</h3>
-                            <p className="post-date">
+                    <article key={post.id} className="blog-entry">
+                        <div className="entry-meta">
+                            <span className="entry-date">
                                 {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
-                            </p>
-                            <p className="post-summary">{post.summary}</p>
-                            <Link to={`/blog/${post.slug}`} className="read-more">
-                                {t('blog.readMore')} →
-                            </Link>
+                            </span>
                         </div>
+                        <Link to={`/blog/${post.slug}`} className="entry-title-link">
+                            <h2 className="entry-title">{post.title}</h2>
+                        </Link>
+                        {post.summary && <p className="entry-summary">{post.summary}</p>}
+                        {post.coverImageUrl && (
+                            <Link to={`/blog/${post.slug}`} className="entry-image-link">
+                                <div className="entry-cover">
+                                    <img src={post.coverImageUrl} alt={post.title} />
+                                </div>
+                            </Link>
+                        )}
                     </article>
                 ))}
             </div>

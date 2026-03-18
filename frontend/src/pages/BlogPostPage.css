@@ -1,16 +1,17 @@
 .blog-post-container {
-    max-width: 900px;
-    margin: 4rem auto;
+    max-width: 800px;
+    margin: 6rem auto;
     padding: 0 2rem;
 }
 
 .back-link {
     display: inline-block;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     font-family: var(--font-header);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: var(--color-muted);
     text-decoration: none;
+    transition: color 0.2s;
 }
 
 .back-link:hover {
@@ -18,15 +19,16 @@
 }
 
 .blog-article {
-    padding: 4rem;
-    background-color: var(--color-surface);
+    text-align: left;
+    /* No chaos-card styles here to keep it clean like steipete.me */
 }
 
 .article-cover {
-    width: calc(100% + 8rem);
-    margin: -4rem -4rem 4rem -4rem;
-    height: 400px;
-    border-bottom: 3px solid var(--color-text);
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+    border-radius: 4px;
 }
 
 .article-cover img {
@@ -37,56 +39,72 @@
 
 .article-header {
     margin-bottom: 4rem;
-    border-bottom: 2px dashed var(--color-contrast);
-    padding-bottom: 2rem;
 }
 
 .article-header h1 {
     font-size: 5rem;
-    margin: 0;
+    margin: 0 0 1rem 0;
     line-height: 1;
+    transform: none;
 }
 
 .article-date {
     font-family: var(--font-ui);
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--color-muted);
-    margin-top: 1rem;
 }
 
 .article-content {
     font-family: var(--font-ui);
-    line-height: 1.8;
-    font-size: 1.25rem;
+    line-height: 1.7;
+    font-size: 1.3rem;
+    color: var(--color-text);
 }
 
 .article-content h1, .article-content h2, .article-content h3 {
-    margin-top: 3rem;
+    margin-top: 4rem;
     margin-bottom: 1.5rem;
+    transform: none;
 }
 
 .article-content p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     max-width: none;
 }
 
 .article-content img {
     max-width: 100%;
-    border: 3px solid var(--color-text);
-    border-radius: 10px;
-    margin: 2rem 0;
+    height: auto;
+    border-radius: 4px;
+    margin: 3rem 0;
+    display: block;
+}
+
+.article-content a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+.article-content a:hover {
+    color: var(--color-secondary);
+}
+
+.article-content ul, .article-content ol {
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+}
+
+.article-content li {
+    margin-bottom: 0.8rem;
 }
 
 @media (max-width: 600px) {
-    .blog-article {
-        padding: 2rem;
-    }
-    .article-cover {
-        width: calc(100% + 4rem);
-        margin: -2rem -2rem 2rem -2rem;
-        height: 250px;
-    }
     .article-header h1 {
-        font-size: 3.5rem;
+        font-size: 3rem;
+    }
+    .article-content {
+        font-size: 1.2rem;
     }
 }
