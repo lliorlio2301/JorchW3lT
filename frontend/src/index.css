@@ -2,12 +2,17 @@
   /* Dark Mode Palette with playful colors */
   --color-bg: #121212;
   --color-surface: #1e1e1e;
-  --color-text: #f0f0f0;
+  --color-text: #ffffff;
   --color-contrast: #2a2a2a;
-  --color-primary: #ff79c6; 
-  --color-secondary: #8be9fd;
-  --color-accent: #ffb86c;
+  --color-primary: #ff5cb8; 
+  --color-secondary: #98d8e7;
+  --color-accent: #000027; /* Dark Blue */
   --color-muted: #6272a4;
+  
+  /* Text on top of accent background */
+  --color-on-accent: #ffffff;
+  /* Text that uses the accent color (adjusted for dark mode readability) */
+  --color-accent-text: #8be9fd; 
 
   --font-header: 'Covered By Your Grace', cursive;
   --font-ui: 'Space Grotesk', sans-serif;
@@ -31,6 +36,9 @@
   --color-secondary: #ff8c00;
   --color-accent: #45b39d;
   --color-muted: #7a7569;
+  
+  --color-on-accent: #ffffff;
+  --color-accent-text: #45b39d;
 }
 
 body {
@@ -63,7 +71,7 @@ h2 {
 
 h3 {
   font-size: 2.2rem;
-  color: var(--color-accent);
+  color: var(--color-accent-text); /* Use accent text color for readability */
 }
 
 p {
@@ -94,7 +102,7 @@ button {
   border: 2px solid var(--color-text);
   padding: 0.3em 1.2em;
   background: var(--color-accent);
-  color: var(--color-text);
+  color: var(--color-on-accent); /* Use white on dark blue */
   cursor: pointer;
   transform: rotate(-1deg);
   transition: all 0.2s ease;
@@ -115,5 +123,8 @@ button:hover {
     --color-secondary: #ff8c00;
     --color-accent: #45b39d;
     --color-muted: #7a7569;
+    
+    --color-on-accent: #ffffff;
+    --color-accent-text: #45b39d;
   }
 }
