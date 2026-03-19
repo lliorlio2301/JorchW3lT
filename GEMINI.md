@@ -42,3 +42,8 @@
 ## 7. Dokumentations-Hygiene & Knowledge-Management
 * **Aktualität:** Wichtige technische Entscheidungen, Fixes oder neue Architektur-Muster werden zeitnah in den entsprechenden `.md`-Dateien (z.B. `infrastructure.md` oder `ROADMAP.md`) dokumentiert.
 * **Bereinigung:** Veraltete Informationen, überholte Pläne oder nicht mehr relevante Workarounds werden proaktiv gelöscht oder als "Deprecated" markiert, um die Dokumentation als "Single Source of Truth" sauber und effizient zu halten.
+
+## 8. Git-Workflow (Branch-Strategie)
+* **Feature-Isolierung:** Jede neue Entwicklung (Feature, Bugfix, Infrastruktur) startet grundsätzlich in einem eigenen **Feature-Branch** (z. B. `feature/vps-deployment`).
+* **Synchronisation:** Vor dem Abschluss einer Entwicklung muss der Feature-Branch mit dem aktuellen Stand von `master` (oder `main`) synchronisiert werden (`git pull origin master`), um Konflikte frühzeitig zu lösen.
+* **Pull Requests:** Der Merge in den Haupt-Branch erfolgt ausschließlich über **Pull Requests**, um Code-Qualität und Test-Abdeckung sicherzustellen.
