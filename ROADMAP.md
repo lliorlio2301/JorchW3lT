@@ -86,9 +86,10 @@
     - *Mobile UI:* Optimierung der Buttons für einhändige Bedienung am Handy.
 
 ## Phase 3.6: Frontend Quality Assurance (NEU)
-- [ ] **Technical:** Setup **Vitest** & **React Testing Library**.
-- [ ] **Unit Tests:** Tests für kritische Komponenten (z.B. `LoginPage`, `BlogService`).
-- [ ] **Integration:** Mocking von Axios-Requests zur Validierung des Datenflusses.
+- [x] **Technical:** Setup **Vitest** & **React Testing Library**.
+- [x] **Unit Tests:** Tests für kritische Komponenten (z.B. `LoginPage`, `BlogService`).
+- [x] **Integration:** Mocking von Axios-Requests zur Validierung des Datenflusses via `axios-mock-adapter`.
+- [x] **E2E:** Implementierung von **Playwright** User Journeys (Login & Note Creation).
 
 ## Phase 4: Optimization (Hohe Komplexität)
 - [x] **Optimization:** Setup Maven **Native Build Profile** (GraalVM)
@@ -98,7 +99,9 @@
     - *Benefit:* Massiv reduzierter RAM-Verbrauch und Startzeiten unter 100ms.
 
 ## Phase 5: Infrastructure & DevOps (Produktivsetzung)
-- [ ] **Monitoring:** **Spring Boot Actuator**
-- [ ] **CI/CD:** **GitHub Actions Pipeline** für Build & Deploy
-- [ ] **Web:** **Nginx Proxy Manager** mit **Let's Encrypt SSL**
-
+- [x] **Monitoring:** **Spring Boot Actuator** konfiguriert und via Security (Role: ADMIN) abgesichert.
+- [x] **Deployment:** Vollautomatische **GitHub Actions Pipeline** (.yml) erstellt.
+    - Build: Native Image & Frontend Build in der Cloud.
+    - Registry: Push zu GitHub Container Registry (GHCR).
+    - CD: Automatisches SSH-Deployment auf den VPS via `podman-compose`.
+- [x] **VPS Setup:** Debian 12 Server mit **Rootless Podman** und isoliertem Projekt-User `jorchadmin`.
