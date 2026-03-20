@@ -4,6 +4,9 @@ on:
   push:
     branches: [ master ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 concurrency:
   group: deploy-${{ github.ref }}
   cancel-in-progress: true
@@ -25,6 +28,8 @@ jobs:
       
       - name: Run Backend Tests
         run: cd backend && mvn test
+        env:
+          TESTCONTAINERS_RYUK_DISABLED: true # Ryuk often causes issues in restricted CI environments
 
       # Frontend Tests
       - name: Set up Node.js
