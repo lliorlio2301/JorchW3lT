@@ -83,15 +83,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Prepare docker-compose file
+        run: |
+          REPO_LOWER=${GITHUB_REPOSITORY,,}
+          # Replace the placeholder with the actual lowercase repository name
+          sed "s|\${GITHUB_REPOSITORY}|$REPO_LOWER|g" docker-compose.prod.yml > docker-compose.yml
+
       - name: Copy docker-compose via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_IP }}
           username: jorchadmin
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.prod.yml"
+          source: "docker-compose.yml"
           target: "/home/jorchadmin/app"
-          strip_components: 0
 
       - name: Execute Remote Deployment via SSH
         uses: appleboy/ssh-action@v1.2.0
@@ -101,7 +106,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/jorchadmin/app
-            mv docker-compose.prod.yml docker-compose.yml
             
             # Create .env from secrets if not exists
             if [ ! -f .env ]; then
@@ -109,12 +113,8 @@ jobs:
               echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
             fi
             
-            # Set REPO_LOWER for image paths
-            REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-            sed -i "s/\${GITHUB_REPOSITORY}/$REPO_LOWER/g" docker-compose.yml
-            
             # Login, Pull and Restart
             echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u ${{ github.actor }} --password-stdin
             podman-compose pull
-            podman-compose down
+            podman-compose down || true
             podman-compose up -d
