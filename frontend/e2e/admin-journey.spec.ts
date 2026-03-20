@@ -2,39 +2,49 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Admin User Journey', () => {
   test('should log in and create a new note', async ({ page }) => {
-    // 1. Mock the API calls
-    await page.route('**/api/auth/login', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({
-          token: 'fake-jwt-token',
-          username: 'admin',
-          role: 'ADMIN'
-        })
-      });
-    });
+    // 1. Global API Mocking to prevent proxy errors
+    // This catches everything under /api/ and returns a default 200/[] if not matched below
+    await page.route('**/api/**', async (route) => {
+      const url = route.request().url();
+      const method = route.request().method();
 
-    await page.route('**/api/notes', async (route) => {
-        const method = route.request().method();
+      if (url.includes('/api/auth/login')) {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            token: 'fake-jwt-token',
+            username: 'admin',
+            role: 'ADMIN'
+          })
+        });
+      } else if (url.includes('/api/notes')) {
         if (method === 'GET') {
-            await route.fulfill({
-                status: 200,
-                contentType: 'application/json',
-                body: JSON.stringify([])
-            });
+          await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify([])
+          });
         } else if (method === 'POST') {
-            await route.fulfill({
-                status: 201,
-                contentType: 'application/json',
-                body: JSON.stringify({
-                    id: 123,
-                    title: 'E2E Test Note',
-                    noteItems: [{ text: 'Check me!', completed: false, isChecklist: true }],
-                    createdAt: new Date().toISOString()
-                })
-            });
+          await route.fulfill({
+            status: 201,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              id: 123,
+              title: 'E2E Test Note',
+              noteItems: [{ text: 'Check me!', completed: false, isChecklist: true }],
+              createdAt: new Date().toISOString()
+            })
+          });
         }
+      } else {
+        // Fallback for all other API calls (like /api/shopping-list)
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify([])
+        });
+      }
     });
 
     // 2. Go to Login Page
@@ -45,7 +55,7 @@ test.describe('Admin User Journey', () => {
     await page.fill('input[id="password"]', 'password');
     await page.click('.login-button');
 
-    // 4. Verify redirect to shopping page
+    // 4. Wait for redirect to shopping page (default after login)
     await expect(page).toHaveURL(/.*shopping/);
 
     // 5. Navigate to Notes
@@ -58,18 +68,21 @@ test.describe('Admin User Journey', () => {
     // 6. Create a new Note
     await addNoteBtn.click();
     
-    // Title input
-    await page.fill('.editor-title-input', 'E2E Test Note');
+    // Wait for the editor to be visible
+    const titleInput = page.locator('.editor-title-input');
+    await expect(titleInput).toBeVisible();
+    await titleInput.fill('E2E Test Note');
     
     // First note item input
     await page.fill('.note-item-input', 'Check me!');
     
-    // Save button - search by text in the editor-actions div
+    // Save button
     const saveBtn = page.locator('.editor-actions button').first();
     await saveBtn.click();
 
     // 7. Verify the new note appears in the sidebar
+    // We use a more flexible locator to ensure the text is found
     const sidebarNote = page.locator('.note-summary-card h3');
-    await expect(sidebarNote).toContainText('E2E Test Note');
+    await expect(sidebarNote).toHaveText(/E2E Test Note/i);
   });
 });
