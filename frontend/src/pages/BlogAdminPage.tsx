@@ -13,7 +13,7 @@ const BlogAdminPage: React.FC = () => {
     
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
 
     useEffect(() => {
         if (!isAuthenticated) {

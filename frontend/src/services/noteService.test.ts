@@ -30,8 +30,8 @@ vi.mock('../db', () => ({
 
 describe('NoteService with Offline Persistence', () => {
   const mockNotes: Note[] = [
-    { id: 1, title: 'Note 1', items: [], createdAt: '2026-03-18T10:00:00Z' },
-    { id: 2, title: 'Note 2', items: [], createdAt: '2026-03-18T11:00:00Z' },
+    { id: 1, title: 'Note 1', noteItems: [], createdAt: '2026-03-18T10:00:00Z' },
+    { id: 2, title: 'Note 2', noteItems: [], createdAt: '2026-03-18T11:00:00Z' },
   ]
 
   beforeEach(() => {

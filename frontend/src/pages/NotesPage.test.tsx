@@ -46,7 +46,7 @@ describe('NotesPage', () => {
   it('renders notes when authenticated', async () => {
     vi.mocked(useAuth).mockReturnValue({ 
       isAuthenticated: true, 
-      user: { username: 'admin', role: 'ADMIN' }, 
+      user: { username: 'admin' }, 
       token: 'fake-token', 
       login: vi.fn(), 
       logout: vi.fn() 
