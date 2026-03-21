@@ -34,6 +34,7 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.DefaultJweHeaderMutator",
                 
                 // Keys & JWK
+                "io.jsonwebtoken.Jwts$KEY",
                 "io.jsonwebtoken.security.Jwks$OP",
                 "io.jsonwebtoken.impl.security.KeysBridge",
                 "io.jsonwebtoken.impl.security.AbstractJwk",
@@ -59,7 +60,6 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.Jwts$ENC",
                 "io.jsonwebtoken.Jwts$SIG",
                 "io.jsonwebtoken.Jwts$ZIP",
-                "io.jsonwebtoken.Jwts$KEY",
                 "io.jsonwebtoken.impl.security.StandardSecureDigestAlgorithms",
                 "io.jsonwebtoken.impl.security.StandardAsymmetricKeyAlgorithms",
                 "io.jsonwebtoken.impl.security.StandardSymmetricKeyAlgorithms",
@@ -73,10 +73,13 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.security.EcdhKeyAlgorithm",
                 "io.jsonwebtoken.impl.security.Pbes2HmacAescwKeyAlgorithm",
                 
-                // Compression
+                // Compression & IO (Package varies between JJWT versions)
                 "io.jsonwebtoken.impl.compression.StandardCompressionAlgorithms",
                 "io.jsonwebtoken.impl.compression.DeflateCompressionAlgorithm",
-                "io.jsonwebtoken.impl.compression.GzipCompressionAlgorithm"
+                "io.jsonwebtoken.impl.compression.GzipCompressionAlgorithm",
+                "io.jsonwebtoken.impl.io.StandardCompressionAlgorithms",
+                "io.jsonwebtoken.impl.io.DeflateCompressionAlgorithm",
+                "io.jsonwebtoken.impl.io.GzipCompressionAlgorithm"
             };
 
             for (String className : jjwtClasses) {
