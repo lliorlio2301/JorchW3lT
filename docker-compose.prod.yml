@@ -3,22 +3,19 @@ services:
     image: postgres:16-alpine
     container_name: jorge-db
     hostname: db
+    restart: always
     environment:
       POSTGRES_DB: jorchos_db
       POSTGRES_USER: jorchos_user
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U jorchos_user -d jorchos_db"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   backend:
     image: ghcr.io/${GITHUB_REPOSITORY}/backend:latest
     container_name: jorge-backend
     hostname: backend
+    restart: always
     ports:
       - "8080:8080"
     environment:
@@ -30,8 +27,7 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       SPRING_FLYWAY_LOCATIONS: classpath:db/migration
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     volumes:
       - ./backend/uploads:/app/uploads
 
@@ -39,6 +35,7 @@ services:
     image: ghcr.io/${GITHUB_REPOSITORY}/frontend:latest
     container_name: jorge-frontend
     hostname: frontend
+    restart: always
     ports:
       - "3000:80"
     depends_on:

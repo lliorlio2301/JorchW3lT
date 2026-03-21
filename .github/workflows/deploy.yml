@@ -86,8 +86,19 @@ jobs:
       - name: Prepare docker-compose file
         run: |
           REPO_LOWER=${GITHUB_REPOSITORY,,}
-          # Replace the placeholder with the actual lowercase repository name
-          sed "s|\${GITHUB_REPOSITORY}|$REPO_LOWER|g" docker-compose.prod.yml > docker-compose.yml
+          # Replace all placeholders with actual values from secrets
+          cp docker-compose.prod.yml docker-compose.yml
+          sed -i "s|\${GITHUB_REPOSITORY}|$REPO_LOWER|g" docker-compose.yml
+          sed -i "s|\${POSTGRES_PASSWORD}|${{ secrets.POSTGRES_PASSWORD }}|g" docker-compose.yml
+          sed -i "s|\${JWT_SECRET_KEY}|${{ secrets.JWT_SECRET_KEY }}|g" docker-compose.yml
+          
+          # Debug: Check if variables are still present (not the values themselves!)
+          if grep -q "\${" docker-compose.yml; then
+            echo "❌ Some placeholders were not replaced!"
+            grep "\${" docker-compose.yml
+            exit 1
+          fi
+          echo "✅ Docker-compose file prepared successfully."
 
       - name: Copy docker-compose via SCP
         uses: appleboy/scp-action@v0.1.7
