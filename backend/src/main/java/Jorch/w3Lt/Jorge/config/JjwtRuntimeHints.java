@@ -21,7 +21,6 @@ public class JjwtRuntimeHints {
             hints.resources().registerPattern("META-INF/services/io.jsonwebtoken.*");
 
             // Comprehensive JJWT Reflection Registration using TypeReference
-            // This satisfies JJWT's aggressive static initialization in Native Images
             String[] jjwtClasses = {
                 // Core & Parser
                 "io.jsonwebtoken.impl.DefaultJwtParserBuilder",
@@ -60,10 +59,12 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.Jwts$ENC",
                 "io.jsonwebtoken.Jwts$SIG",
                 "io.jsonwebtoken.Jwts$ZIP",
+                "io.jsonwebtoken.Jwts$KEY",
                 "io.jsonwebtoken.impl.security.StandardSecureDigestAlgorithms",
                 "io.jsonwebtoken.impl.security.StandardAsymmetricKeyAlgorithms",
                 "io.jsonwebtoken.impl.security.StandardSymmetricKeyAlgorithms",
                 "io.jsonwebtoken.impl.security.StandardEncryptionAlgorithms",
+                "io.jsonwebtoken.impl.security.StandardKeyAlgorithms",
                 "io.jsonwebtoken.impl.security.GcmAesAeadAlgorithm",
                 "io.jsonwebtoken.impl.security.CbcHmacAeadAlgorithm",
                 "io.jsonwebtoken.impl.security.AesGcmKeyAlgorithm",
@@ -79,8 +80,6 @@ public class JjwtRuntimeHints {
             };
 
             for (String className : jjwtClasses) {
-                // IMPORTANT: Using TypeReference instead of Class.forName avoids ClassNotFoundException 
-                // during AOT phase when classes are intended for runtime use.
                 hints.reflection().registerType(TypeReference.of(className), 
                     MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, 
                     MemberCategory.INVOKE_PUBLIC_METHODS,
