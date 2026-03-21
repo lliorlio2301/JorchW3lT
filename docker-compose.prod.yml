@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - jorch-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jorchos_user} -d ${POSTGRES_DB:-jorchos_db}"]
       interval: 10s
@@ -31,6 +33,8 @@ services:
         condition: service_healthy
     volumes:
       - ./backend/uploads:/app/uploads
+    networks:
+      - jorch-network
 
   frontend:
     image: ghcr.io/${GITHUB_REPOSITORY}/frontend:latest
@@ -39,6 +43,12 @@ services:
       - "3000:80"
     depends_on:
       - backend
+    networks:
+      - jorch-network
+
+networks:
+  jorch-network:
+    driver: bridge
 
 volumes:
   postgres_data:
