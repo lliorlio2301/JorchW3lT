@@ -47,3 +47,12 @@
 * **Feature-Isolierung:** Jede neue Entwicklung (Feature, Bugfix, Infrastruktur) startet grundsätzlich in einem eigenen **Feature-Branch** (z. B. `feature/vps-deployment`).
 * **Synchronisation:** Vor dem Abschluss einer Entwicklung muss der Feature-Branch mit dem aktuellen Stand von `master` (oder `main`) synchronisiert werden (`git pull origin master`), um Konflikte frühzeitig zu lösen.
 * **Pull Requests:** Der Merge in den Haupt-Branch erfolgt ausschließlich über **Pull Requests**, um Code-Qualität und Test-Abdeckung sicherzustellen.
+
+## 9. Coding Standards & Qualität
+* **TypeScript:** Die Verwendung von `any` ist streng untersagt. Jede Datenstruktur muss über passende Interfaces oder Types in `frontend/src/types/` definiert sein.
+* **Commits:** Wir folgen dem **Conventional Commits** Standard (z. B. `feat: ...`, `fix: ...`, `docs: ...`, `refactor: ...`).
+* **Sicherheit:** Secrets (API-Keys, Passwörter) dürfen unter keinen Umständen in den Code oder in `.md`-Dateien geschrieben werden. Sie werden ausschließlich über `.env` (lokal) oder **GitHub Secrets** (Produktion) verwaltet.
+
+## 10. Deployment-Sicherheit
+* **Automatisierung:** Deployments auf den VPS erfolgen ausschließlich über die automatisierte CI/CD-Pipeline. Manuelle Änderungen am Code auf dem Server sind zu vermeiden.
+* **Rootless:** Alle Container laufen im Rootless-Modus unter dem User `jorchadmin`, um die Angriffsfläche des Host-Systems zu minimieren.

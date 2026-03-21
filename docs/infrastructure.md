@@ -75,5 +75,26 @@ Für die Produktionsumgebung wird ein Native Image (AOT - Ahead of Time Compilat
 
 ---
 
+## 4. CI/CD Pipeline (GitHub Actions)
+
+Die Datei `.github/workflows/deploy.yml` steuert den gesamten Deployment-Prozess:
+1.  **Test:** Ausführung von Backend- (JUnit) und Frontend-Tests (Vitest, Playwright).
+2.  **Build:** Erstellung der Docker-Images (Native Backend & Vite Frontend).
+3.  **Registry:** Push der Images in die GitHub Container Registry (GHCR).
+4.  **Deployment:** SSH-Login auf den VPS, Pull der neuen Images und Neustart via `podman-compose`.
+
+## 5. VPS-Absicherung & Security
+
+*   **Isolierter User:** Alle Dienste laufen unter dem User `jorchadmin` ohne Root-Rechte.
+*   **Firewall (UFW):** Nur die Ports 22 (SSH), 80 (HTTP) und 443 (HTTPS) sind nach außen geöffnet.
+*   **Reverse Proxy:** Nginx auf dem Host leitet Anfragen an den Frontend-Container (Port 3000) weiter und fungiert als SSL-Terminierung.
+
+## 6. Backup-Strategie (Geplant)
+
+*   **Datenbank:** Regelmäßige SQL-Dumps der PostgreSQL-Volume via Cronjob.
+*   **Uploads:** Synchronisation des `uploads/`-Verzeichnisses mit einem externen Cloud-Speicher oder lokalem Backup-Server.
+
+---
+
 > [!IMPORTANT]
 > **Wichtiger Hinweis:** Durch die Umstellung auf `fetch = FetchType.EAGER` im `Resume-Model` wurde sichergestellt, dass der `Integration Test` nicht mehr an einer `LazyInitializationException` scheitert.

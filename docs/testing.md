@@ -67,9 +67,20 @@ Das Projekt nutzt eine moderne Test-Infrastruktur, die sowohl das Backend als au
 ### B. Resilience: Offline-Verhalten
 *   **Szenario:** User öffnet die App -> Verbindung bricht ab -> Notiz wird lokal gespeichert -> Verbindung kehrt zurück -> Daten werden mit dem Server synchronisiert.
 
+### C. Best Practices (Playwright)
+*   **API Mocking:** Um Tests isoliert und stabil zu halten, werden alle API-Anfragen (`**/api/**`) in Playwright abgefangen und mit definierten Mock-Daten beantwortet. Dies verhindert Abhängigkeiten zum realen Backend während der UI-Tests.
+*   **Auto-Waiting:** Locatoren wie `toBeVisible()` werden bevorzugt, um asynchrone UI-Updates ohne explizite `sleep`-Befehle abzufangen.
+
 ---
 
-## 5. Ausführung der Tests
+## 5. Zukünftige Test-Erweiterungen (Ausblick)
+
+*   **Snapshot Testing:** Vergleich von UI-Snapshots, um visuelle Regressionen bei CSS-Änderungen automatisch zu erkennen.
+*   **Performance Audits:** Integration von Lighthouse-Scores in die CI-Pipeline zur Überwachung der PWA-Performance.
+
+---
+
+## 6. Ausführung der Tests
 
 ### Backend
 ```bash
