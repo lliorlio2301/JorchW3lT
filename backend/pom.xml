@@ -157,7 +157,13 @@
 					<plugin>
 						<groupId>org.graalvm.buildtools</groupId>
 						<artifactId>native-maven-plugin</artifactId>
-						<executions>
+						<configuration>
+							<metadataRepository>
+								<enabled>true</enabled>
+							</metadataRepository>
+						</configuration>
+					</plugin>
+
 							<execution>
 								<id>build-native</id>
 								<goals>
