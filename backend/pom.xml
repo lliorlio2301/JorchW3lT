@@ -162,8 +162,7 @@
 								<enabled>true</enabled>
 							</metadataRepository>
 						</configuration>
-					</plugin>
-
+						<executions>
 							<execution>
 								<id>build-native</id>
 								<goals>
