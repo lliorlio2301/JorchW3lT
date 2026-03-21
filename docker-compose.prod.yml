@@ -2,53 +2,47 @@ services:
   db:
     image: postgres:16-alpine
     container_name: jorge-db
+    hostname: db
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-jorchos_db}
-      POSTGRES_USER: ${POSTGRES_USER:-jorchos_user}
+      POSTGRES_DB: jorchos_db
+      POSTGRES_USER: jorchos_user
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - jorch-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jorchos_user} -d ${POSTGRES_DB:-jorchos_db}"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U jorchos_user -d jorchos_db"]
+      interval: 5s
       timeout: 5s
       retries: 5
 
   backend:
     image: ghcr.io/${GITHUB_REPOSITORY}/backend:latest
     container_name: jorge-backend
+    hostname: backend
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-jorchos_db}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/jorchos_db
       SPRING_DATASOURCE_DRIVER: org.postgresql.Driver
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-jorchos_user}
+      SPRING_DATASOURCE_USERNAME: jorchos_user
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_JPA_DIALECT: org.hibernate.dialect.PostgreSQLDialect
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      SPRING_FLYWAY_LOCATIONS: classpath:db/migration
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./backend/uploads:/app/uploads
-    networks:
-      - jorch-network
 
   frontend:
     image: ghcr.io/${GITHUB_REPOSITORY}/frontend:latest
     container_name: jorge-frontend
+    hostname: frontend
     ports:
       - "3000:80"
     depends_on:
       - backend
-    networks:
-      - jorch-network
-
-networks:
-  jorch-network:
-    driver: bridge
 
 volumes:
   postgres_data:

@@ -12,6 +12,9 @@ public class JjwtRuntimeHints {
     public static class JjwtRuntimeHintsRegistrar implements RuntimeHintsRegistrar {
         @Override
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+            // Register Flyway migrations
+            hints.resources().registerPattern("db/migration/*.sql");
+
             // Register classes for reflection that JJWT loads dynamically
             try {
                 hints.reflection().registerType(Class.forName("io.jsonwebtoken.impl.DefaultJwtParserBuilder"));
