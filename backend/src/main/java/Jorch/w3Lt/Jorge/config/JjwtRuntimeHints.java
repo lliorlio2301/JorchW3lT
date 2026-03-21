@@ -16,23 +16,37 @@ public class JjwtRuntimeHints {
             // Register Flyway migrations
             hints.resources().registerPattern("db/migration/*.sql");
 
-            // Register classes for reflection that JJWT loads dynamically via Reflection
-            // We must include PUBLIC CONSTRUCTORS to fix NoSuchMethodException: <init>()
-            registerForReflection(hints, "io.jsonwebtoken.impl.DefaultJwtParserBuilder");
-            registerForReflection(hints, "io.jsonwebtoken.impl.DefaultJwtBuilder");
-            registerForReflection(hints, "io.jsonwebtoken.impl.security.StandardSecureDigestAlgorithms");
-            registerForReflection(hints, "io.jsonwebtoken.impl.DefaultJwtParser");
-            registerForReflection(hints, "io.jsonwebtoken.impl.DefaultHeader");
-            registerForReflection(hints, "io.jsonwebtoken.impl.DefaultClaims");
+            // Comprehensive JJWT Reflection Registration
+            String[] jjwtClasses = {
+                "io.jsonwebtoken.impl.DefaultJwtParserBuilder",
+                "io.jsonwebtoken.impl.DefaultJwtBuilder",
+                "io.jsonwebtoken.impl.security.StandardSecureDigestAlgorithms",
+                "io.jsonwebtoken.impl.security.StandardKeyOperations",
+                "io.jsonwebtoken.impl.security.KeyOperationConverter",
+                "io.jsonwebtoken.impl.DefaultJwtParser",
+                "io.jsonwebtoken.impl.DefaultHeader",
+                "io.jsonwebtoken.impl.DefaultJweHeader",
+                "io.jsonwebtoken.impl.DefaultProtectedHeader",
+                "io.jsonwebtoken.impl.DefaultJweHeaderBuilder",
+                "io.jsonwebtoken.impl.DefaultJweHeaderMutator",
+                "io.jsonwebtoken.impl.DefaultClaims",
+                "io.jsonwebtoken.security.Jwks$OP",
+                "io.jsonwebtoken.impl.security.AbstractJwk"
+            };
+
+            for (String className : jjwtClasses) {
+                registerForReflection(hints, className);
+            }
         }
 
         private void registerForReflection(RuntimeHints hints, String className) {
             try {
                 hints.reflection().registerType(Class.forName(className), 
                     MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, 
-                    MemberCategory.INVOKE_PUBLIC_METHODS);
+                    MemberCategory.INVOKE_PUBLIC_METHODS,
+                    MemberCategory.DECLARED_FIELDS);
             } catch (ClassNotFoundException e) {
-                // Ignore if class is not on classpath
+                // Class might not be on classpath depending on JJWT version
             }
         }
     }
