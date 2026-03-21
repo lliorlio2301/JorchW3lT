@@ -39,12 +39,18 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.security.Jwks$OP",
                 "io.jsonwebtoken.impl.security.AbstractJwk",
                 "io.jsonwebtoken.impl.security.StandardAsymmetricJwk",
-                "io.jsonwebtoken.impl.security.StandardEcdsaJwk"
+                "io.jsonwebtoken.impl.security.StandardEcdsaJwk",
+                // Additional classes for authentication and keys
+                "io.jsonwebtoken.impl.security.KeysBridge",
+                "io.jsonwebtoken.impl.security.MacProvider",
+                "io.jsonwebtoken.impl.security.RsaProvider",
+                "io.jsonwebtoken.impl.security.EcProvider",
+                "io.jsonwebtoken.impl.security.EdCProvider",
+                "io.jsonwebtoken.impl.security.XProvider",
+                "io.jsonwebtoken.impl.security.AesGcmKeyAlgorithm"
             };
 
             for (String className : jjwtClasses) {
-                // IMPORTANT: Use TypeReference instead of Class.forName to avoid ClassNotFoundExceptions
-                // during AOT compilation for <scope>runtime</scope> dependencies.
                 hints.reflection().registerType(TypeReference.of(className), 
                     MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, 
                     MemberCategory.INVOKE_PUBLIC_METHODS,
