@@ -3,9 +3,24 @@ checklist.txt
 Entweurfe.rnote
 .env
 .geminiignore
+*.log
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Native / GraalVM artifacts
+backend/target/
+backend/*.so
+native-image-diagnostics/
 
 # Ignore temp files, but keep main documentation
-# We want GEMINI.md and ROADMAP.md to be tracked
 !GEMINI.md
 !ROADMAP.md
 !docs/*.md
