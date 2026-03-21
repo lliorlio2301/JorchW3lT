@@ -14,24 +14,28 @@ public class JjwtRuntimeHints {
     public static class JjwtRuntimeHintsRegistrar implements RuntimeHintsRegistrar {
         @Override
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-            // Registriere Flyway Migrationen
+            // Register Flyway migrations
             hints.resources().registerPattern("db/migration/*.sql");
             
-            // Registriere JJWT ServiceLoader Konfigurationen
+            // Register JJWT ServiceLoader configurations
             hints.resources().registerPattern("META-INF/services/io.jsonwebtoken.*");
 
-            // Umfassende JJWT Reflection Registrierung
+            // Comprehensive JJWT Reflection Registration using TypeReference
             String[] jjwtClasses = {
                 // --- Core & Parser ---
                 "io.jsonwebtoken.impl.DefaultJwtParserBuilder",
                 "io.jsonwebtoken.impl.DefaultJwtBuilder",
                 "io.jsonwebtoken.impl.DefaultJwtParser",
                 "io.jsonwebtoken.impl.DefaultClaims",
+                "io.jsonwebtoken.impl.DefaultClaimsBuilder",
                 "io.jsonwebtoken.impl.DefaultHeader",
                 "io.jsonwebtoken.impl.DefaultJweHeader",
                 "io.jsonwebtoken.impl.DefaultProtectedHeader",
                 "io.jsonwebtoken.impl.DefaultJweHeaderBuilder",
                 "io.jsonwebtoken.impl.DefaultJweHeaderMutator",
+                "io.jsonwebtoken.impl.DefaultJwsHeader",
+                "io.jsonwebtoken.impl.DefaultJwsHeaderBuilder",
+                "io.jsonwebtoken.impl.DefaultJwtHeaderBuilder",
                 
                 // --- Keys & JWK ---
                 "io.jsonwebtoken.security.Jwks$OP",
