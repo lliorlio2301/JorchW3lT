@@ -3,6 +3,7 @@ package Jorch.w3Lt.Jorge.config;
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.aot.hint.TypeReference;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportRuntimeHints;
 
@@ -15,13 +16,18 @@ public class JjwtRuntimeHints {
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
             // Register Flyway migrations
             hints.resources().registerPattern("db/migration/*.sql");
+            
+            // Register JJWT ServiceLoader configurations
+            hints.resources().registerPattern("META-INF/services/io.jsonwebtoken.*");
 
-            // Comprehensive JJWT Reflection Registration
+            // Comprehensive JJWT Reflection Registration using TypeReference
             String[] jjwtClasses = {
                 "io.jsonwebtoken.impl.DefaultJwtParserBuilder",
                 "io.jsonwebtoken.impl.DefaultJwtBuilder",
                 "io.jsonwebtoken.impl.security.StandardSecureDigestAlgorithms",
                 "io.jsonwebtoken.impl.security.StandardKeyOperations",
+                "io.jsonwebtoken.impl.security.StandardAsymmetricKeyAlgorithms",
+                "io.jsonwebtoken.impl.security.StandardSymmetricKeyAlgorithms",
                 "io.jsonwebtoken.impl.security.KeyOperationConverter",
                 "io.jsonwebtoken.impl.DefaultJwtParser",
                 "io.jsonwebtoken.impl.DefaultHeader",
@@ -31,22 +37,18 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.DefaultJweHeaderMutator",
                 "io.jsonwebtoken.impl.DefaultClaims",
                 "io.jsonwebtoken.security.Jwks$OP",
-                "io.jsonwebtoken.impl.security.AbstractJwk"
+                "io.jsonwebtoken.impl.security.AbstractJwk",
+                "io.jsonwebtoken.impl.security.StandardAsymmetricJwk",
+                "io.jsonwebtoken.impl.security.StandardEcdsaJwk"
             };
 
             for (String className : jjwtClasses) {
-                registerForReflection(hints, className);
-            }
-        }
-
-        private void registerForReflection(RuntimeHints hints, String className) {
-            try {
-                hints.reflection().registerType(Class.forName(className), 
+                // IMPORTANT: Use TypeReference instead of Class.forName to avoid ClassNotFoundExceptions
+                // during AOT compilation for <scope>runtime</scope> dependencies.
+                hints.reflection().registerType(TypeReference.of(className), 
                     MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, 
                     MemberCategory.INVOKE_PUBLIC_METHODS,
                     MemberCategory.DECLARED_FIELDS);
-            } catch (ClassNotFoundException e) {
-                // Class might not be on classpath depending on JJWT version
             }
         }
     }
