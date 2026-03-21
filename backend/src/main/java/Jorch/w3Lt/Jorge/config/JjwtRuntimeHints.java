@@ -40,14 +40,22 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.security.AbstractJwk",
                 "io.jsonwebtoken.impl.security.StandardAsymmetricJwk",
                 "io.jsonwebtoken.impl.security.StandardEcdsaJwk",
-                // Additional classes for authentication and keys
+                
+                // AUTHENTICATION / KEYS
                 "io.jsonwebtoken.impl.security.KeysBridge",
                 "io.jsonwebtoken.impl.security.MacProvider",
                 "io.jsonwebtoken.impl.security.RsaProvider",
                 "io.jsonwebtoken.impl.security.EcProvider",
                 "io.jsonwebtoken.impl.security.EdCProvider",
                 "io.jsonwebtoken.impl.security.XProvider",
-                "io.jsonwebtoken.impl.security.AesGcmKeyAlgorithm"
+                "io.jsonwebtoken.impl.security.AesGcmKeyAlgorithm",
+                
+                // TOKEN PARSING / ENCRYPTION
+                "io.jsonwebtoken.Jwts$ENC",
+                "io.jsonwebtoken.impl.security.StandardEncryptionAlgorithms",
+                "io.jsonwebtoken.impl.security.GcmAesAeadAlgorithm",
+                "io.jsonwebtoken.impl.security.CbcHmacAeadAlgorithm",
+                "io.jsonwebtoken.impl.security.JweProviders"
             };
 
             for (String className : jjwtClasses) {
