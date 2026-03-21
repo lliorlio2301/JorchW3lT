@@ -14,15 +14,15 @@ public class JjwtRuntimeHints {
     public static class JjwtRuntimeHintsRegistrar implements RuntimeHintsRegistrar {
         @Override
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-            // Register Flyway migrations
+            // Registriere Flyway Migrationen
             hints.resources().registerPattern("db/migration/*.sql");
             
-            // Register JJWT ServiceLoader configurations
+            // Registriere JJWT ServiceLoader Konfigurationen
             hints.resources().registerPattern("META-INF/services/io.jsonwebtoken.*");
 
-            // Comprehensive JJWT Reflection Registration using TypeReference
+            // Umfassende JJWT Reflection Registrierung
             String[] jjwtClasses = {
-                // Core & Parser
+                // --- Core & Parser ---
                 "io.jsonwebtoken.impl.DefaultJwtParserBuilder",
                 "io.jsonwebtoken.impl.DefaultJwtBuilder",
                 "io.jsonwebtoken.impl.DefaultJwtParser",
@@ -33,7 +33,7 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.DefaultJweHeaderBuilder",
                 "io.jsonwebtoken.impl.DefaultJweHeaderMutator",
                 
-                // Keys & JWK
+                // --- Keys & JWK ---
                 "io.jsonwebtoken.security.Jwks$OP",
                 "io.jsonwebtoken.impl.security.KeysBridge",
                 "io.jsonwebtoken.impl.security.AbstractJwk",
@@ -44,7 +44,7 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.security.StandardOctetPublicJwk",
                 "io.jsonwebtoken.impl.security.StandardOctetPrivateJwk",
                 
-                // Operations & Providers
+                // --- Operations & Providers ---
                 "io.jsonwebtoken.impl.security.StandardKeyOperations",
                 "io.jsonwebtoken.impl.security.KeyOperationConverter",
                 "io.jsonwebtoken.impl.security.MacProvider",
@@ -55,7 +55,7 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.security.JweProviders",
                 "io.jsonwebtoken.impl.security.HmacAesAeadAlgorithm",
                 
-                // Algorithms (JWS & JWE)
+                // --- Algorithmen (JWS, JWE & KEYS) ---
                 "io.jsonwebtoken.Jwts$ENC",
                 "io.jsonwebtoken.Jwts$SIG",
                 "io.jsonwebtoken.Jwts$ZIP",
@@ -73,8 +73,8 @@ public class JjwtRuntimeHints {
                 "io.jsonwebtoken.impl.security.EcdhKeyAlgorithm",
                 "io.jsonwebtoken.impl.security.Pbes2HmacAescwKeyAlgorithm",
                 
-                // Compression
-                "io.jsonwebtoken.impl.compression.StandardCompressionAlgorithms",
+                // --- Kompression (KORRIGIERTE PFADE) ---
+                "io.jsonwebtoken.impl.io.StandardCompressionAlgorithms",
                 "io.jsonwebtoken.impl.compression.DeflateCompressionAlgorithm",
                 "io.jsonwebtoken.impl.compression.GzipCompressionAlgorithm"
             };
