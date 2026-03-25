@@ -97,13 +97,13 @@ jobs:
           fi
           echo "Docker-compose file prepared successfully."
 
-      - name: Copy docker-compose via SCP
+      - name: Copy deployment files via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_IP }}
           username: jorchadmin
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml"
+          source: "docker-compose.yml,scripts/"
           target: "/home/jorchadmin/app"
 
       - name: Execute Remote Deployment via SSH
