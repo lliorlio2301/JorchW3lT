@@ -21,6 +21,7 @@
       "placeholderContent": "Markdown content...",
       "placeholderSummary": "Short summary...",
       "uploadImage": "Upload Image",
+      "fileTooLarge": "File too large. The limit is 5 MB.",
       "backToList": "Back to overview"
     },
     "notes": {
