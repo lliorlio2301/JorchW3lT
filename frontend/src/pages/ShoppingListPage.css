@@ -1,103 +1,133 @@
 .shopping-container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 4rem auto;
-    padding: 3rem;
+    padding: 2rem;
 }
 
 .shopping-container h1 {
-    font-size: 5rem;
+    font-size: 4rem;
     margin-bottom: 2rem;
+    color: var(--color-primary);
 }
 
 .add-item-form {
     display: flex;
+    flex-wrap: wrap; /* Erlaubt dem Button umzubrechen */
     gap: 1rem;
     margin-bottom: 3rem;
 }
 
 .add-item-form input {
-    padding: 0.8rem;
-    border: 2px solid var(--color-contrast);
-    background: transparent;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--color-contrast);
+    border-radius: 6px;
+    background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-ui);
-    flex-grow: 1;
+    flex: 1;
+    min-width: 200px; /* Mindestbreite für das Inputfeld */
 }
 
 .add-item-form button {
-    font-size: 1.2rem;
-    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 120px; /* Sicherstellen, dass "Hinzufügen" Platz hat */
+}
+
+.shopping-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .shopping-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    border-bottom: 1px dashed var(--color-contrast);
+    padding: 1rem 1.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-contrast);
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.shopping-item:hover {
+    border-color: var(--color-primary);
 }
 
 .item-main {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
     cursor: pointer;
 }
 
 .checkbox {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border: 2px solid var(--color-primary);
-    border-radius: 50%; /* Round checkboxes for this style */
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    flex-shrink: 0;
 }
 
 .item-name {
-    font-family: var(--font-header);
-    font-size: 1.8rem;
+    font-family: var(--font-ui);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.shopping-item.completed .item-name {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
 .item-qty {
     font-family: var(--font-ui);
-    font-size: 1rem;
-    color: var(--color-accent-text);
+    font-size: 0.9rem;
+    color: var(--color-muted);
 }
 
 .delete-btn {
     background: transparent;
     border: none;
-    color: var(--color-primary);
-    font-size: 1.5rem;
+    color: var(--color-muted);
+    font-size: 1.4rem;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.4rem;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.delete-btn:hover {
+    color: var(--color-primary);
 }
 
 @media (max-width: 600px) {
     .shopping-container {
-        margin: 1rem;
-        padding: 1.5rem;
+        margin: 2rem 1rem;
+        padding: 1rem;
     }
 
     .shopping-container h1 {
-        font-size: 3.5rem;
+        font-size: 3rem;
     }
 
     .add-item-form {
         flex-direction: column;
     }
-
-    .shopping-item {
-        padding: 1.2rem 0.5rem;
-    }
-
-    .checkbox {
-        width: 32px;
-        height: 32px;
+    
+    .add-item-form button {
+        width: 100%;
     }
 
     .item-name {
-        font-size: 2.2rem;
+        font-size: 1.1rem;
     }
 }
