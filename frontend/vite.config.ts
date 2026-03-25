@@ -27,6 +27,7 @@ export default defineConfig({
         ]
       },
       workbox: {
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         // Exclude project images from offline cache to keep it light
         navigateFallbackDenylist: [/^\/api/],
