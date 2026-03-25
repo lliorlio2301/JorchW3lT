@@ -6,39 +6,41 @@ Dieses Dokument beschreibt die visuelle Identität und die Design-Philosophie vo
 
 Das Design bricht bewusst mit den Regeln des sterilen, modernen Webdesigns. Es ist inspiriert von analogen Collagen, handgezeichneten Elementen und einer absichtlichen Imperfektion.
 
-*   **Imperfection:** Elemente dürfen leicht gedreht sein (`rotate(1deg)` oder `-1deg`).
-*   **Tactility:** Karten wirken wie aufgeklebte Papierstücke (Schatten, unregelmäßige Ränder).
-*   **Clarity in Chaos:** Trotz des "Chaos" bleibt die Hierarchie durch starke Typografie gewahrt.
+*   **Structure:** Vertikales One-Page Layout (Scrolling) für die Hauptnavigation.
+*   **Imperfection:** Elemente dürfen leicht gedreht sein (`rotate(1.5deg)` oder `-1.2deg`), um den Effekt von "lose hingeworfenem Papier" zu erzeugen.
+*   **Tactility:** Karten wirken wie aufgeklebte Papierstücke (Schatten, unregelmäßige `border-radius` Werte).
 
 ## 2. Farbpalette
 
-*   **Background (Light):** `#fdf5e6` (Old Lace / Warme Canvas-Farbe)
-*   **Primary:** `#d2691e` (Chocolate / Akzentfarbe für Interaktionen)
-*   **Secondary:** `#8b4513` (Saddle Brown)
-*   **Text:** `#2f4f4f` (Dark Slate Gray)
-*   **Muted:** `#a9a9a9` (Dark Gray)
+*   **Background:** `#121212` (Dark) / `#fdf5e6` (Light - Warme Canvas-Farbe)
+*   **Primary:** `#ff5cb8` (Pink / Akzentfarbe für Titel)
+*   **Secondary:** `#98d8e7` (Light Blue)
+*   **Text:** `#ffffff` (Dark Mode) / `#2f4f4f` (Light Mode)
 
 ## 3. Typografie
 
 *   **Headlines:** `"Covered By Your Grace"`, cursive.
-    *   Verströmt eine handgeschriebene, persönliche Note.
-*   **UI / Body:** `"Zen Loop"`, system-ui.
-    *   Basisgröße: `1.4rem`. 
+    *   Verströmt eine handgeschriebene, persönliche Note. Massive Größen (bis zu `8rem`) für Titel.
+*   **UI / Body:** `"Space Grotesk"`, sans-serif.
+    *   Basisgröße: `1.1rem`.
     *   Wird für Navigation, Buttons und Fließtext verwendet.
 
 ## 4. Komponenten-Stile
 
-### "Chaos-Cards"
-*   **Style:** Weiße oder leicht getönte Hintergründe.
-*   **Shadow:** Weiche, aber präsente Schatten.
-*   **Transform:** Leichte zufällige Rotationen, um den "aufgeklebten" Effekt zu verstärken.
+### "Project Cards" (Module Panel)
+*   **Style:** Strukturierte Karten mit 8px Border-Radius.
+*   **Shadow:** Subtile Schatten (`box-shadow: 0 4px 15px rgba(0,0,0,0.1)`).
+*   **Layout:** Linksbündig ausgerichtet innerhalb des Containers.
 
-### Listen (Blog/Projekte)
-*   Zentriertes Layout.
-*   Minimalistische Trennung durch Abstände statt harter Linien.
-*   Bilder werden immer in voller Größe (AspectRatio-erhaltend) angezeigt.
+### Blog-Stapel (Pile)
+*   Übereinander gestapelte Karten mit unterschiedlichen Rotationen.
+*   Interaktion: Hebt die Karte beim Hovern hervor und ordnet sie dynamisch an.
+
+### Retro-Buttons
+*   Keine Skalierung beim Hovern, nur Rotation und Schatten-Verschiebung.
+*   Nutzen die Headline-Schriftart für einen markanten Look.
 
 ## 5. Assets & Branding
 
 *   **Logo/Favicon:** Basierend auf dem "Bär"-Design.
-*   **Homepage-Struktur:** Inspiriert von einem klassischen "Mac Template" Look (Retro-OS-Feeling).
+*   **Entry Point:** Die Homepage dient als zentrales Dashboard für alle Unterbereiche.
