@@ -4,6 +4,8 @@ Entweurfe.rnote
 .env
 .geminiignore
 *.log
+backend/uploads/
+frontend/public/assets/homepage-template.jpg
 
 # IDEs and Editors
 .vscode/
