@@ -73,6 +73,13 @@ const BlogAdminPage: React.FC = () => {
         const file = e.target.files?.[0];
         if (!file || !editingPost) return;
 
+        // Check file size (5MB limit)
+        const MAX_SIZE = 5 * 1024 * 1024;
+        if (file.size > MAX_SIZE) {
+            alert(t('blog.fileTooLarge'));
+            return;
+        }
+
         try {
             const url = await blogService.uploadImage(file);
             setEditingPost({ ...editingPost, coverImageUrl: url });
