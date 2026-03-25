@@ -56,9 +56,28 @@ Dieser Workflow wird **manuell** via `workflow_dispatch` im GitHub-Backend gesta
 * **Firewall (UFW):** Ports 22 (SSH), 80 (HTTP) und 443 (HTTPS) sind offen.
 * **Reverse Proxy:** Nginx auf dem Host leitet Anfragen an den Frontend-Container (Port 3000) weiter.
 
----
+## 6. Domain & SSL Setup (Certbot)
 
-## 6. Backup-Strategie (Geplant)
+Die Erreichbarkeit von außen wird über eine Domain und ein kostenloses SSL-Zertifikat von Let's Encrypt sichergestellt.
+
+### Voraussetzungen:
+1. Eine registrierte Domain (z.B. `deine-domain.de`).
+2. Ein DNS-Eintrag (A-Record), der auf die IP deines VPS zeigt.
+
+### Einrichtungsschritte:
+1. **Repository klonen:** Stelle sicher, dass die Skripte auf dem VPS aktuell sind.
+2. **Setup-Skript ausführen:**
+   ```bash
+   cd scripts
+   sudo chmod +x setup_ssl.sh
+   sudo ./setup_ssl.sh
+   ```
+3. **Konfiguration:** Das Skript installiert Certbot, konfiguriert Nginx als Reverse Proxy und fragt nach deiner Domain, um das SSL-Zertifikat automatisch zu erstellen und einzubinden.
+
+### Automatische Erneuerung:
+Certbot richtet unter Debian 12 automatisch einen Systemd-Timer (`certbot.timer`) ein, der das Zertifikat alle 60 Tage erneuert. Ein manueller Eingriff ist nicht erforderlich.
+
+## 7. Backup-Strategie (Geplant)
 
 * **Datenbank:** SQL-Dumps der PostgreSQL-Volume via Cronjob.
 * **Uploads:** Synchronisation des `uploads/`-Verzeichnisses.
