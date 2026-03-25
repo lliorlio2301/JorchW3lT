@@ -69,7 +69,21 @@ Das Projekt nutzt eine moderne Test-Infrastruktur, die sowohl das Backend als au
 
 ---
 
-## 5. Ausführung der Tests
+## 5. CI/CD Integration (GitHub Actions)
+
+Die Qualitätssicherung ist fest in die CI/CD-Pipeline integriert, um Regressionen zu vermeiden.
+
+### A. Automatisierte CI-Tests (`ci-tests.yml`)
+Bei jedem **Push** oder **Pull Request** auf den `master`-Branch wird automatisch der QA-Workflow gestartet:
+1.  **Backend:** JUnit 5 Tests mit Testcontainers (PostgreSQL).
+2.  **Frontend:** Vitest Unit- und Komponenten-Tests.
+3.  **End-to-End:** Playwright E2E-Tests gegen eine Mock-API.
+
+Dieser Workflow muss erfolgreich abgeschlossen werden ("Green Build"), bevor ein manuelles Deployment gestartet werden sollte.
+
+---
+
+## 6. Ausführung der Tests (Lokal)
 
 ### Backend
 ```bash
