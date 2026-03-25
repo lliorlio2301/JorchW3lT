@@ -35,6 +35,7 @@
       "newItem": "Neuer Eintrag"
     },
     "common": {
+      "viewAll": "Alle ansehen",
       "accessDenied": "Zugriff verweigert. Nur für Admins.",
       "confirmDelete": "Möchtest du diesen Eintrag wirklich löschen?",
       "save": "Speichern",
@@ -55,8 +56,11 @@
       "noData": "Deine Liste ist leer."
     },
     "welcome": {
-      "title": "Willkommen zu Jorch's Portfolio",
-      "subtitle": "Wähle einen Bereich aus der Navigation oben."
+      "title": "Willkommen in Jorch's W3lT",
+      "blogDesc": "Gedanken und technische Einblicke",
+      "projectsDesc": "Meine Arbeiten und Experimente",
+      "songsDesc": "Mein digitales Gitarren-Songbuch",
+      "resumeDesc": "Mein beruflicher Werdegang"
     },
     "projects": {
       "title": "Meine Projekte",
@@ -76,6 +80,7 @@
     },
     "songs": {
       "title": "Gitarren-Songbuch",
+      "artist": "Künstler",
       "loading": "Songs werden geladen...",
       "error": "Fehler beim Laden der Songs.",
       "noData": "Keine Songs gefunden.",

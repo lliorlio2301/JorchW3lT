@@ -4,67 +4,71 @@
       "resume": "Currículum",
       "songs": "Cancionero",
       "projects": "Proyectos",
-      "shopping": "Lista de compras",
+      "shopping": "Lista de Compras",
       "notes": "Notas",
       "blog": "Blog"
     },
     "blog": {
       "title": "Pensamientos y Código",
       "readMore": "Leer más",
-      "noPosts": "Aún no hay publicaciones disponibles.",
+      "noPosts": "Aún no hay publicaciones.",
       "loading": "Cargando publicaciones...",
       "error": "Error al cargar el blog.",
-      "adminTitle": "Gestión del Blog",
+      "adminTitle": "Administración del Blog",
       "createPost": "Nueva publicación",
       "editPost": "Editar publicación",
       "placeholderTitle": "Título de la publicación",
       "placeholderContent": "Contenido en Markdown...",
-      "placeholderSummary": "Breve resumen...",
+      "placeholderSummary": "Resumen corto...",
       "uploadImage": "Subir imagen",
-      "backToList": "Volver a la lista"
+      "backToList": "Volver a la vista general"
     },
     "notes": {
       "title": "Notas Privadas",
-      "add": "Nueva Nota",
+      "add": "Nueva nota",
       "placeholderTitle": "Título de la nota",
       "placeholderItem": "Añadir elemento...",
       "loading": "Cargando notas...",
       "error": "Error al cargar las notas.",
-      "noData": "No se encontraron notas.",
+      "noData": "No hay notas disponibles.",
       "lastEdited": "Última edición",
       "newItem": "Nuevo elemento"
     },
     "common": {
-      "accessDenied": "Acceso denegado. Solo administradores.",
-      "confirmDelete": "¿Estás seguro de que quieres eliminar este elemento?",
+      "viewAll": "Ver todo",
+      "accessDenied": "Acceso denegado. Solo para administradores.",
+      "confirmDelete": "¿Realmente quieres eliminar esta entrada?",
       "save": "Guardar",
       "cancel": "Cancelar",
       "edit": "Editar",
       "delete": "Eliminar",
       "offlineMode": "Estás desconectado",
-      "offlineDataAvailable": "Los datos guardados siguen disponibles",
+      "offlineDataAvailable": "Los datos locales siguen disponibles",
       "error": "Ha ocurrido un error."
     },
     "shopping": {
       "title": "Lista de Compras",
       "add": "Añadir",
       "placeholder": "Nombre del producto",
-      "quantity": "Cant",
+      "quantity": "Cantidad",
       "loading": "Cargando lista...",
       "error": "Error al cargar la lista.",
       "noData": "Tu lista está vacía."
     },
     "welcome": {
-      "title": "Bienvenido al Portafolio de Jorch",
-      "subtitle": "Elige una sección de la navegación superior."
+      "title": "Bienvenido a Jorch's W3lT",
+      "blogDesc": "Pensamientos e ideas técnicas",
+      "projectsDesc": "Mis trabajos y experimentos",
+      "songsDesc": "Mi cancionero digital de guitarra",
+      "resumeDesc": "Mi trayectoria profesional"
     },
     "projects": {
       "title": "Mis Proyectos",
       "loading": "Cargando proyectos...",
       "error": "Error al cargar los proyectos.",
       "noData": "No se encontraron proyectos.",
-      "github": "Repositorio de GitHub",
-      "demo": "Demostración en vivo"
+      "github": "Repositorio GitHub",
+      "demo": "Demo en vivo"
     },
     "resume": {
       "summary": "Resumen",
@@ -76,6 +80,7 @@
     },
     "songs": {
       "title": "Cancionero de Guitarra",
+      "artist": "Artista",
       "loading": "Cargando canciones...",
       "error": "Error al cargar las canciones.",
       "noData": "No se encontraron canciones.",
