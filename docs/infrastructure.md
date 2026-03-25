@@ -46,7 +46,7 @@ Dieser Workflow wird **manuell** via `workflow_dispatch` im GitHub-Backend gesta
 *   **Prozess:**
     1.  **Build:** Erstellung der Docker-Images (Native Backend & Vite Frontend) basierend auf dem gewählten Scope.
     2.  **Registry:** Push der Images in die GitHub Container Registry (GHCR).
-    3.  **Deployment:** SSH-Login auf den VPS, Vorbereitung der `docker-compose.yml` (Ersetzung der Secrets) und Neustart via `podman-compose`.
+    3.  **Deployment:** SSH-Login auf den VPS, automatische Synchronisierung der `docker-compose.yml` und des `scripts/`-Ordners via SCP, Vorbereitung der Secrets und Neustart via `podman-compose`.
 
 ---
 ## 5. VPS-Absicherung & Podman Besonderheiten
