@@ -26,17 +26,29 @@ Für die Produktionsumgebung wird ein Native Image (AOT - Ahead of Time Compilat
     * **Vollständigkeit:** Alle internen JJWT-Klassen (Parser, Builder, Encryption, Compression, Keys) müssen explizit inklusive ihrer öffentlichen Konstruktoren (`INVOKE_PUBLIC_CONSTRUCTORS`) registriert werden.
 * **Reachability Metadata:** In der `pom.xml` ist das `metadataRepository` im `native-maven-plugin` aktiviert, um Community-gestützte Reflection-Konfigurationen automatisch zu beziehen.
 * **Shared Libraries (.so):** Das `Dockerfile.native` kopiert explizit alle generierten `.so` Dateien, um AWT/Desktop-Abhängigkeiten zur Laufzeit zu bedienen.
-
 ---
 
 ## 4. CI/CD Pipeline (GitHub Actions)
 
-Die Datei `.github/workflows/deploy.yml` steuert den gesamten Deployment-Prozess:
-1.  **Test:** Ausführung von Backend- (JUnit) und Frontend-Tests (Vitest, Playwright).
-2.  **Build:** Erstellung der Docker-Images (Native Backend & Vite Frontend).
-3.  **Registry:** Push der Images in die GitHub Container Registry (GHCR) unter Verwendung von Kleinschreibung für den Repository-Namen.
-4.  **Deployment:** SSH-Login auf den VPS, Pull der neuen Images und Neustart via `podman-compose`.
+Die Pipeline ist in zwei spezialisierte Workflows unterteilt, um Automatisierung mit gezielter Kontrolle zu verbinden.
 
+### A. Quality Assurance (`ci-tests.yml`)
+Dieser Workflow läuft **automatisch** bei jedem Push oder Pull-Request auf `master`.
+*   **Zweck:** Sicherstellung der Code-Qualität vor jedem Merge.
+*   **Jobs:** Ausführung aller Backend-, Frontend- und E2E-Tests.
+
+### B. Modulares Deployment (`deploy.yml`)
+Dieser Workflow wird **manuell** via `workflow_dispatch` im GitHub-Backend gestartet.
+*   **Scope-Auswahl:** Beim Start kann gewählt werden, was deployt werden soll:
+    *   `all`: Vollständiges Build & Deployment beider Komponenten.
+    *   `backend`: Nur das Native Java Backend wird gebaut und deployt.
+    *   `frontend`: Nur das React Frontend wird gebaut und deployt.
+*   **Prozess:**
+    1.  **Build:** Erstellung der Docker-Images (Native Backend & Vite Frontend) basierend auf dem gewählten Scope.
+    2.  **Registry:** Push der Images in die GitHub Container Registry (GHCR).
+    3.  **Deployment:** SSH-Login auf den VPS, Vorbereitung der `docker-compose.yml` (Ersetzung der Secrets) und Neustart via `podman-compose`.
+
+---
 ## 5. VPS-Absicherung & Podman Besonderheiten
 
 * **Fully Qualified Image Names:** Podman auf Debian 12 erfordert in der `docker-compose.yml` vollständige Namen (z. B. `docker.io/library/postgres:16-alpine`), da "Short Names" ohne Registry-Präfix standardmäßig nicht aufgelöst werden.

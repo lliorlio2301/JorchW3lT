@@ -23,34 +23,35 @@
 * **JPA Fetching:** Kern-Entitäten nutzen `FetchType.EAGER`.
 * **Testing-Mandat:** Automatisierte Tests für Security, Datenmodelle und Services.
 
-## 5. Frontend-Konventionen
-* **Styles:** CSS-Variablen aus `index.css`. Font: "Zen Loop" (base), "Covered By Your Grace" (headlines).
-* **PWA & Offline:** Die App nutzt `vite-plugin-pwa` und `Dexie.js`. Daten werden lokal gepuffert und synchronisiert.
-* **Assets:** Projekt-Bilder in `frontend/public/projects/`. Blog-Bilder unter `/uploads/`.
-
-## 6. Content-Konventionen (Blog)
-* **Markdown:** Artikel via `react-markdown` gerendert.
-* **Sprache:** Blog-Inhalte sind flexibel (DE, EN, ES).
-* **Bilder:** Relative Pfade (`/uploads/...`) nutzen.
-
-## 7. Dokumentations-Hygiene & Knowledge-Management
-* **Aktualität:** Technische Entscheidungen zeitnah in `.md`-Dateien dokumentieren.
-* **Bereinigung:** Veraltete Informationen proaktiv löscht oder als "Deprecated" markieren.
-
-## 8. Git-Workflow (Branch-Strategie)
+## 5. Git-Workflow (Branch-Strategie)
 * **Feature-Isolierung:** Jede neue Entwicklung startet in einem eigenen **Feature-Branch**.
 * **Synchronisation:** Branch mit `master` synchronisieren (`git pull origin master`) vor Abschluss.
 * **Pull Requests:** Merge ausschließlich über Pull Requests.
 
-## 9. Coding Standards & Qualität
+
+## 6. Frontend-Konventionen
+* **Styles:** CSS-Variablen aus `index.css`. Font: "Zen Loop" (base), "Covered By Your Grace" (headlines).
+* **PWA & Offline:** Die App nutzt `vite-plugin-pwa` und `Dexie.js`. Daten werden lokal gepuffert und synchronisiert.
+* **Assets:** Projekt-Bilder in `frontend/public/projects/`. Blog-Bilder unter `/uploads/`.
+
+## 7. Content-Konventionen (Blog)
+* **Markdown:** Artikel via `react-markdown` gerendert.
+* **Sprache:** Blog-Inhalte sind flexibel (DE, EN, ES).
+* **Bilder:** Relative Pfade (`/uploads/...`) nutzen.
+
+## 8. Dokumentations-Hygiene & Knowledge-Management
+* **Aktualität:** Technische Entscheidungen zeitnah in `.md`-Dateien dokumentieren.
+* **Bereinigung:** Veraltete Informationen proaktiv löscht oder als "Deprecated" markieren.
+
+## 10. Coding Standards & Qualität
 * **TypeScript:** Die Verwendung von `any` ist streng untersagt.
 * **Commits:** Conventional Commits Standard (z. B. `feat: ...`, `fix: ...`).
 * **Sicherheit:** Secrets ausschließlich über `.env` (lokal) oder **GitHub Secrets** (Produktion).
 
-## 10. Deployment-Sicherheit
+## 11. Deployment-Sicherheit
 * **Automatisierung:** Deployments ausschließlich über die CI/CD-Pipeline.
 * **Rootless:** Container laufen unter dem User `jorchadmin`.
 
-## 11. Native Image Best Practices (GraalVM)
+## 12. Native Image Best Practices (GraalVM)
 * **AOT-Safety:** Vermeide stille Fehler in RuntimeHints. Nutze `TypeReference` für Runtime-Abhängigkeiten.
 * **Vollständigkeit:** Reflection-Klassen (z.B. für JJWT) müssen präzise und vollständig registriert werden.

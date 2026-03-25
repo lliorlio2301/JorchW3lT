@@ -39,6 +39,7 @@
 - [x] **Project Redesign:** 
     - Umstellung der Ansicht auf eine Liste (ähnlich Blog-Stil) auf der Homepage.
 - [x] **Branding:** Ersetzen des Vite-Icons durch das "Bär"-Asset als offizielles Favicon.
+- [ ] **DevOps:** Automatische SSL-Zertifikate via Let's Encrypt (Certbot).
 
 ## Phase 7: Account & Assets (Next)
 - [ ] **Account Management:** Endpunkte und UI zum Ändern von Benutzername und Passwort.
@@ -46,5 +47,4 @@
 
 ## Phase 8: Future Ideas
 - [ ] **Content:** Blog-Live-Vorschau im Admin-Bereich.
-- [ ] **DevOps:** Automatische SSL-Zertifikate via Let's Encrypt (Certbot).
 - [ ] **Backup:** Automatisierte SQL-Dumps auf externen Speicher.
