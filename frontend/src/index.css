@@ -1,25 +1,23 @@
 
 :root {
-  /* Dark Mode Palette with playful colors */
+  /* Dark Mode Palette */
   --color-bg: #121212;
   --color-surface: #1e1e1e;
   --color-text: #ffffff;
   --color-contrast: #2a2a2a;
   --color-primary: #ff5cb8; 
-  --color-secondary: #98d8e7;
-  --color-accent: #000027; /* Dark Blue */
-  --color-muted: #6272a4;
+  --color-secondary: #ffffff;
+  --color-accent: #b6b6c6;
+  --color-muted: #91a5e3;
   
-  /* Text on top of accent background */
   --color-on-accent: #ffffff;
-  /* Text that uses the accent color (adjusted for dark mode readability) */
-  --color-accent-text: #8be9fd; 
+  --color-accent-text: #f1f1f1; 
 
   --font-header: 'Covered By Your Grace', cursive;
   --font-ui: 'Space Grotesk', sans-serif;
   
   font-family: var(--font-ui);
-  line-height: 1.2;
+  line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -28,117 +26,94 @@
 }
 
 :root.light {
-  /* Canvas colors from 'lightmode_farben.jpg' */
-  --color-bg: #e8e4d9; 
-  --color-surface: #fdfaf3;
-  --color-text: #1a1a1a;
-  --color-contrast: #d1ccbe;
-  --color-primary: #e43f3f;
-  --color-secondary: #ff8c00;
-  --color-accent: #45b39d;
+  --color-bg: #fdf5e6; /* Warme Canvas-Farbe */
+  --color-surface: #ffffff;
+  --color-text: #2f4f4f;
+  --color-contrast: #e8e4d9;
+  --color-primary: #2a1ed2;
+  --color-secondary: #338b13;
+  --color-accent: #00b809;
   --color-muted: #7a7569;
   
   --color-on-accent: #ffffff;
-  --color-accent-text: #45b39d;
+  --color-accent-text: #0a11d9;
 }
 
-/* Ensure form elements inherit font and color */
+/* Globales Box-Model Fix - Verhindert Überlaufen von Feldern */
+* {
+  box-sizing: border-box;
+}
+
 input, textarea, button, select {
   font-family: inherit;
   color: inherit;
   background: none;
 }
 
-::placeholder {
-  color: var(--color-muted);
-  opacity: 0.8;
-}
-
 body {
   margin: 0;
   overflow-x: hidden;
-  font-size: 1.4rem; /* Zen Loop needs more size to be legible */
+  font-size: 1.1rem;
 }
 
-/* Handwritten Chaos Typography */
+/* Typography - Charakter erhalten, aber beruhigen */
 h1, h2, h3 {
   font-family: var(--font-header);
   text-transform: none;
   letter-spacing: 0.02em;
-  font-weight: 400; /* Font only supports 400 */
+  font-weight: 400;
+  transform: none !important; /* Keine Drehungen mehr */
 }
 
 h1 {
-  font-size: 6rem; /* Increased size for impact */
+  font-size: 4.5rem;
   color: var(--color-primary);
-  line-height: 0.8;
-  transform: rotate(-2deg);
   margin-bottom: 2rem;
 }
 
 h2 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: var(--color-secondary);
-  transform: rotate(1deg);
   margin-bottom: 1.5rem;
 }
 
 h3 {
-  font-size: 2.2rem;
-  color: var(--color-accent-text); /* Use accent text color for readability */
+  font-size: 2rem;
+  color: var(--color-accent-text);
 }
 
-p {
-  font-size: 1.2rem;
-  max-width: 60ch;
-}
-
-/* Card 'Chaos' */
-.chaos-card {
-  border: 3px solid var(--color-text);
-  border-radius: 10px 40px 10px 30px;
+/* Modulare Karten - Weg vom Chaos, hin zur Struktur */
+.chaos-card, .module-panel {
+  border: 1px solid var(--color-contrast);
+  border-radius: 8px; /* Gleichmäßige Ecken */
   background-color: var(--color-surface);
-  transition: transform 0.3s ease;
+  transform: none !important; /* Keine Drehungen mehr */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.chaos-card:nth-child(even) { transform: rotate(1.5deg); }
-.chaos-card:nth-child(odd) { transform: rotate(-1deg); }
-
-.chaos-card:hover {
-  transform: scale(1.03) rotate(0deg) !important;
-  box-shadow: 12px 12px 0px var(--color-primary);
+.chaos-card:hover, .module-panel:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-primary);
 }
 
+/* Buttons - Sauberer & Professioneller */
 button {
-  font-family: var(--font-header);
-  font-size: 1.5rem; /* Larger for the handwritten font */
-  border-radius: 12px;
-  border: 2px solid var(--color-text);
-  padding: 0.3em 1.2em;
+  font-family: var(--font-ui); /* UI Schrift für Buttons besser lesbar */
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--color-text);
+  padding: 0.6em 1.5em;
   background: var(--color-accent);
-  color: var(--color-on-accent); /* Use white on dark blue */
+  color: var(--color-on-accent);
   cursor: pointer;
-  transform: rotate(-1deg);
+  transform: none !important;
   transition: all 0.2s ease;
 }
 
 button:hover {
-  transform: rotate(0deg) scale(1.1);
-  box-shadow: 4px 4px 0px var(--color-text);
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not(.dark) {
-    --color-bg: #e8e4d9;
-    --color-surface: #fdfaf3;
-    --color-text: #1a1a1a;
-    --color-contrast: #d1ccbe;
-    --color-primary: #e43f3f;
-    --color-secondary: #ff8c00;
-    --color-accent: #45b39d;
-    --color-muted: #7a7569;
-    
-    --color-on-accent: #ffffff;
-    --color-accent-text: #45b39d;
-  }
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
