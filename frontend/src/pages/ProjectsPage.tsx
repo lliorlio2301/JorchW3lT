@@ -22,6 +22,8 @@ const ProjectsPage: React.FC = () => {
         imageUrl: '', githubUrl: '', demoUrl: '',
         techTags: []
     });
+    // Local state for tags input string
+    const [tagsInput, setTagsInput] = useState('');
 
     const fetchProjects = useCallback(async () => {
         try {
@@ -43,17 +45,21 @@ const ProjectsPage: React.FC = () => {
             const projectToEdit = await projectService.getProjectForEdit(id);
             setEditingProject(projectToEdit);
             setFormData(projectToEdit);
+            setTagsInput(projectToEdit.techTags.join(', '));
             setIsFormOpen(true);
         } catch {
             alert('Failed to load project details');
         }
     };
 
-    const handleDelete = async (id: number) => {
+    const handleDelete = async () => {
+        if (!editingProject?.id) return;
         if (window.confirm(t('common.confirmDelete') || 'Are you sure?')) {
             try {
-                await projectService.deleteProject(id);
-                setProjects(projects.filter(p => p.id !== id));
+                await projectService.deleteProject(editingProject.id);
+                setIsFormOpen(false);
+                setEditingProject(null);
+                fetchProjects();
             } catch {
                 alert('Failed to delete project');
             }
@@ -62,11 +68,19 @@ const ProjectsPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        // Finalize tags before submitting
+        const finalTags = tagsInput.split(',')
+            .map(t => t.trim())
+            .filter(t => t !== '');
+        
+        const dataToSave = { ...formData, techTags: finalTags };
+
         try {
             if (editingProject?.id) {
-                await projectService.updateProject(editingProject.id, formData);
+                await projectService.updateProject(editingProject.id, dataToSave);
             } else {
-                await projectService.saveProject(formData);
+                await projectService.saveProject(dataToSave);
             }
             setIsFormOpen(false);
             setEditingProject(null);
@@ -92,6 +106,7 @@ const ProjectsPage: React.FC = () => {
                     <button className="btn-add" onClick={() => {
                         setIsFormOpen(!isFormOpen);
                         setEditingProject(null);
+                        setTagsInput('');
                         setFormData({
                             titleDe: '', titleEn: '', titleEs: '',
                             descriptionDe: '', descriptionEn: '', descriptionEs: '',
@@ -105,8 +120,8 @@ const ProjectsPage: React.FC = () => {
             </div>
 
             {isFormOpen && (
-                <div className="chaos-card admin-form-card">
-                    <h3>{editingProject ? 'Edit Project' : 'Add New Project'}</h3>
+                <div className="module-panel admin-form-card">
+                    <h3>{editingProject?.id ? 'Edit Project' : 'Add New Project'}</h3>
                     <form onSubmit={handleSubmit} className="admin-form">
                         <div className="form-section">
                             <h4>Titles (DE / EN / ES)</h4>
@@ -136,12 +151,17 @@ const ProjectsPage: React.FC = () => {
                             <h4>Tags (comma separated)</h4>
                             <input 
                                 placeholder="React, Spring Boot, TypeScript" 
-                                value={formData.techTags.join(', ')} 
-                                onChange={e => setFormData({...formData, techTags: e.target.value.split(',').map(t => t.trim()).filter(t => t !== '')})} 
+                                value={tagsInput} 
+                                onChange={e => setTagsInput(e.target.value)} 
                             />
                         </div>
                         <div className="form-actions">
                             <button type="submit" className="btn-save">{t('common.save')}</button>
+                            {editingProject?.id && (
+                                <button type="button" className="btn-delete-final" onClick={handleDelete}>
+                                    {t('common.delete')}
+                                </button>
+                            )}
                         </div>
                     </form>
                 </div>
@@ -163,7 +183,7 @@ const ProjectsPage: React.FC = () => {
 
             <div className="projects-grid">
                 {filteredProjects.map((project) => (
-                    <div key={project.id} className="project-card chaos-card">
+                    <div key={project.id} className="project-card module-panel">
                         {project.imageUrl && (
                             <div className="project-image">
                                 <img src={project.imageUrl} alt={project.title} />
@@ -178,12 +198,13 @@ const ProjectsPage: React.FC = () => {
                                 ))}
                             </div>
                             <div className="project-actions">
-                                {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}
-                                {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
+                                <div className="external-links">
+                                    {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}
+                                    {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
+                                </div>
                                 {isAuthenticated && (
-                                    <div className="admin-actions">
-                                        <button onClick={() => handleEdit(project.id)} className="btn-edit">✏️</button>
-                                        <button onClick={() => handleDelete(project.id)} className="btn-delete">🗑️</button>
+                                    <div className="admin-controls">
+                                        <button onClick={() => handleEdit(project.id)} className="btn-edit">{t('common.edit')}</button>
                                     </div>
                                 )}
                             </div>

@@ -1,0 +1,264 @@
+.home-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    background-color: var(--color-bg);
+}
+
+/* HERO SECTION - Centered */
+.hero-section {
+    min-height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 8rem;
+    color: var(--color-primary);
+    margin: 0 0 1rem 0;
+    line-height: 0.9;
+    font-family: var(--font-header);
+    transform: rotate(-1deg);
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    max-width: 800px;
+    opacity: 0.9;
+    font-family: var(--font-ui);
+    color: var(--color-secondary);
+    margin: 0 auto;
+}
+
+/* SECTION COMMON - Left Aligned */
+.home-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.section-label {
+    font-size: 4.5rem;
+    color: var(--color-secondary);
+    border-bottom: 3px solid var(--color-primary);
+    margin: 0 0 1rem 0;
+    padding-right: 3rem;
+    font-family: var(--font-header);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+}
+
+.section-footer {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* PROJECT CARD STYLE (From ProjectsPage) */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-contrast);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    background: var(--color-contrast);
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.project-info {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.project-info h3 {
+    color: var(--color-secondary);
+    font-family: var(--font-header);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-info p {
+    color: var(--color-text);
+    font-family: var(--font-ui);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    background: var(--color-contrast);
+    border-radius: 4px;
+    color: var(--color-text);
+    font-family: var(--font-ui);
+}
+
+/* PROJECTS GRID */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 3rem;
+    width: 100%;
+}
+
+/* BLOG PILE */
+.blog-pile {
+    position: relative;
+    height: 380px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0;
+}
+
+.blog-post-card {
+    position: absolute;
+    width: 100%;
+    max-width: 500px;
+    text-decoration: none;
+    color: inherit;
+    left: var(--offset-x);
+    top: var(--offset-y);
+    z-index: var(--z-index);
+}
+
+.post-date {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-ui);
+}
+
+.post-excerpt {
+    font-family: var(--font-ui);
+    line-height: 1.5;
+    font-size: 1.1rem;
+}
+
+/* SONGS SECTION */
+.songs-list-card {
+    max-width: 900px;
+    margin: 0;
+    width: 100%;
+}
+
+.songs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    table-layout: fixed; /* Erzwingt feste Spaltenbreiten */
+}
+
+.songs-table th {
+    font-family: var(--font-header);
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-text);
+    padding: 1rem;
+}
+
+.songs-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-contrast);
+}
+
+/* Titel-Spalte: 60% Breite, linksbündig */
+.songs-table th:first-child,
+.songs-table td:first-child {
+    text-align: left;
+    padding-left: 0;
+    width: 60%;
+}
+
+/* Künstler-Spalte: 40% Breite, zentriert */
+.songs-table th:last-child,
+.songs-table td:last-child {
+    padding-right: 0;
+    width: 40%;
+}
+
+.songs-table tr:hover td {
+    background: var(--color-contrast);
+    color: var(--color-primary);
+}
+
+/* RETRO BUTTON */
+.retro-btn {
+    font-family: var(--font-header);
+    font-size: 2.2rem;
+    text-decoration: none;
+    padding: 0.5rem 3rem;
+    border: 2px solid var(--color-text);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 8px;
+    box-shadow: 4px 4px 0 var(--color-text);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.retro-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-primary);
+    background: var(--color-primary);
+    color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .home-container { padding: 1.5rem; }
+    .hero-title { font-size: 4rem; }
+    .blog-pile { 
+        height: auto; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 2rem; 
+    }
+    .blog-post-card { 
+        position: static; 
+        max-width: 100%; 
+    }
+}

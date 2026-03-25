@@ -122,7 +122,7 @@ const ShoppingListPage: React.FC = () => {
                                     <span className="item-name">{item.name}</span>
                                     {item.quantity && <span className="item-qty">({item.quantity})</span>}
                                 </div>
-                                <button className="delete-btn" onClick={() => handleDelete(item.id)}>✕</button>
+                                <button className="delete-btn" onClick={() => handleDelete(item.id)} title={t('common.delete')}>&times;</button>
                             </div>
                         ))}
                     </div>

@@ -174,8 +174,8 @@ const SongsPage: React.FC = () => {
                             </a>
                             {isAuthenticated && (
                                 <div className="admin-actions">
-                                    <button onClick={() => handleEdit(song)} className="btn-edit">✏️</button>
-                                    <button onClick={() => song.id !== undefined && handleDelete(song.id)} className="btn-delete">🗑️</button>
+                                    <button onClick={() => handleEdit(song)} className="btn-edit">{t('common.edit')}</button>
+                                    <button onClick={() => song.id !== undefined && handleDelete(song.id)} className="btn-delete">{t('common.delete')}</button>
                                 </div>
                             )}
                         </div>

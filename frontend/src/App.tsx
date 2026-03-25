@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import ResumePage from './pages/ResumePage';
@@ -10,6 +10,7 @@ import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import BlogAdminPage from './pages/BlogAdminPage';
 import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
 import { AuthProvider } from './context/AuthProvider';
 import { useAuth } from './hooks/useAuth';
 import './App.css'
@@ -17,6 +18,7 @@ import './App.css'
 function NavContent() {
   const { t, i18n } = useTranslation();
   const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
@@ -77,19 +79,14 @@ function NavContent() {
           {isAuthenticated ? (
             <button onClick={logout} className="auth-toggle">Logout</button>
           ) : (
-            <Link to="/login" className="auth-toggle">Login</Link>
+            <button onClick={() => navigate('/login')} className="auth-toggle">Login</button>
           )}
         </div>
       </nav>
 
       <main className="content">
         <Routes>
-          <Route path="/" element={
-            <div className="home-welcome">
-              <h1>{t('welcome.title')}</h1>
-              {/* <p>{t('welcome.subtitle')}</p> */}
-            </div>
-          } />
+          <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/songs" element={<SongsPage />} />

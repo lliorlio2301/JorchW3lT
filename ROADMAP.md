@@ -31,7 +31,20 @@
     - Cloud Build (Native & Vite), GHCR Push, SSH Deployment.
 - [x] **VPS:** Debian 12, Rootless Podman, Nginx Reverse Proxy.
 
-## Phase 6: Future Ideas
+## Phase 6: Evolution & UX Refinement (Completed)
+- [x] **UI Polish:** 
+    - Login-Karte: Zentrierung der Eingabefelder (Padding-Fix).
+    - Blog: Bilder vollständig anzeigen (kein Cropping).
+    - Homepage: Modulares, vertikales One-Page Layout mit Retro-Inspiration.
+- [x] **Project Redesign:** 
+    - Umstellung der Ansicht auf eine Liste (ähnlich Blog-Stil) auf der Homepage.
+- [x] **Branding:** Ersetzen des Vite-Icons durch das "Bär"-Asset als offizielles Favicon.
+
+## Phase 7: Account & Assets (Next)
+- [ ] **Account Management:** Endpunkte und UI zum Ändern von Benutzername und Passwort.
+- [ ] **Project Management:** Implementierung von echtem Image-Upload (analog zum Blog) statt Pfadangabe.
+
+## Phase 8: Future Ideas
 - [ ] **Content:** Blog-Live-Vorschau im Admin-Bereich.
 - [ ] **DevOps:** Automatische SSL-Zertifikate via Let's Encrypt (Certbot).
 - [ ] **Backup:** Automatisierte SQL-Dumps auf externen Speicher.

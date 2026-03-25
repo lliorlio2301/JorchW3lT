@@ -1,0 +1,130 @@
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import blogService from '../services/blogService';
+import songService from '../services/songService';
+import projectService from '../services/projectService';
+import type { BlogPost } from '../types/blogPost';
+import type { Song } from '../types/song';
+import type { Project } from '../types/project';
+import './HomePage.css';
+
+const HomePage: React.FC = () => {
+    const { t } = useTranslation();
+    const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
+    const [recentSongs, setRecentSongs] = useState<Song[]>([]);
+    const [recentProjects, setRecentProjects] = useState<Project[]>([]);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const [posts, songs, projects] = await Promise.all([
+                    blogService.getAllPosts(),
+                    songService.getAllSongs(),
+                    projectService.getAllProjects()
+                ]);
+                setRecentPosts(posts.slice(0, 4));
+                setRecentSongs(songs.slice(0, 8));
+                setRecentProjects(projects.slice(0, 3));
+            } catch (err) {
+                console.error('Failed to load dashboard data', err);
+            }
+        };
+        loadData();
+    }, []);
+
+    return (
+        <div className="home-container">
+            {/* HERO SECTION */}
+            <header className="hero-section">
+                <h1 className="hero-title">{t('welcome.title')}</h1>
+                {/* {<p className="hero-subtitle">{t('welcome.resumeDesc')}</p>} */}
+            </header>
+
+            {/* SONGS SECTION */}
+            <section className="home-section songs-section">
+                <h2 className="section-label">{t('nav.songs')}</h2>
+                <div className="project-card module-panel songs-list-card">
+                    <div className="project-info">
+                        <h3>Jorch's Songbook</h3>
+                        <div className="card-body">
+                            <table className="songs-table">
+                                <thead>
+                                    <tr>
+                                        <th>{t('songs.title', 'Titel')}</th>
+                                        <th>{t('songs.artist', 'Artist')}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {recentSongs.map(song => (
+                                        <tr key={song.id}>
+                                            <td>{song.title}</td>
+                                            <td>{song.artist}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div className="section-footer">
+                    <Link to="/songs" className="retro-btn">{t('common.viewAll')}</Link>
+                </div>
+            </section>
+
+            {/* BLOG SECTION */}
+            <section className="home-section blog-section">
+                <h2 className="section-label">{t('nav.blog')}</h2>
+                <div className="blog-pile">
+                    {recentPosts.map((post, index) => (
+                        <Link to={`/blog/${post.slug}`} key={post.id} className="project-card module-panel blog-post-card" 
+                              style={{ 
+                                  '--offset-x': `${index * 20}px`,
+                                  '--offset-y': `${index * 15}px`,
+                                  '--z-index': 10 - index
+                              } as React.CSSProperties}>
+                            <div className="project-info">
+                                <h3>{post.title}</h3>
+                                <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>
+                                <p className="post-excerpt">{post.content.substring(0, 100)}...</p>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+                <div className="section-footer">
+                    <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
+                </div>
+            </section>
+
+            {/* PROJECTS SECTION */}
+            <section className="home-section projects-section">
+                <h2 className="section-label">{t('nav.projects')}</h2>
+                <div className="projects-grid">
+                    {recentProjects.map((project) => (
+                        <div key={project.id} className="project-card module-panel">
+                            {project.imageUrl && (
+                                <div className="project-image">
+                                    <img src={project.imageUrl} alt={project.title} />
+                                </div>
+                            )}
+                            <div className="project-info">
+                                <h3>{project.title}</h3>
+                                <p>{project.description}</p>
+                                <div className="tech-tags">
+                                    {project.techTags?.map(tag => (
+                                        <span key={tag} className="tag">{tag}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="section-footer">
+                    <Link to="/projects" className="retro-btn">{t('common.viewAll')}</Link>
+                </div>
+            </section>
+        </div>
+    );
+};
+
+export default HomePage;

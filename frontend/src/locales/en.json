@@ -11,17 +11,17 @@
     "blog": {
       "title": "Thoughts & Code",
       "readMore": "Read More",
-      "noPosts": "No posts available yet.",
+      "noPosts": "No posts yet.",
       "loading": "Loading posts...",
       "error": "Error loading blog.",
-      "adminTitle": "Blog Management",
+      "adminTitle": "Blog Admin",
       "createPost": "New Post",
       "editPost": "Edit Post",
       "placeholderTitle": "Post Title",
       "placeholderContent": "Markdown content...",
       "placeholderSummary": "Short summary...",
       "uploadImage": "Upload Image",
-      "backToList": "Back to list"
+      "backToList": "Back to overview"
     },
     "notes": {
       "title": "Private Notes",
@@ -30,33 +30,37 @@
       "placeholderItem": "Add item...",
       "loading": "Loading notes...",
       "error": "Error loading notes.",
-      "noData": "No notes found.",
+      "noData": "No notes available.",
       "lastEdited": "Last edited",
       "newItem": "New item"
     },
     "common": {
+      "viewAll": "View All",
       "accessDenied": "Access denied. Admins only.",
-      "confirmDelete": "Are you sure you want to delete this item?",
+      "confirmDelete": "Are you sure you want to delete this entry?",
       "save": "Save",
       "cancel": "Cancel",
       "edit": "Edit",
       "delete": "Delete",
       "offlineMode": "You are offline",
-      "offlineDataAvailable": "Stored data is still available",
+      "offlineDataAvailable": "Local data is still available",
       "error": "An error occurred."
     },
     "shopping": {
       "title": "Shopping List",
       "add": "Add",
       "placeholder": "Product name",
-      "quantity": "Qty",
+      "quantity": "Quantity",
       "loading": "Loading list...",
       "error": "Error loading list.",
       "noData": "Your list is empty."
     },
     "welcome": {
-      "title": "Welcome to Jorch's Portfolio",
-      "subtitle": "Choose a section from the navigation above."
+      "title": "Welcome to Jorch's W3lT",
+      "blogDesc": "Thoughts and technical insights",
+      "projectsDesc": "My work and experiments",
+      "songsDesc": "My digital guitar songbook",
+      "resumeDesc": "My professional career"
     },
     "projects": {
       "title": "My Projects",
@@ -76,6 +80,7 @@
     },
     "songs": {
       "title": "Guitar Songbook",
+      "artist": "Artist",
       "loading": "Loading songs...",
       "error": "Error loading songs.",
       "noData": "No songs found.",
