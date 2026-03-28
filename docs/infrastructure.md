@@ -77,10 +77,33 @@ Die Erreichbarkeit von außen wird über eine Domain und ein kostenloses SSL-Zer
 ### Automatische Erneuerung:
 Certbot richtet unter Debian 12 automatisch einen Systemd-Timer (`certbot.timer`) ein, der das Zertifikat alle 60 Tage erneuert. Ein manueller Eingriff ist nicht erforderlich.
 
-## 7. Backup-Strategie (Geplant)
+## 7. Backup-Strategie
 
-* **Datenbank:** SQL-Dumps der PostgreSQL-Volume via Cronjob.
-* **Uploads:** Synchronisation des `uploads/`-Verzeichnisses.
+Die Datensicherheit wird durch automatisierte tägliche Backups der PostgreSQL-Datenbank gewährleistet.
+
+### Funktionsweise:
+*   **Technik:** Nutzt `pg_dump` innerhalb des Podman-Containers.
+*   **Zeitplan:** Täglich um 03:00 Uhr morgens via Cronjob des Users `jorchadmin`.
+*   **Speicherort:** `/home/jorchadmin/backups/db`.
+*   **Rotation:** Es werden immer die Backups der letzten 7 Tage aufbewahrt; ältere Dateien werden automatisch gelöscht.
+*   **Format:** Komprimierte SQL-Dumps (`.sql.gz`).
+
+### Einrichtung auf dem VPS:
+1.  **Repository synchronisieren:** Die neuen Skripte müssen auf dem VPS vorhanden sein (geschieht automatisch beim nächsten Deployment).
+2.  **Setup ausführen:**
+    ```bash
+    cd ~/app/scripts
+    chmod +x setup_backups.sh
+    ./setup_backups.sh
+    ```
+3.  **Verifizierung:** Prüfe mit `crontab -l`, ob der Eintrag vorhanden ist, und schaue in `/home/jorchadmin/backups/db`, ob das Test-Backup erstellt wurde.
+
+### Wiederherstellung (Restore):
+Um ein Backup einzuspielen, kann folgender Befehl genutzt werden:
+```bash
+gunzip -c backup_datei.sql.gz | podman exec -i jorge-db psql -U jorchos_user -d jorchos_db
+```
+*(Hinweis: Dies überschreibt den aktuellen Stand der Datenbank!)*
 
 ---
 
