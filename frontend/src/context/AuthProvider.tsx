@@ -4,6 +4,16 @@ import * as authService from '../services/authService';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
 
+const decodeToken = (token: string): User | null => {
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+        return { username: payload.sub || payload.username };
+    } catch (e) {
+        console.error('Failed to decode token', e);
+        return null;
+    }
+};
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -13,8 +23,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             localStorage.setItem('token', token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             if (!user) {
-                // eslint-disable-next-line react-hooks/set-state-in-effect
-                setUser({ username: 'admin' });
+                const decodedUser = decodeToken(token);
+                if (decodedUser) {
+                    setUser(decodedUser);
+                }
             }
         } else {
             localStorage.removeItem('token');
@@ -40,7 +52,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token }}>
+        <AuthContext.Provider value={{ user, setUser, token, login, logout, isAuthenticated: !!token }}>
             {children}
         </AuthContext.Provider>
     );

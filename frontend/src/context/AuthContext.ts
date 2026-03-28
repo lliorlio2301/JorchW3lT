@@ -3,6 +3,7 @@ import type { User, AuthenticationRequest } from '../types/auth';
 
 export interface AuthContextType {
     user: User | null;
+    setUser: (user: User | null) => void;
     token: string | null;
     login: (request: AuthenticationRequest) => Promise<void>;
     logout: () => void;

@@ -7,7 +7,7 @@ import './AccountPage.css';
 
 const AccountPage: React.FC = () => {
     const { t } = useTranslation();
-    const { isAuthenticated, logout, user } = useAuth();
+    const { isAuthenticated, logout, user, setUser } = useAuth();
     const navigate = useNavigate();
 
     const [newUsername, setNewUsername] = useState('');
@@ -25,6 +25,7 @@ const AccountPage: React.FC = () => {
         e.preventDefault();
         try {
             await userService.updateUsername(newUsername);
+            setUser({ username: newUsername });
             setMessage({ text: t('account.usernameSuccess', 'Benutzername erfolgreich aktualisiert. Bitte logge dich neu ein.'), type: 'success' });
             setTimeout(() => logout(), 2000);
         } catch (err: any) {

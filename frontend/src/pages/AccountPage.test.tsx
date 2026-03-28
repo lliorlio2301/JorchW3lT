@@ -16,6 +16,7 @@ vi.mock('../hooks/useAuth', () => ({
   useAuth: () => ({
     isAuthenticated: true,
     user: { username: 'currentadmin' },
+    setUser: vi.fn(),
     logout: vi.fn(),
   }),
 }))
