@@ -171,8 +171,28 @@
     border-color: var(--color-primary);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
+    .projects-container {
+        padding: 2rem 1rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-info {
+        padding: 1.5rem;
+    }
+
+    .admin-form-card {
+        padding: 1.5rem;
     }
 }

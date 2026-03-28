@@ -101,16 +101,29 @@
     color: var(--color-secondary);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .blog-container {
-        margin: 3rem auto;
+        margin: 2rem auto;
+        padding: 0 1rem;
     }
     
+    .blog-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
     .blog-header h1 {
         font-size: 3rem;
     }
 
+    .blog-list {
+        gap: 3rem;
+    }
+
     .entry-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
 }

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 import ResumePage from './pages/ResumePage';
 import SongsPage from './pages/SongsPage';
 import ProjectsPage from './pages/ProjectsPage';
@@ -22,6 +23,7 @@ function NavContent() {
   const navigate = useNavigate();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.className = theme;
@@ -47,7 +49,10 @@ function NavContent() {
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+    setIsMenuOpen(false);
   };
+
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <div className="app-layout">
@@ -57,31 +62,40 @@ function NavContent() {
         </div>
       )}
       <nav className="main-nav">
-        <div className="nav-links">
-          <Link to="/">{t('nav.home')}</Link>
-          <Link to="/projects">{t('nav.projects')}</Link>
-          <Link to="/resume">{t('nav.resume')}</Link>
-          <Link to="/songs">{t('nav.songs')}</Link>
-          <Link to="/blog">{t('nav.blog')}</Link>
+        <div className="nav-mobile-header">
+           <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+           </button>
+        </div>
+
+        <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+          <Link to="/" onClick={closeMenu}>{t('nav.home')}</Link>
+          <Link to="/projects" onClick={closeMenu}>{t('nav.projects')}</Link>
+          <Link to="/resume" onClick={closeMenu}>{t('nav.resume')}</Link>
+          <Link to="/songs" onClick={closeMenu}>{t('nav.songs')}</Link>
+          <Link to="/blog" onClick={closeMenu}>{t('nav.blog')}</Link>
           {isAuthenticated && (
             <>
-              <Link to="/shopping">{t('nav.shopping')}</Link>
-              <Link to="/notes">{t('nav.notes')}</Link>
-              <Link to="/account">Account</Link>
+              <Link to="/shopping" onClick={closeMenu}>{t('nav.shopping')}</Link>
+              <Link to="/notes" onClick={closeMenu}>{t('nav.notes')}</Link>
+              <Link to="/account" onClick={closeMenu}>Account</Link>
             </>
           )}
         </div>
-        <div className="language-switcher">
-          <button onClick={toggleTheme} className="theme-toggle" title="Toggle Theme">
-            {theme === 'dark' ? '☀️' : '🌙'}
-          </button>
-          <button onClick={() => changeLanguage('de')} className={i18n.language === 'de' ? 'active' : ''}>DE</button>
-          <button onClick={() => changeLanguage('en')} className={i18n.language === 'en' ? 'active' : ''}>EN</button>
-          <button onClick={() => changeLanguage('es')} className={i18n.language === 'es' ? 'active' : ''}>ES</button>
+
+        <div className={`nav-controls ${isMenuOpen ? 'open' : ''}`}>
+          <div className="language-switcher">
+            <button onClick={toggleTheme} className="theme-toggle" title="Toggle Theme">
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
+            <button onClick={() => changeLanguage('de')} className={i18n.language === 'de' ? 'active' : ''}>DE</button>
+            <button onClick={() => changeLanguage('en')} className={i18n.language === 'en' ? 'active' : ''}>EN</button>
+            <button onClick={() => changeLanguage('es')} className={i18n.language === 'es' ? 'active' : ''}>ES</button>
+          </div>
           {isAuthenticated ? (
-            <button onClick={logout} className="auth-toggle">Logout</button>
+            <button onClick={() => { logout(); closeMenu(); }} className="auth-toggle">Logout</button>
           ) : (
-            <button onClick={() => navigate('/login')} className="auth-toggle">Login</button>
+            <button onClick={() => { navigate('/login'); closeMenu(); }} className="auth-toggle">Login</button>
           )}
         </div>
       </nav>

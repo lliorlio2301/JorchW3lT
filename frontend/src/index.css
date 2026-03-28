@@ -1,4 +1,3 @@
-
 :root {
   /* Dark Mode Palette */
   --color-bg: #121212;
@@ -44,15 +43,21 @@
   box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Verhindert horizontales Scrollen auf Mobile */
+}
+
 input, textarea, button, select {
   font-family: inherit;
   color: inherit;
   background: none;
+  max-width: 100%; /* Verhindert Ausbruch aus Containern */
 }
 
 body {
-  margin: 0;
-  overflow-x: hidden;
   font-size: 1.1rem;
 }
 
@@ -90,6 +95,7 @@ h3 {
   transform: none !important; /* Keine Drehungen mehr */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .chaos-card:hover, .module-panel:hover {
@@ -116,4 +122,21 @@ button:hover {
   background: var(--color-primary);
   color: white;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 800px) {
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.2rem; }
+  h3 { font-size: 1.6rem; }
+
+  .chaos-card, .module-panel {
+    padding: 1.5rem !important;
+    margin-bottom: 1.5rem;
+  }
+
+  input, textarea {
+    font-size: 16px !important; /* Verhindert automatisches Zoomen unter iOS */
+    padding: 0.8rem !important;
+  }
 }

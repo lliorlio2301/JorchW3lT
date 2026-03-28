@@ -27,15 +27,20 @@
   to { transform: translateY(0); }
 }
 
+/* NAVIGATION */
 .main-nav {
-  padding: 1.5rem;
+  padding: 1rem 5rem;
   background-color: var(--color-surface);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 5rem;
-  padding-right: 5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-mobile-header {
+  display: none;
 }
 
 .nav-links {
@@ -52,6 +57,12 @@
 
 .nav-links a:hover {
   color: var(--color-primary);
+}
+
+.nav-controls {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .language-switcher {
@@ -105,7 +116,7 @@
   font-size: 1.5rem;
   border-radius: 12px;
   border: 2px solid var(--color-text);
-  padding: 0.3em 1.2em;
+  padding: 0.2em 1em;
   background: var(--color-accent);
   color: var(--color-text);
   cursor: pointer;
@@ -118,7 +129,6 @@
 .auth-toggle:hover {
   transform: rotate(0deg) scale(1.1);
   box-shadow: 4px 4px 0px var(--color-text);
-  color: var(--color-text);
 }
 
 .content {
@@ -126,95 +136,85 @@
   padding: 2rem;
 }
 
-.home-welcome {
-  margin-top: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4rem;
+/* RESPONSIVE DESIGN */
+@media (max-width: 1200px) {
+  .main-nav {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
-.home-welcome h1 {
-  color: var(--color-primary);
-  font-size: 5rem;
-  margin-bottom: 2rem;
-}
+@media (max-width: 900px) {
+  .nav-mobile-header {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
 
-.portal-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
-  width: 100%;
-  max-width: 1000px;
-  padding: 2rem;
-}
+  .menu-toggle {
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
 
-.portal-card {
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
-}
+  .main-nav {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0;
+  }
 
-.portal-card:nth-child(odd) {
-  transform: rotate(-1.5deg);
-}
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding: 2rem 0;
+    border-top: 1px dashed var(--color-contrast);
+    margin-top: 1rem;
+  }
 
-.portal-card:nth-child(even) {
-  transform: rotate(1.5deg);
-}
+  .nav-links.open {
+    display: flex;
+  }
 
-.portal-card:hover {
-  transform: rotate(0deg) scale(1.05);
-  z-index: 10;
-}
+  .nav-links a {
+    font-size: 1.8rem;
+    font-family: var(--font-header);
+  }
 
-.portal-content {
-  padding: 3rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  min-height: 200px;
-  justify-content: center;
-}
+  .nav-controls {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+  }
 
-.portal-icon {
-  font-size: 3rem;
-}
+  .nav-controls.open {
+    display: flex;
+  }
 
-.portal-content h2 {
-  font-family: var(--font-header);
-  font-size: 2.5rem;
-  margin: 0;
-  color: var(--color-secondary);
-}
+  .language-switcher {
+    justify-content: center;
+    width: 100%;
+  }
 
-.portal-content p {
-  font-family: var(--font-ui);
-  font-size: 1.1rem;
-  margin: 0;
-  opacity: 0.8;
+  .content {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 600px) {
-  .home-welcome h1 {
-    font-size: 3.5rem;
-  }
-  .portal-grid {
-    grid-template-columns: 1fr;
+  .auth-toggle {
+    font-size: 1.2rem;
   }
 }
 
 @media (prefers-color-scheme: light) {
-  .main-nav {
-    background-color: var(--color-surface);
-  }
-  .nav-links a {
-    color: var(--color-text);
-  }
-  .nav-links a:hover {
-    color: var(--color-primary);
-  }
   .language-switcher button {
     background-color: rgba(0, 0, 0, 0.04);
     color: var(--color-text);
