@@ -54,6 +54,26 @@ const ProjectsPage: React.FC = () => {
         }
     };
 
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // Check file size (5MB limit)
+        const MAX_SIZE = 5 * 1024 * 1024;
+        if (file.size > MAX_SIZE) {
+            alert(t('blog.fileTooLarge', 'Datei zu groß. Das Limit liegt bei 5 MB.'));
+            return;
+        }
+
+        try {
+            const url = await projectService.uploadImage(file);
+            setFormData({ ...formData, imageUrl: url });
+        } catch (err) {
+            console.error('Upload failed', err);
+            alert('Image upload failed');
+        }
+    };
+
     const handleDelete = async () => {
         if (!editingProject?.id) return;
         if (window.confirm(t('common.confirmDelete') || 'Are you sure?')) {
@@ -140,7 +160,18 @@ const ProjectsPage: React.FC = () => {
                         <div className="form-section">
                             <h4>Media & Links</h4>
                             <div className="form-grid">
-                                <input placeholder="Image URL (e.g. /projects/my-app.png)" value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
+                                <div className="image-upload-group">
+                                    <label className="btn-edit" style={{ display: 'inline-block', cursor: 'pointer', marginBottom: '1rem' }}>
+                                        {t('blog.uploadImage', 'Bild hochladen')}
+                                        <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
+                                    </label>
+                                    {formData.imageUrl && (
+                                        <div className="project-image-preview" style={{ marginBottom: '1rem', maxWidth: '200px' }}>
+                                            <img src={formData.imageUrl} alt="Preview" style={{ width: '100%', borderRadius: '4px' }} />
+                                            <button type="button" onClick={() => setFormData({...formData, imageUrl: ''})} style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>Entfernen</button>
+                                        </div>
+                                    )}
+                                </div>
                                 <input placeholder="GitHub URL" value={formData.githubUrl} onChange={e => setFormData({...formData, githubUrl: e.target.value})} />
                                 <input placeholder="Demo URL" value={formData.demoUrl} onChange={e => setFormData({...formData, demoUrl: e.target.value})} />
                             </div>
