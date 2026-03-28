@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import blogService from '../services/blogService';
 import type { BlogPost } from '../types/blogPost';
 import { useAuth } from '../hooks/useAuth';
@@ -53,9 +54,15 @@ const BlogPage: React.FC = () => {
                         <Link to={`/blog/${post.slug}`} className="entry-title-link">
                             <h2 className="entry-title">{post.title}</h2>
                         </Link>
-                        {post.summary && <p className="entry-summary">{post.summary}</p>}
+                        {post.summary && (
+                            <div className="entry-summary">
+                                <ReactMarkdown>{post.summary}</ReactMarkdown>
+                            </div>
+                        )}
                         <div className="entry-preview">
-                            {post.content.length > 160 ? post.content.substring(0, 160) + '...' : post.content}
+                            <ReactMarkdown>
+                                {post.content.length > 160 ? post.content.substring(0, 160) + '...' : post.content}
+                            </ReactMarkdown>
                         </div>
                         <Link to={`/blog/${post.slug}`} className="read-more">
                             {t('blog.readMore')} →
