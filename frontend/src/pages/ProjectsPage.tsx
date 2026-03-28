@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import projectService from '../services/projectService';
 import { useAuth } from '../hooks/useAuth';
-import type { Project, ProjectCreate } from '../types/project';
+import type { Project } from '../types/project';
 import './ProjectsPage.css';
 
 const ProjectsPage: React.FC = () => {
@@ -15,11 +15,13 @@ const ProjectsPage: React.FC = () => {
 
     // Admin state
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [editingProject, setEditingProject] = useState<ProjectCreate | null>(null);
-    const [formData, setFormData] = useState<ProjectCreate>({
-        titleDe: '', titleEn: '', titleEs: '',
-        descriptionDe: '', descriptionEn: '', descriptionEs: '',
-        imageUrl: '', githubUrl: '', demoUrl: '',
+    const [editingProject, setEditingProject] = useState<Project | null>(null);
+    const [formData, setFormData] = useState<Project>({
+        title: '',
+        description: '',
+        imageUrl: '',
+        githubUrl: '',
+        demoUrl: '',
         techTags: []
     });
     // Local state for tags input string
@@ -108,9 +110,11 @@ const ProjectsPage: React.FC = () => {
                         setEditingProject(null);
                         setTagsInput('');
                         setFormData({
-                            titleDe: '', titleEn: '', titleEs: '',
-                            descriptionDe: '', descriptionEn: '', descriptionEs: '',
-                            imageUrl: '', githubUrl: '', demoUrl: '',
+                            title: '',
+                            description: '',
+                            imageUrl: '',
+                            githubUrl: '',
+                            demoUrl: '',
                             techTags: []
                         });
                     }}>
@@ -124,19 +128,13 @@ const ProjectsPage: React.FC = () => {
                     <h3>{editingProject?.id ? 'Edit Project' : 'Add New Project'}</h3>
                     <form onSubmit={handleSubmit} className="admin-form">
                         <div className="form-section">
-                            <h4>Titles (DE / EN / ES)</h4>
                             <div className="form-grid">
-                                <input placeholder="Titel (DE)" value={formData.titleDe} onChange={e => setFormData({...formData, titleDe: e.target.value})} required />
-                                <input placeholder="Title (EN)" value={formData.titleEn} onChange={e => setFormData({...formData, titleEn: e.target.value})} required />
-                                <input placeholder="Título (ES)" value={formData.titleEs} onChange={e => setFormData({...formData, titleEs: e.target.value})} required />
+                                <input placeholder="Title" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
                             </div>
                         </div>
                         <div className="form-section">
-                            <h4>Descriptions (DE / EN / ES)</h4>
                             <div className="form-grid">
-                                <textarea placeholder="Beschreibung (DE)" value={formData.descriptionDe} onChange={e => setFormData({...formData, descriptionDe: e.target.value})} required />
-                                <textarea placeholder="Description (EN)" value={formData.descriptionEn} onChange={e => setFormData({...formData, descriptionEn: e.target.value})} required />
-                                <textarea placeholder="Descripción (ES)" value={formData.descriptionEs} onChange={e => setFormData({...formData, descriptionEs: e.target.value})} required />
+                                <textarea placeholder="Description" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} required />
                             </div>
                         </div>
                         <div className="form-section">
@@ -204,7 +202,7 @@ const ProjectsPage: React.FC = () => {
                                 </div>
                                 {isAuthenticated && (
                                     <div className="admin-controls">
-                                        <button onClick={() => handleEdit(project.id)} className="btn-edit">{t('common.edit')}</button>
+                                        <button onClick={() => project.id && handleEdit(project.id)} className="btn-edit">{t('common.edit')}</button>
                                     </div>
                                 )}
                             </div>
