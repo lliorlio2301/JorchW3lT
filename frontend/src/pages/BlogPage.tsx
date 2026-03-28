@@ -37,7 +37,7 @@ const BlogPage: React.FC = () => {
             <header className="blog-header">
                 <h1>{t('blog.title')}</h1>
                 {isAuthenticated && (
-                    <Link to="/blog/admin" className="admin-link chaos-card">
+                    <Link to="/blog/admin" className="admin-link">
                         {t('blog.adminTitle')}
                     </Link>
                 )}
