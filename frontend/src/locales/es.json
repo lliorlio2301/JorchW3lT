@@ -57,10 +57,10 @@
       "noData": "Tu lista está vacía."
     },
     "welcome": {
-      "title": "Bienvenido a Jorch's W3lT",
+      "title": "Jorch W3lTeando",
       "blogDesc": "Pensamientos e ideas técnicas",
       "projectsDesc": "Mis trabajos y experimentos",
-      "songsDesc": "Mi cancionero digital de guitarra",
+      "songsDesc": "Guitarreada :P",
       "resumeDesc": "Mi trayectoria profesional"
     },
     "projects": {
@@ -80,7 +80,7 @@
       "noData": "No se encontraron datos del currículum."
     },
     "songs": {
-      "title": "Cancionero de Guitarra",
+      "title": "Canción",
       "artist": "Artista",
       "loading": "Cargando canciones...",
       "error": "Error al cargar las canciones.",

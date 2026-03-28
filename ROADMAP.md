@@ -48,4 +48,4 @@
 
 ## Phase 8: Future Ideas
 - [x] **Content:** Blog-Live-Vorschau im Admin-Bereich.
-- [ ] **Backup:** Automatisierte SQL-Dumps auf externen Speicher.
+- [x] **Backup:** Automatisierte SQL-Dumps auf externen Speicher.
