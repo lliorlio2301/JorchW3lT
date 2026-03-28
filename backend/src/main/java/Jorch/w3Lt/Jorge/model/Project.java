@@ -18,16 +18,10 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String titleDe;
-    private String titleEn;
-    private String titleEs;
+    private String title;
 
     @Column(columnDefinition = "TEXT")
-    private String descriptionDe;
-    @Column(columnDefinition = "TEXT")
-    private String descriptionEn;
-    @Column(columnDefinition = "TEXT")
-    private String descriptionEs;
+    private String description;
 
     private String imageUrl;
     private String githubUrl;
