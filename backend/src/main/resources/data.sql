@@ -30,24 +30,16 @@ INSERT INTO education (id, institution, start_date, end_date, degree_de, degree_
 'Focus on Software Engineering and Databases.',
 'Enfoque en Ingeniería de Software y Bases de Datos.', 1);
 
--- Insert Songs (Category names could also be localized if needed later)
+-- Insert Songs
 INSERT INTO song (id, title, artist, youtube_url, category) VALUES 
 (1, 'Wonderwall', 'Oasis', 'https://www.youtube.com/watch?v=6hzrDeceEKc', 'Acoustic'),
 (2, 'Wish You Were Here', 'Pink Floyd', 'https://www.youtube.com/watch?v=IXdNnw99-Ic', 'Acoustic'),
 (3, 'Enter Sandman', 'Metallica', 'https://www.youtube.com/watch?v=CD-E-LDc384', 'Electric');
 
--- Insert Projects
-INSERT INTO project (id, title_de, title_en, title_es, description_de, description_en, description_es, image_url, github_url, demo_url) VALUES
-(1, 'Portfolio Webseite', 'Portfolio Website', 'Sitio Web de Portafolio',
-'Diese Webseite, gebaut mit Spring Boot und React.',
-'This very website, built with Spring Boot and React.',
-'Este sitio web, construido con Spring Boot und React.',
-'/projects/portafolio.png', 'https://github.com/lliorlio2301/JorchW3lT', 'https://jorch.w3lt'),
-(2, 'Einkaufsliste App', 'Shopping List App', 'Aplicación de Lista de Compras',
-'Eine einfache App zur Verwaltung von Einkaufslisten.',
-'A simple app to manage shopping lists.',
-'Una aplicación sencilla für die Verwaltung von Einkaufslisten.',
-'/projects/einkaufsliste.png', 'https://github.com/lliorlio2301/shopping-list', NULL);
+-- Insert Projects (Simplified Model)
+INSERT INTO project (id, title, description, image_url, github_url, demo_url) VALUES
+(1, 'Portfolio Webseite', 'Diese Webseite, gebaut mit Spring Boot und React.', '/projects/portafolio.png', 'https://github.com/lliorlio2301/JorchW3lT', 'https://jorch.w3lt'),
+(2, 'Einkaufsliste App', 'Eine einfache App zur Verwaltung von Einkaufslisten.', '/projects/einkaufsliste.png', 'https://github.com/lliorlio2301/shopping-list', NULL);
 
 -- Insert Project Tags
 INSERT INTO project_tags (project_id, tag) VALUES

@@ -25,61 +25,55 @@ Das Projekt nutzt eine moderne Test-Infrastruktur, die sowohl das Backend als au
 ### A. Smoke Tests (Startfähigkeit)
 *   **`JorgeApplicationTests.java`**
     *   **Ziel:** Überprüft, ob der Spring Boot Context ohne Fehler lädt.
-    *   **Umfang:** Bean-Verdrahtung, Konfigurations-Validierung.
 
 ### B. Unit Tests (Mapper & Logik)
 *   **`ResumeMapperTest.java` & `NoteMapperTest.java`**
     *   **Ziel:** Validierung der Datenumwandlung (MapStruct) und Parent-Child-Beziehungen.
-    *   **Umfang:** Mehrsprachigkeit (i18n), Checklist-Logik und Referenz-Mapping.
 
 ### C. Integration Tests (End-to-End Backend)
 *   **`ResumeIntegrationTest.java` & `NoteIntegrationTest.java`**
     *   **Ziel:** Vollständiger Pfad (Controller -> Service -> Repository -> DB).
-    *   **Umfang:** Security-Absicherung (JWT/403 Check), JPA-Persistierung und Schema-Validierung.
+*   **`ProjectServiceIntegrationTest.java`**
+    *   **Ziel:** Validierung des vereinfachten Projektmodells und der CRUD-Operationen.
+*   **`UserServiceIntegrationTest.java`**
+    *   **Ziel:** Test der sicheren Account-Verwaltung (Username/Passwort-Update mit Encoding).
 
 ---
 
-## 3. Frontend Test-Abdeckung (In Planung/Implementierung)
+## 3. Frontend Test-Abdeckung
 
 ### A. Component Tests
 *   **`LoginPage.test.tsx`**
-    *   **Ziel:** Validierung des Login-Formulars und der Barrierefreiheit (Label-Input-Verknüpfung).
-*   **Admin-UI Komponenten:**
-    *   **Ziel:** Sicherstellung, dass sensitive UI-Elemente (Edit/Delete) nur für Admins sichtbar sind.
+    *   **Ziel:** Validierung des Login-Formulars.
+*   **`AccountPage.test.tsx`**
+    *   **Ziel:** Test der Account-Verwaltung mit Test-ID-basierten Selektoren und i18n-Mocking.
 
 ### B. Service- & Sync-Tests
 *   **Offline-Logik (Dexie.js):**
-    *   **Ziel:** Testen der IndexedDB-Operationen für Notizen und Einkaufsliste.
+    *   **Ziel:** Testen der IndexedDB-Operationen.
 *   **Axios Interceptor:**
-    *   **Ziel:** Verifizierung, dass der Bearer-Token korrekt an API-Requests angehängt wird.
-
-### C. Internationalisierung (i18n)
-*   **Sprachumschaltung:**
-    *   **Ziel:** Prüfung, ob Komponenten nach einem Sprachwechsel die korrekten Übersetzungen laden.
+    *   **Ziel:** Verifizierung der JWT-Token Übertragung.
 
 ---
 
-## 4. End-to-End (E2E) & User Journeys
+## 4. End-to-End (E2E) & User Journeys (Playwright)
 
 ### A. Critical Path: Admin Login & Content Management
-*   **Szenario:** User loggt sich ein -> Erstellt einen Blog-Post -> Lädt ein Bild hoch -> Verifiziert die Anzeige in der Liste.
+*   **Datei:** `admin-journey.spec.ts`
+*   **Szenario:** Login -> Notiz-Erstellung -> Verifizierung der UI.
 
-### B. Resilience: Offline-Verhalten
-*   **Szenario:** User öffnet die App -> Verbindung bricht ab -> Notiz wird lokal gespeichert -> Verbindung kehrt zurück -> Daten werden mit dem Server synchronisiert.
+### B. Account Security
+*   **Datei:** `account-journey.spec.ts`
+*   **Szenario:** Login -> Benutzernamen ändern -> Passwort ändern -> Verifizierung der Erfolgsmeldungen.
 
 ---
 
 ## 5. CI/CD Integration (GitHub Actions)
 
-Die Qualitätssicherung ist fest in die CI/CD-Pipeline integriert, um Regressionen zu vermeiden.
+Die Qualitätssicherung ist fest in die CI/CD-Pipeline integriert.
 
 ### A. Automatisierte CI-Tests (`ci-tests.yml`)
-Bei jedem **Push** oder **Pull Request** auf den `master`-Branch wird automatisch der QA-Workflow gestartet:
-1.  **Backend:** JUnit 5 Tests mit Testcontainers (PostgreSQL).
-2.  **Frontend:** Vitest Unit- und Komponenten-Tests.
-3.  **End-to-End:** Playwright E2E-Tests gegen eine Mock-API.
-
-Dieser Workflow muss erfolgreich abgeschlossen werden ("Green Build"), bevor ein manuelles Deployment gestartet werden sollte.
+Bei jedem **Push** oder **Pull Request** auf den `master`-Branch wird automatisch der QA-Workflow gestartet. Dieser Workflow muss erfolgreich abgeschlossen werden ("Green Build"), bevor ein manuelles Deployment gestartet werden kann.
 
 ---
 
@@ -87,7 +81,7 @@ Dieser Workflow muss erfolgreich abgeschlossen werden ("Green Build"), bevor ein
 
 ### Backend
 ```bash
-./mvnw test
+cd backend && ./mvnw test
 ```
 
 ### Frontend

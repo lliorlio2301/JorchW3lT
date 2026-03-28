@@ -72,7 +72,7 @@ const AccountPage: React.FC = () => {
                             onChange={e => setNewUsername(e.target.value)}
                             required
                         />
-                        <button type="submit" className="btn-save">{t('common.save')}</button>
+                        <button type="submit" className="btn-save" data-testid="save-username-btn">{t('common.save')}</button>
                     </form>
                 </div>
 
@@ -94,7 +94,7 @@ const AccountPage: React.FC = () => {
                             onChange={e => setConfirmPassword(e.target.value)}
                             required
                         />
-                        <button type="submit" className="btn-save">{t('common.save')}</button>
+                        <button type="submit" className="btn-save" data-testid="save-password-btn">{t('common.save')}</button>
                     </form>
                 </div>
             </div>

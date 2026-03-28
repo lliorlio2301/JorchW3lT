@@ -41,10 +41,10 @@
 - [x] **Branding:** Ersetzen des Vite-Icons durch das "Bär"-Asset als offizielles Favicon.
 - [x] **DevOps:** Automatische SSL-Zertifikate via Let's Encrypt (Certbot).
 
-## Phase 7: Account & Assets (Next)
-- [ ] **Account Management:** Endpunkte und UI zum Ändern von Benutzername und Passwort.
-- [ ] **Project Management:** Implementierung von echtem Image-Upload (analog zum Blog) statt Pfadangabe.
-- [ ] **Model-Anpassung:** Entfernung von drei Sprachen in Projekten. Normale Felder einbauen.
+## Phase 7: Account & Assets (Completed)
+- [x] **Account Management:** Endpunkte und UI zum Ändern von Benutzername und Passwort.
+- [x] **Project Management:** Implementierung von echtem Image-Upload (analog zum Blog) statt Pfadangabe.
+- [x] **Model-Anpassung:** Entfernung von drei Sprachen in Projekten. Normale Felder einbauen.
 
 ## Phase 8: Future Ideas
 - [ ] **Content:** Blog-Live-Vorschau im Admin-Bereich.
