@@ -57,6 +57,7 @@ const BlogAdminPage: React.FC = () => {
             fetchPosts();
         } catch (err) {
             console.error('Failed to save post', err);
+            alert(t('blog.saveError', 'Fehler beim Speichern des Beitrags. Bitte versuche es erneut.'));
         }
     };
 
