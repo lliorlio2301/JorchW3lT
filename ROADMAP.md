@@ -47,5 +47,5 @@
 - [x] **Model-Anpassung:** Entfernung von drei Sprachen in Projekten. Normale Felder einbauen.
 
 ## Phase 8: Future Ideas
-- [ ] **Content:** Blog-Live-Vorschau im Admin-Bereich.
+- [x] **Content:** Blog-Live-Vorschau im Admin-Bereich.
 - [ ] **Backup:** Automatisierte SQL-Dumps auf externen Speicher.

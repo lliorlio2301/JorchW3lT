@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import blogService from '../services/blogService';
 import type { BlogPost } from '../types/blogPost';
 import { useAuth } from '../hooks/useAuth';
@@ -13,7 +14,7 @@ const BlogAdminPage: React.FC = () => {
     
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
-    const [, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -90,9 +91,10 @@ const BlogAdminPage: React.FC = () => {
     };
 
     if (!isAuthenticated) return null;
+    if (loading && posts.length === 0) return <div className="blog-status">{t('blog.loading')}</div>;
 
     return (
-        <div className="blog-admin-container">
+        <div className={`blog-admin-container ${editingPost ? 'is-editing' : ''}`}>
             <h1>{t('blog.adminTitle')}</h1>
             
             {!editingPost ? (
@@ -116,62 +118,76 @@ const BlogAdminPage: React.FC = () => {
                     </div>
                 </>
             ) : (
-                <form className="blog-editor-form chaos-card" onSubmit={handleSave}>
-                    <h2>{editingPost.id ? t('blog.editPost') : t('blog.createPost')}</h2>
-                    
-                    <div className="form-group">
-                        <input 
-                            value={editingPost.title}
-                            onChange={e => setEditingPost({...editingPost, title: e.target.value})}
-                            placeholder={t('blog.placeholderTitle')}
-                            required
-                        />
-                    </div>
+                <div className="blog-editor-view">
+                    <form className="blog-editor-form chaos-card" onSubmit={handleSave}>
+                        <h2>{editingPost.id ? t('blog.editPost') : t('blog.createPost')}</h2>
+                        
+                        <div className="form-group">
+                            <input 
+                                value={editingPost.title}
+                                onChange={e => setEditingPost({...editingPost, title: e.target.value})}
+                                placeholder={t('blog.placeholderTitle')}
+                                required
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <input 
-                            value={editingPost.slug}
-                            onChange={e => setEditingPost({...editingPost, slug: e.target.value})}
-                            placeholder={t('blog.placeholderSlug', 'slug-url-path (optional - wird automatisch generiert)')}
-                        />
-                        <small className="form-help">Wird automatisch aus dem Titel generiert, wenn leer gelassen.</small>
-                    </div>
+                        <div className="form-group">
+                            <input 
+                                value={editingPost.slug}
+                                onChange={e => setEditingPost({...editingPost, slug: e.target.value})}
+                                placeholder="slug-url-path"
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <textarea 
-                            value={editingPost.summary}
-                            onChange={e => setEditingPost({...editingPost, summary: e.target.value})}
-                            placeholder={t('blog.placeholderSummary')}
-                        />
-                    </div>
+                        <div className="form-group">
+                            <textarea 
+                                value={editingPost.summary}
+                                onChange={e => setEditingPost({...editingPost, summary: e.target.value})}
+                                placeholder={t('blog.placeholderSummary')}
+                                rows={2}
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <label className="image-upload-label">
-                            {t('blog.uploadImage')}
-                            <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
-                        </label>
-                        {editingPost.coverImageUrl && (
-                            <div className="preview-img">
-                                <img src={editingPost.coverImageUrl} alt="Preview" />
+                        <div className="form-group">
+                            <label className="image-upload-label">
+                                {t('blog.uploadImage')}
+                                <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
+                            </label>
+                            {editingPost.coverImageUrl && (
+                                <div className="preview-img">
+                                    <img src={editingPost.coverImageUrl} alt="Preview" />
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="form-group">
+                            <textarea 
+                                className="content-editor"
+                                value={editingPost.content}
+                                onChange={e => setEditingPost({...editingPost, content: e.target.value})}
+                                placeholder={t('blog.placeholderContent')}
+                                required
+                            />
+                        </div>
+
+                        <div className="editor-buttons">
+                            <button type="submit">{t('common.save')}</button>
+                            <button type="button" onClick={() => setEditingPost(null)} style={{background: 'var(--color-muted)'}}>{t('common.cancel')}</button>
+                        </div>
+                    </form>
+
+                    <div className="blog-preview-panel chaos-card">
+                        <div className="preview-label">Live Preview</div>
+                        <div className="article-content preview-content">
+                            <header className="article-header">
+                                <h1 className="preview-title">{editingPost.title || 'Post Title'}</h1>
+                            </header>
+                            <div className="markdown-body">
+                                <ReactMarkdown>{editingPost.content || '*No content yet...*'}</ReactMarkdown>
                             </div>
-                        )}
+                        </div>
                     </div>
-
-                    <div className="form-group">
-                        <textarea 
-                            className="content-editor"
-                            value={editingPost.content}
-                            onChange={e => setEditingPost({...editingPost, content: e.target.value})}
-                            placeholder={t('blog.placeholderContent')}
-                            required
-                        />
-                    </div>
-
-                    <div className="editor-buttons">
-                        <button type="submit">{t('common.save')}</button>
-                        <button type="button" onClick={() => setEditingPost(null)} style={{background: 'var(--color-muted)'}}>{t('common.cancel')}</button>
-                    </div>
-                </form>
+                </div>
             )}
         </div>
     );
