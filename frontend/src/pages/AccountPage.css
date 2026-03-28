@@ -1,0 +1,63 @@
+.account-container {
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.account-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.account-card {
+    padding: 3rem;
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.account-form input {
+    padding: 1rem;
+    border: 1px solid var(--color-contrast);
+    background: rgba(255, 255, 255, 0.05);
+    color: inherit;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.current-user-info {
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.message-banner {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.message-banner.success {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+}
+
+.message-banner.error {
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+@media (max-width: 600px) {
+    .account-grid {
+        grid-template-columns: 1fr;
+    }
+}

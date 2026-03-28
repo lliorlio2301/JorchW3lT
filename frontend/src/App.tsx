@@ -9,6 +9,7 @@ import NotesPage from './pages/NotesPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import BlogAdminPage from './pages/BlogAdminPage';
+import AccountPage from './pages/AccountPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import { AuthProvider } from './context/AuthProvider';
@@ -66,6 +67,7 @@ function NavContent() {
             <>
               <Link to="/shopping">{t('nav.shopping')}</Link>
               <Link to="/notes">{t('nav.notes')}</Link>
+              <Link to="/account">Account</Link>
             </>
           )}
         </div>
@@ -95,6 +97,7 @@ function NavContent() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/blog/admin" element={<BlogAdminPage />} />
+          <Route path="/account" element={<AccountPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </main>
