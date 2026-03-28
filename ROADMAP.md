@@ -44,6 +44,7 @@
 ## Phase 7: Account & Assets (Next)
 - [ ] **Account Management:** Endpunkte und UI zum Ändern von Benutzername und Passwort.
 - [ ] **Project Management:** Implementierung von echtem Image-Upload (analog zum Blog) statt Pfadangabe.
+- [ ] **Model-Anpassung:** Entfernung von drei Sprachen in Projekten. Normale Felder einbauen.
 
 ## Phase 8: Future Ideas
 - [ ] **Content:** Blog-Live-Vorschau im Admin-Bereich.
