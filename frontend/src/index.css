@@ -123,6 +123,18 @@ button:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+/* Global Tag Style - Unified for Projects, Blogs, etc. */
+.tag {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  background: var(--color-contrast);
+  border-radius: 4px;
+  color: var(--color-text);
+  display: inline-block;
+}
+
 /* MOBILE OPTIMIZATIONS */
 @media (max-width: 800px) {
   h1 { font-size: 3rem; }

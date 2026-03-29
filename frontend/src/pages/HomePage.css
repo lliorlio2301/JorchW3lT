@@ -201,16 +201,6 @@
     gap: 0.5rem;
 }
 
-.tag {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.2rem 0.6rem;
-    background: var(--color-contrast);
-    border-radius: 4px;
-    color: var(--color-text);
-    font-family: var(--font-ui);
-}
-
 /* PROJECTS GRID */
 .projects-grid {
     display: grid;
@@ -221,7 +211,27 @@
 
 /* BLOG PILE */
 .blog-section {
-    align-items: center;
+    align-items: flex-start;
+}
+
+/* Geschützte Räume für Header und Footer */
+.blog-protected-header,
+.blog-protected-footer {
+    position: relative;
+    z-index: 110; 
+    width: 100%;
+    background-color: var(--color-bg); 
+    padding: 2rem 0; 
+    display: flex;
+}
+
+.blog-protected-header {
+    justify-content: flex-start; 
+}
+
+.blog-protected-footer {
+    justify-content: flex-start;
+    margin-top: 2rem;
 }
 
 .blog-pile-container {
@@ -229,7 +239,7 @@
     min-height: 550px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     padding: 2rem 0;
     overflow: visible;
@@ -238,20 +248,21 @@
 .blog-pile {
     position: relative;
     width: 100%;
-    max-width: 1100px;
-    height: 450px;
+    height: 300px;
 }
 
 .chaotic-pile-item {
     position: absolute;
     width: 100%;
-    max-width: 480px;
+    max-width: 400px; /* Etwas schmaler für bessere Stapelung */
     text-decoration: none;
     color: inherit;
     left: 50%;
-    top: 50%;
-    transform: translate(calc(-50% + var(--rand-x)), calc(-50% + var(--rand-y))) rotate(var(--rand-deg));
-    z-index: var(--z-index);
+    top: 80px;
+    /* Nutze die neuen rand-Werte für maximale Streuung */
+    transform: translateX(calc(-50% + var(--rand-x, 0%))) translateY(var(--rand-y, 0px)) rotate(var(--rand-deg, 0deg)) !important;
+    
+    z-index: var(--z-index, 1);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0s;
 }
 
