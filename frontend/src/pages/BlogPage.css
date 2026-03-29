@@ -70,16 +70,6 @@
     gap: 0.8rem;
 }
 
-.entry-tags .tag {
-    font-family: var(--font-ui);
-    font-size: 0.85rem;
-    color: var(--color-primary);
-    background: rgba(255, 92, 184, 0.08);
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
 .entry-title-link {
     text-decoration: none;
     color: inherit;

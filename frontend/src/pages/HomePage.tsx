@@ -5,10 +5,12 @@ import blogService from '../services/blogService';
 import songService from '../services/songService';
 import projectService from '../services/projectService';
 import galleryService from '../services/galleryService';
+import shortStoryService from '../services/shortStoryService';
 import type { BlogPost } from '../types/blogPost';
 import type { Song } from '../types/song';
 import type { Project } from '../types/project';
 import type { GalleryImage } from '../types/galleryImage';
+import type { ShortStory } from '../types/shortStory';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {
@@ -16,20 +18,23 @@ const HomePage: React.FC = () => {
     const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
     const [recentSongs, setRecentSongs] = useState<Song[]>([]);
     const [recentProjects, setRecentProjects] = useState<Project[]>([]);
+    const [recentStories, setRecentStories] = useState<ShortStory[]>([]);
     const [highlight, setHighlight] = useState<GalleryImage | null>(null);
 
     useEffect(() => {
         const loadData = async () => {
             try {
-                const [posts, songs, projects, highlightImg] = await Promise.all([
+                const [posts, songs, projects, highlightImg, stories] = await Promise.all([
                     blogService.getAllPosts(),
                     songService.getAllSongs(),
                     projectService.getAllProjects(),
-                    galleryService.getMonthlyHighlight()
+                    galleryService.getMonthlyHighlight(),
+                    shortStoryService.getAllStories()
                 ]);
-                setRecentPosts(posts.slice(0, 4));
+                setRecentPosts(posts.slice(0, 5));
                 setRecentSongs(songs.slice(0, 8));
                 setRecentProjects(projects.slice(0, 3));
+                setRecentStories(stories.slice(0, 3));
                 setHighlight(highlightImg);
             } catch (err) {
                 console.error('Failed to load dashboard data', err);
@@ -37,6 +42,16 @@ const HomePage: React.FC = () => {
         };
         loadData();
     }, []);
+
+    // Generate stable random styles for the chaotic pile
+    const chaoticStyles = React.useMemo(() => {
+        return recentPosts.map((_, index) => ({
+            '--rand-deg': `${(Math.random() - 0.5) * 12}deg`,
+            '--rand-x': `${(Math.random() - 0.5) * 40}%`,
+            '--rand-y': `${(Math.random() - 0.5) * 60}px`,
+            '--z-index': recentPosts.length - index
+        } as React.CSSProperties));
+    }, [recentPosts]);
 
     return (
         <div className="home-container">
@@ -92,24 +107,50 @@ const HomePage: React.FC = () => {
             {/* BLOG SECTION */}
             <section className="home-section blog-section">
                 <h2 className="section-label">{t('nav.blog')}</h2>
-                <div className="blog-pile">
-                    {recentPosts.map((post, index) => (
-                        <Link to={`/blog/${post.slug}`} key={post.id} className="project-card module-panel blog-post-card" 
-                              style={{ 
-                                  '--offset-x': `${index * 20}px`,
-                                  '--offset-y': `${index * 15}px`,
-                                  '--z-index': 10 - index
-                              } as React.CSSProperties}>
+                <div className="blog-pile-container">
+                    <div className="blog-pile">
+                        {recentPosts.map((post, index) => (
+                            <Link 
+                                to={`/blog/${post.slug}`} 
+                                key={post.id} 
+                                className="project-card module-panel blog-post-card chaotic-pile-item" 
+                                style={chaoticStyles[index]}
+                            >
+                                <div className="project-info">
+                                    <h3>{post.title}</h3>
+                                    <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>
+                                    <p className="post-excerpt">{post.content.substring(0, 150)}...</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+                <div className="section-footer">
+                    <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
+                </div>
+            </section>
+
+            {/* STORIES SECTION */}
+            <section className="home-section stories-section">
+                <h2 className="section-label">{t('nav.stories')}</h2>
+                <div className="projects-grid">
+                    {recentStories.map((story) => (
+                        <Link to={`/stories/${story.id}`} key={story.id} className="project-card module-panel" style={{textDecoration: 'none'}}>
+                            {story.coverImageUrl && (
+                                <div className="project-image">
+                                    <img src={story.coverImageUrl} alt={story.title} />
+                                </div>
+                            )}
                             <div className="project-info">
-                                <h3>{post.title}</h3>
-                                <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>
-                                <p className="post-excerpt">{post.content.substring(0, 100)}...</p>
+                                <h3>{story.title}</h3>
+                                <p>{story.summary}</p>
+                                <span className="post-date">{new Date(story.createdAt!).toLocaleDateString()}</span>
                             </div>
                         </Link>
                     ))}
                 </div>
                 <div className="section-footer">
-                    <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
+                    <Link to="/stories" className="retro-btn">{t('common.viewAll')}</Link>
                 </div>
             </section>
 

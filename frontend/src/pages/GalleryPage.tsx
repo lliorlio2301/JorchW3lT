@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import galleryService from '../services/galleryService';
+import { useAuth } from '../hooks/useAuth';
 import type { GalleryImage } from '../types/galleryImage';
 import './GalleryPage.css';
 
 const GalleryPage: React.FC = () => {
     const { t } = useTranslation();
+    const { isAuthenticated } = useAuth();
     const [images, setImages] = useState<GalleryImage[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +32,14 @@ const GalleryPage: React.FC = () => {
     return (
         <div className="gallery-container">
             <header className="gallery-header">
-                <h1>{t('nav.gallery', 'Gallery')}</h1>
+                <div className="header-with-action">
+                    <h1>{t('nav.gallery', 'Gallery')}</h1>
+                    {isAuthenticated && (
+                        <Link to="/gallery/admin" className="admin-link">
+                            {t('common.edit', 'Manage')}
+                        </Link>
+                    )}
+                </div>
                 <p>{t('gallery.subtitle', 'A collection of monthly highlights and visual snippets.')}</p>
             </header>
 

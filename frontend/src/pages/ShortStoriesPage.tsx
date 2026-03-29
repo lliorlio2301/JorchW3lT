@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import shortStoryService from '../services/shortStoryService';
+import { useAuth } from '../hooks/useAuth';
 import type { ShortStory } from '../types/shortStory';
 import './ShortStoriesPage.css';
 
 const ShortStoriesPage: React.FC = () => {
     const { t } = useTranslation();
+    const { isAuthenticated } = useAuth();
     const [stories, setStories] = useState<ShortStory[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +31,14 @@ const ShortStoriesPage: React.FC = () => {
     return (
         <div className="stories-container">
             <header className="stories-header">
-                <h1>{t('nav.stories', 'Short Stories')}</h1>
+                <div className="header-with-action">
+                    <h1>{t('nav.stories', 'Short Stories')}</h1>
+                    {isAuthenticated && (
+                        <Link to="/stories/admin" className="admin-link">
+                            {t('blog.adminTitle', 'Manage')}
+                        </Link>
+                    )}
+                </div>
                 <p>{t('stories.subtitle', 'A journey through fictional realms and personal narratives.')}</p>
             </header>
 

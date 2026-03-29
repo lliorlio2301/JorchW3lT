@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import galleryService from '../services/galleryService';
 import blogService from '../services/blogService';
 import { useAuth } from '../hooks/useAuth';
@@ -79,7 +79,12 @@ const AdminGalleryPage: React.FC = () => {
 
     return (
         <div className="blog-admin-container">
-            <h1>Gallery Admin</h1>
+            <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+                <h1>Gallery Admin</h1>
+                <Link to="/gallery" className="retro-btn" style={{ fontSize: '1.2rem', padding: '0.4rem 1.5rem' }}>
+                    &larr; Back to Gallery
+                </Link>
+            </header>
             
             {!editingImage ? (
                 <>
@@ -93,7 +98,11 @@ const AdminGalleryPage: React.FC = () => {
                                     <img src={img.imageUrl} alt="" style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px'}} />
                                     <div>
                                         <h3>{img.title || 'Untitled'}</h3>
-                                        {img.monthlyHighlight && <span className="tag" style={{background: 'var(--color-primary)', color: 'white'}}>Monthly Highlight</span>}
+                                        {img.monthlyHighlight && (
+                                            <span className="tag" style={{background: 'var(--color-primary)', color: 'white', fontSize: '0.7rem', padding: '0.1rem 0.4rem'}}>
+                                                Featured on Home
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="admin-actions">
@@ -130,14 +139,17 @@ const AdminGalleryPage: React.FC = () => {
                         )}
                     </div>
 
-                    <div className="form-group" style={{flexDirection: 'row', alignItems: 'center', gap: '1rem'}}>
+                    <div className="form-group" style={{flexDirection: 'row', alignItems: 'center', gap: '1rem', border: '1px dashed var(--color-primary)', padding: '1rem', borderRadius: '8px'}}>
                         <input 
                             type="checkbox" 
                             checked={editingImage.monthlyHighlight} 
                             onChange={e => setEditingImage({...editingImage, monthlyHighlight: e.target.checked})} 
-                            style={{width: 'auto'}}
+                            style={{width: '20px', height: '20px'}}
                         />
-                        <label>Set as Monthly Highlight</label>
+                        <div>
+                            <label style={{fontWeight: 'bold', color: 'var(--color-primary)'}}>Show as "Image of the Month" on Homepage</label>
+                            <p style={{margin: 0, fontSize: '0.8rem', opacity: 0.8}}>If checked, this image will be prominently displayed after the hero title. Uncheck to hide it.</p>
+                        </div>
                     </div>
 
                     <div className="form-group" style={{flexDirection: 'row', alignItems: 'center', gap: '1rem'}}>
@@ -147,7 +159,7 @@ const AdminGalleryPage: React.FC = () => {
                             onChange={e => setEditingImage({...editingImage, hasBackground: e.target.checked})} 
                             style={{width: 'auto'}}
                         />
-                        <label>Has Background (Solid Frame)</label>
+                        <label>Has Background (Adds a solid frame/border)</label>
                     </div>
 
                     <div className="editor-buttons">

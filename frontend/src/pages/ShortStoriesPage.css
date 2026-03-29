@@ -9,10 +9,35 @@
     margin-bottom: 5rem;
 }
 
+.header-with-action {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 3rem;
+    margin-bottom: 1rem;
+}
+
+.admin-link {
+    text-decoration: none;
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    padding: 0.4rem 1.5rem;
+    border: 1px solid var(--color-contrast);
+    border-radius: 8px;
+    background: var(--color-surface);
+    transition: all 0.2s;
+}
+
+.admin-link:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
 .stories-header h1 {
     font-size: 6rem;
     color: var(--color-primary);
-    margin-bottom: 1rem;
+    margin: 0;
 }
 
 .stories-header p {
