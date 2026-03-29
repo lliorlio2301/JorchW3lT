@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
                     galleryService.getMonthlyHighlight(),
                     shortStoryService.getAllStories()
                 ]);
-                setRecentPosts(posts.slice(0, 4));
+                setRecentPosts(posts.slice(0, 5));
                 setRecentSongs(songs.slice(0, 8));
                 setRecentProjects(projects.slice(0, 3));
                 setRecentStories(stories.slice(0, 3));
@@ -42,6 +42,16 @@ const HomePage: React.FC = () => {
         };
         loadData();
     }, []);
+
+    // Generate stable random styles for the chaotic pile
+    const chaoticStyles = React.useMemo(() => {
+        return recentPosts.map((_, index) => ({
+            '--rand-deg': `${(Math.random() - 0.5) * 12}deg`,
+            '--rand-x': `${(Math.random() - 0.5) * 40}%`,
+            '--rand-y': `${(Math.random() - 0.5) * 60}px`,
+            '--z-index': recentPosts.length - index
+        } as React.CSSProperties));
+    }, [recentPosts]);
 
     return (
         <div className="home-container">
@@ -97,21 +107,23 @@ const HomePage: React.FC = () => {
             {/* BLOG SECTION */}
             <section className="home-section blog-section">
                 <h2 className="section-label">{t('nav.blog')}</h2>
-                <div className="blog-pile">
-                    {recentPosts.map((post, index) => (
-                        <Link to={`/blog/${post.slug}`} key={post.id} className="project-card module-panel blog-post-card" 
-                              style={{ 
-                                  '--offset-x': `${index * 20}px`,
-                                  '--offset-y': `${index * 15}px`,
-                                  '--z-index': 10 - index
-                              } as React.CSSProperties}>
-                            <div className="project-info">
-                                <h3>{post.title}</h3>
-                                <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>
-                                <p className="post-excerpt">{post.content.substring(0, 100)}...</p>
-                            </div>
-                        </Link>
-                    ))}
+                <div className="blog-pile-container">
+                    <div className="blog-pile">
+                        {recentPosts.map((post, index) => (
+                            <Link 
+                                to={`/blog/${post.slug}`} 
+                                key={post.id} 
+                                className="project-card module-panel blog-post-card chaotic-pile-item" 
+                                style={chaoticStyles[index]}
+                            >
+                                <div className="project-info">
+                                    <h3>{post.title}</h3>
+                                    <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>
+                                    <p className="post-excerpt">{post.content.substring(0, 150)}...</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
                 <div className="section-footer">
                     <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
