@@ -13,6 +13,7 @@
     margin-bottom: 3rem;
     font-size: 1.8rem;
     padding: 0.8rem 2rem;
+    width: fit-content;
     background-color: var(--color-surface) !important;
     color: var(--color-primary) !important;
 }
@@ -71,6 +72,55 @@
     line-height: 1.5;
     font-size: 1rem;
     resize: vertical;
+}
+
+/* Tag Management Styles */
+.tag-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag-input-group input {
+    flex: 1;
+}
+
+.add-tag-btn {
+    background: var(--color-secondary) !important;
+    padding: 0 1.5rem !important;
+}
+
+.admin-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.admin-tag-chip {
+    background: var(--color-contrast);
+    color: var(--color-text);
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.admin-tag-chip button {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 1.2rem !important;
+    color: var(--color-muted) !important;
+    line-height: 1 !important;
+    box-shadow: none !important;
+}
+
+.admin-tag-chip button:hover {
+    color: var(--color-primary) !important;
+    transform: none !important;
 }
 
 .image-upload-label {

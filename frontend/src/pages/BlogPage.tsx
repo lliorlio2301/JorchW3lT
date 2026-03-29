@@ -13,6 +13,7 @@ const BlogPage: React.FC = () => {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -29,6 +30,11 @@ const BlogPage: React.FC = () => {
         fetchPosts();
     }, [t]);
 
+    const allTags = Array.from(new Set(posts.flatMap(post => post.tags || [])));
+    const filteredPosts = selectedTag 
+        ? posts.filter(post => post.tags?.includes(selectedTag))
+        : posts;
+
     if (loading) return <div className="blog-status">{t('blog.loading')}</div>;
     if (error) return <div className="blog-status error">{error}</div>;
 
@@ -43,13 +49,38 @@ const BlogPage: React.FC = () => {
                 )}
             </header>
 
+            {allTags.length > 0 && (
+                <div className="tag-filters">
+                    <button 
+                        className={`tag-filter ${selectedTag === null ? 'active' : ''}`}
+                        onClick={() => setSelectedTag(null)}
+                    >
+                        {t('common.all', 'All')}
+                    </button>
+                    {allTags.map(tag => (
+                        <button 
+                            key={tag}
+                            className={`tag-filter ${selectedTag === tag ? 'active' : ''}`}
+                            onClick={() => setSelectedTag(tag)}
+                        >
+                            #{tag}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <div className="blog-list">
-                {posts.map((post) => (
+                {filteredPosts.map((post) => (
                     <article key={post.id} className="blog-entry">
                         <div className="entry-meta">
                             <span className="entry-date">
                                 {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''}
                             </span>
+                            <div className="entry-tags">
+                                {post.tags?.map(tag => (
+                                    <span key={tag} className="tag">#{tag}</span>
+                                ))}
+                            </div>
                         </div>
                         <Link to={`/blog/${post.slug}`} className="entry-title-link">
                             <h2 className="entry-title">{post.title}</h2>
