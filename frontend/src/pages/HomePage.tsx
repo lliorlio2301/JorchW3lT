@@ -5,10 +5,12 @@ import blogService from '../services/blogService';
 import songService from '../services/songService';
 import projectService from '../services/projectService';
 import galleryService from '../services/galleryService';
+import shortStoryService from '../services/shortStoryService';
 import type { BlogPost } from '../types/blogPost';
 import type { Song } from '../types/song';
 import type { Project } from '../types/project';
 import type { GalleryImage } from '../types/galleryImage';
+import type { ShortStory } from '../types/shortStory';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {
@@ -16,20 +18,23 @@ const HomePage: React.FC = () => {
     const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
     const [recentSongs, setRecentSongs] = useState<Song[]>([]);
     const [recentProjects, setRecentProjects] = useState<Project[]>([]);
+    const [recentStories, setRecentStories] = useState<ShortStory[]>([]);
     const [highlight, setHighlight] = useState<GalleryImage | null>(null);
 
     useEffect(() => {
         const loadData = async () => {
             try {
-                const [posts, songs, projects, highlightImg] = await Promise.all([
+                const [posts, songs, projects, highlightImg, stories] = await Promise.all([
                     blogService.getAllPosts(),
                     songService.getAllSongs(),
                     projectService.getAllProjects(),
-                    galleryService.getMonthlyHighlight()
+                    galleryService.getMonthlyHighlight(),
+                    shortStoryService.getAllStories()
                 ]);
                 setRecentPosts(posts.slice(0, 4));
                 setRecentSongs(songs.slice(0, 8));
                 setRecentProjects(projects.slice(0, 3));
+                setRecentStories(stories.slice(0, 3));
                 setHighlight(highlightImg);
             } catch (err) {
                 console.error('Failed to load dashboard data', err);
