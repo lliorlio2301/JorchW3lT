@@ -23,4 +23,10 @@ public class Song {
     private String artist;
     private String youtubeUrl;
     private String category; // e.g., Acoustic, Electric
+
+    @jakarta.persistence.Column(columnDefinition = "TEXT")
+    private String chords;
+    private String tuning;
+    private Integer capo;
+    private String musicKey;
 }

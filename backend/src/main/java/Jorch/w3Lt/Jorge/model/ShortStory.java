@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,17 +14,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "blog_posts")
-public class BlogPost {
+@Table(name = "short_stories")
+public class ShortStory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String title;
-
-    @Column(nullable = false, unique = true)
-    private String slug;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
@@ -35,14 +31,6 @@ public class BlogPost {
 
     private String coverImageUrl;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "blog_post_tags", joinColumns = @JoinColumn(name = "blog_post_id"))
-    @Column(name = "tag")
-    private java.util.List<String> tags;
-
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
 }
