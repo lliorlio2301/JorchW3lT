@@ -113,6 +113,30 @@ const HomePage: React.FC = () => {
                 </div>
             </section>
 
+            {/* STORIES SECTION */}
+            <section className="home-section stories-section">
+                <h2 className="section-label">{t('nav.stories')}</h2>
+                <div className="projects-grid">
+                    {recentStories.map((story) => (
+                        <Link to={`/stories/${story.id}`} key={story.id} className="project-card module-panel" style={{textDecoration: 'none'}}>
+                            {story.coverImageUrl && (
+                                <div className="project-image">
+                                    <img src={story.coverImageUrl} alt={story.title} />
+                                </div>
+                            )}
+                            <div className="project-info">
+                                <h3>{story.title}</h3>
+                                <p>{story.summary}</p>
+                                <span className="post-date">{new Date(story.createdAt!).toLocaleDateString()}</span>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+                <div className="section-footer">
+                    <Link to="/stories" className="retro-btn">{t('common.viewAll')}</Link>
+                </div>
+            </section>
+
             {/* PROJECTS SECTION */}
             <section className="home-section projects-section">
                 <h2 className="section-label">{t('nav.projects')}</h2>
