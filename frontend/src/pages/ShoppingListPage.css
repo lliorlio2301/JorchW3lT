@@ -36,7 +36,7 @@
     min-width: 120px; /* Sicherstellen, dass "Hinzufügen" Platz hat */
 }
 
-.shopping-list-items {
+.shopping-list {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -62,6 +62,7 @@
     align-items: center;
     gap: 1.2rem;
     cursor: pointer;
+    flex: 1;
 }
 
 .checkbox {
@@ -81,6 +82,7 @@
     font-family: var(--font-ui);
     font-size: 1.2rem;
     font-weight: 500;
+    word-break: break-word;
 }
 
 .shopping-item.completed .item-name {
@@ -92,6 +94,7 @@
     font-family: var(--font-ui);
     font-size: 0.9rem;
     color: var(--color-muted);
+    white-space: nowrap;
 }
 
 .delete-btn {
@@ -103,6 +106,7 @@
     padding: 0.4rem;
     line-height: 1;
     transition: color 0.2s;
+    flex-shrink: 0;
 }
 
 .delete-btn:hover {
@@ -111,23 +115,35 @@
 
 @media (max-width: 600px) {
     .shopping-container {
-        margin: 2rem 1rem;
-        padding: 1rem;
+        margin: 1.5rem auto;
+        padding: 1.2rem;
+        width: auto; /* Override index.css width: 100% to allow centering with margins */
     }
 
     .shopping-container h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
     }
 
     .add-item-form {
         flex-direction: column;
+        gap: 0.8rem;
     }
     
+    .add-item-form input {
+        min-width: unset;
+        width: 100%;
+    }
+
     .add-item-form button {
         width: 100%;
     }
 
     .item-name {
         font-size: 1.1rem;
+    }
+
+    .item-main {
+        gap: 0.8rem;
     }
 }

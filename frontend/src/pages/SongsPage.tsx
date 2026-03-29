@@ -11,6 +11,7 @@ const SongsPage: React.FC = () => {
     const [songs, setSongs] = useState<Song[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedSong, setSelectedSong] = useState<Song | null>(null);
 
     // Form state
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -19,7 +20,11 @@ const SongsPage: React.FC = () => {
         title: '',
         artist: '',
         youtubeUrl: '',
-        category: ''
+        category: '',
+        chords: '',
+        tuning: '',
+        capo: 0,
+        musicKey: ''
     });
 
     const fetchSongs = useCallback(async () => {
@@ -38,22 +43,17 @@ const SongsPage: React.FC = () => {
         fetchSongs();
     }, [fetchSongs]);
 
-    const getYoutubeEmbedUrl = (url: string) => {
-        if (!url) return null;
-        const videoId = url.split('v=')[1]?.split('&')[0] || url.split('be/')[1];
-        if (videoId) {
-            return `https://www.youtube.com/embed/${videoId}`;
-        }
-        return null;
-    };
-
     const handleEdit = (song: Song) => {
         setEditingSong(song);
         setFormData({
             title: song.title,
             artist: song.artist,
-            youtubeUrl: song.youtubeUrl,
-            category: song.category
+            youtubeUrl: song.youtubeUrl || '',
+            category: song.category || '',
+            chords: song.chords || '',
+            tuning: song.tuning || '',
+            capo: song.capo || 0,
+            musicKey: song.musicKey || ''
         });
         setIsFormOpen(true);
     };
@@ -63,6 +63,7 @@ const SongsPage: React.FC = () => {
             try {
                 await songService.deleteSong(id);
                 setSongs(songs.filter(s => s.id !== id));
+                if (selectedSong?.id === id) setSelectedSong(null);
             } catch {
                 alert('Failed to delete song');
             }
@@ -79,7 +80,7 @@ const SongsPage: React.FC = () => {
             }
             setIsFormOpen(false);
             setEditingSong(null);
-            setFormData({ title: '', artist: '', youtubeUrl: '', category: '' });
+            setFormData({ title: '', artist: '', youtubeUrl: '', category: '', chords: '', tuning: '', capo: 0, musicKey: '' });
             fetchSongs();
         } catch {
             alert('Failed to save song');
@@ -99,7 +100,7 @@ const SongsPage: React.FC = () => {
                         onClick={() => {
                             setIsFormOpen(!isFormOpen);
                             setEditingSong(null);
-                            setFormData({ title: '', artist: '', youtubeUrl: '', category: '' });
+                            setFormData({ title: '', artist: '', youtubeUrl: '', category: '', chords: '', tuning: '', capo: 0, musicKey: '' });
                         }}
                     >
                         {isFormOpen ? t('common.cancel') : t('songs.addSong') || '+ Add Song'}
@@ -139,6 +140,33 @@ const SongsPage: React.FC = () => {
                                 onChange={e => setFormData({...formData, category: e.target.value})}
                                 required
                             />
+                            <input 
+                                type="text" 
+                                placeholder="Tuning"
+                                value={formData.tuning}
+                                onChange={e => setFormData({...formData, tuning: e.target.value})}
+                            />
+                            <input 
+                                type="number" 
+                                placeholder="Capo"
+                                value={formData.capo}
+                                onChange={e => setFormData({...formData, capo: parseInt(e.target.value) || 0})}
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="Key"
+                                value={formData.musicKey}
+                                onChange={e => setFormData({...formData, musicKey: e.target.value})}
+                            />
+                        </div>
+                        <div className="form-group" style={{marginTop: '1rem'}}>
+                            <textarea 
+                                placeholder="Chords & Lyrics"
+                                value={formData.chords}
+                                onChange={e => setFormData({...formData, chords: e.target.value})}
+                                rows={10}
+                                style={{fontFamily: 'monospace'}}
+                            />
                         </div>
                         <div className="form-actions">
                             <button type="submit" className="btn-save">{t('common.save') || 'Save'}</button>
@@ -147,40 +175,66 @@ const SongsPage: React.FC = () => {
                 </div>
             )}
 
-            <div className="songs-grid">
-                {songs.map((song) => (
-                    <div key={song.id} className="song-card chaos-card">
-                        <div className="song-info">
-                            <h3>{song.title}</h3>
-                            <p className="artist">{song.artist}</p>
-                            <span className="category-tag">{song.category}</span>
-                        </div>
-                        {song.youtubeUrl && getYoutubeEmbedUrl(song.youtubeUrl) && (
-                            <div className="video-responsive">
-                                <iframe
-                                    width="100%"
-                                    height="200"
-                                    src={getYoutubeEmbedUrl(song.youtubeUrl)!}
-                                    title={song.title}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                ></iframe>
+            <div className="songs-layout">
+                <div className="songs-sidebar">
+                    <div className="songs-grid">
+                        {songs.map((song) => (
+                            <div 
+                                key={song.id} 
+                                className={`song-card chaos-card ${selectedSong?.id === song.id ? 'active' : ''}`}
+                                onClick={() => setSelectedSong(song)}
+                            >
+                                <div className="song-info">
+                                    <h3>{song.title}</h3>
+                                    <p className="artist">{song.artist}</p>
+                                    <span className="category-tag">{song.category}</span>
+                                </div>
+                                {isAuthenticated && (
+                                    <div className="admin-quick-actions">
+                                        <button onClick={(e) => { e.stopPropagation(); handleEdit(song); }}>{t('common.edit')}</button>
+                                        <button onClick={(e) => { e.stopPropagation(); song.id !== undefined && handleDelete(song.id); }} className="btn-delete">X</button>
+                                    </div>
+                                )}
                             </div>
-                        )}
-                        <div className="song-actions">
-                            <a href={song.youtubeUrl} target="_blank" rel="noopener noreferrer" className="btn-link">
-                                {t('songs.youtube')}
-                            </a>
-                            {isAuthenticated && (
-                                <div className="admin-actions">
-                                    <button onClick={() => handleEdit(song)} className="btn-edit">{t('common.edit')}</button>
-                                    <button onClick={() => song.id !== undefined && handleDelete(song.id)} className="btn-delete">{t('common.delete')}</button>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="song-viewer">
+                    {selectedSong ? (
+                        <div className="song-details-card chaos-card">
+                            <header className="viewer-header">
+                                <h2>{selectedSong.title}</h2>
+                                <p className="viewer-artist">{selectedSong.artist}</p>
+                                <div className="viewer-meta">
+                                    {selectedSong.tuning && <span><b>Tuning:</b> {selectedSong.tuning}</span>}
+                                    {selectedSong.capo !== undefined && selectedSong.capo > 0 && <span><b>Capo:</b> {selectedSong.capo}</span>}
+                                    {selectedSong.musicKey && <span><b>Key:</b> {selectedSong.musicKey}</span>}
+                                </div>
+                            </header>
+
+                            {selectedSong.youtubeUrl && (
+                                <div className="viewer-video">
+                                    <a href={selectedSong.youtubeUrl} target="_blank" rel="noopener noreferrer" className="retro-btn">
+                                        Listen on YouTube
+                                    </a>
                                 </div>
                             )}
+
+                            {selectedSong.chords ? (
+                                <div className="viewer-chords">
+                                    <pre>{selectedSong.chords}</pre>
+                                </div>
+                            ) : (
+                                <p className="no-chords">No chords available yet.</p>
+                            )}
                         </div>
-                    </div>
-                ))}
+                    ) : (
+                        <div className="viewer-placeholder chaos-card">
+                            <p>Select a song from the list to view its chords and details.</p>
+                        </div>
+                    )}
+                </div>
             </div>
             {songs.length === 0 && <p>{t('songs.noData')}</p>}
         </div>
