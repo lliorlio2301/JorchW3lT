@@ -5,7 +5,10 @@ Willkommen zu meinem persönlichen Portfolio und digitalen Workspace! Dieses Pro
 ## 🚀 Key Features
 
 *   **Multilingual Portfolio:** Zeigt Lebenslauf, Projekte und Songbuch in DE, EN und ES.
-*   **Blog-System:** Ein minimalistischer Blog mit Markdown-Unterstützung und Image-Upload.
+*   **Blog-System:** Minimalistischer Blog mit Markdown-Support, Image-Upload und **Tag-Filterung**.
+*   **Bild des Monats (Galerie):** Highlight-Feature auf der Homepage mit intelligentem Framing und Archiv-Ansicht.
+*   **Short Stories:** Dediziertes Modul für Kurzgeschichten mit Fokus auf Typografie und Reader-Modus.
+*   **AI Song Engine:** Erweitertes Songbuch mit Support für Akkorde, Tuning und Metadaten (optimiert für Gitarre).
 *   **Progressive Web App (PWA):** Vollständig offline-fähig für die Nutzung im Supermarkt oder unterwegs.
 *   **Modern Security:** Abgesichert mit JWT, Spring Security und BCrypt.
 *   **Optimized Performance:** Native Build via GraalVM für Startzeiten unter 1s und minimalen RAM-Verbrauch.

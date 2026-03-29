@@ -31,7 +31,10 @@ const HomePage: React.FC = () => {
                     galleryService.getMonthlyHighlight(),
                     shortStoryService.getAllStories()
                 ]);
-                setRecentPosts(posts.slice(0, 5));
+
+                console.log("Geladene Blog-Posts:", posts.length);
+
+                setRecentPosts(posts.slice(0, 15)); // Zeige bis zu 15 Blogs
                 setRecentSongs(songs.slice(0, 8));
                 setRecentProjects(projects.slice(0, 3));
                 setRecentStories(stories.slice(0, 3));
@@ -46,9 +49,9 @@ const HomePage: React.FC = () => {
     // Generate stable random styles for the chaotic pile
     const chaoticStyles = React.useMemo(() => {
         return recentPosts.map((_, index) => ({
-            '--rand-deg': `${(Math.random() - 0.5) * 12}deg`,
-            '--rand-x': `${(Math.random() - 0.5) * 40}%`,
-            '--rand-y': `${(Math.random() - 0.5) * 60}px`,
+            '--rand-deg': `${(Math.random() - 0.5) * 20}deg`,
+            '--rand-x': `${(Math.random() - 0.5) * 60}vw`, // Breite Streuung
+            '--rand-y': `${(Math.random() - 0.5) * 250}px`, // Vertikale Streuung
             '--z-index': recentPosts.length - index
         } as React.CSSProperties));
     }, [recentPosts]);
@@ -64,12 +67,12 @@ const HomePage: React.FC = () => {
             {/* MONTHLY HIGHLIGHT */}
             {highlight && (
                 <section className="monthly-highlight-section">
-                    <div className={`highlight-container ${highlight.hasBackground ? 'with-bg' : 'no-bg'}`}>
+                   {/*  <div className={`highlight-container ${highlight.hasBackground ? 'with-bg' : 'no-bg'}`}> */}
                         <img src={highlight.imageUrl} alt={highlight.title || 'Highlight of the month'} className="highlight-image" />
-                        {highlight.title && <h2 className="highlight-title">{highlight.title}</h2>}
-                        {highlight.description && <p className="highlight-description">{highlight.description}</p>}
-                        <Link to="/gallery" className="gallery-link">{t('nav.gallery', 'Gallery Archive')}</Link>
-                    </div>
+{/*                         {highlight.title && <h2 className="highlight-title">{highlight.title}</h2>}
+                        {highlight.description && <p className="highlight-description">{highlight.description}</p>} */}
+{/*                         <Link to="/gallery" className="gallery-link">{t('nav.gallery', 'Gallery Archive')}</Link> */}
+                    {/* </div> */}
                 </section>
             )}
 
@@ -106,7 +109,9 @@ const HomePage: React.FC = () => {
 
             {/* BLOG SECTION */}
             <section className="home-section blog-section">
-                <h2 className="section-label">{t('nav.blog')}</h2>
+                <div className='blog-protected-header'>
+                    <h2 className="section-label">{t('nav.blog')}</h2>
+                </div>
                 <div className="blog-pile-container">
                     <div className="blog-pile">
                         {recentPosts.map((post, index) => (
@@ -125,7 +130,7 @@ const HomePage: React.FC = () => {
                         ))}
                     </div>
                 </div>
-                <div className="section-footer">
+                <div className="blog-protected-footer">
                     <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
                 </div>
             </section>
