@@ -15,4 +15,8 @@ public class SongDTO {
     private String artist;
     private String youtubeUrl;
     private String category;
+    private String chords;
+    private String tuning;
+    private Integer capo;
+    private String musicKey;
 }

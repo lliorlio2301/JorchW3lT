@@ -10,6 +10,11 @@ import NotesPage from './pages/NotesPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import BlogAdminPage from './pages/BlogAdminPage';
+import GalleryPage from './pages/GalleryPage';
+import AdminGalleryPage from './pages/AdminGalleryPage';
+import ShortStoriesPage from './pages/ShortStoriesPage';
+import ShortStoryReaderPage from './pages/ShortStoryReaderPage';
+import AdminShortStoriesPage from './pages/AdminShortStoriesPage';
 import AccountPage from './pages/AccountPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
@@ -74,6 +79,8 @@ function NavContent() {
           <Link to="/resume" onClick={closeMenu}>{t('nav.resume')}</Link>
           <Link to="/songs" onClick={closeMenu}>{t('nav.songs')}</Link>
           <Link to="/blog" onClick={closeMenu}>{t('nav.blog')}</Link>
+          <Link to="/gallery" onClick={closeMenu}>{t('nav.gallery', 'Gallery')}</Link>
+          <Link to="/stories" onClick={closeMenu}>{t('nav.stories', 'Stories')}</Link>
           {isAuthenticated && (
             <>
               <Link to="/shopping" onClick={closeMenu}>{t('nav.shopping')}</Link>
@@ -111,6 +118,11 @@ function NavContent() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/blog/admin" element={<BlogAdminPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/gallery/admin" element={<AdminGalleryPage />} />
+          <Route path="/stories" element={<ShortStoriesPage />} />
+          <Route path="/stories/:id" element={<ShortStoryReaderPage />} />
+          <Route path="/stories/admin" element={<AdminShortStoriesPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>

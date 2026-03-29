@@ -46,6 +46,17 @@
 - [x] **Project Management:** Implementierung von echtem Image-Upload (analog zum Blog) statt Pfadangabe.
 - [x] **Model-Anpassung:** Entfernung von drei Sprachen in Projekten. Normale Felder einbauen.
 
-## Phase 8: Future Ideas
+## Phase 8: Future Ideas (Completed)
 - [x] **Content:** Blog-Live-Vorschau im Admin-Bereich.
 - [x] **Backup:** Automatisierte SQL-Dumps auf externen Speicher.
+
+## Phase 9: Content Expansion & Visuals (Completed)
+- [x] **Bild des Monats:** Homepage-Feature mit intelligenter Hintergrund-Erkennung und Dark-Mode Optimierung.
+- [x] **Galerie-Archiv:** Übersicht aller vergangenen Monats-Highlights.
+- [x] **Short Stories:** Neues Modul für Kurzgeschichten mit Fokus auf Typografie und Reader-View.
+- [x] **Blog-Tags:** Kategorisierung und Filterung von Blog-Beiträgen.
+
+## Phase 10: AI Song Engine (Completed)
+- [x] **Modell-Erweiterung:** Unterstützung für Akkorde, Tuning, Capo und Tonarten.
+- [x] **Responsive Viewer:** Sidebar-Layout mit dediziertem Chord-Viewer für alle Endgeräte.
+- [x] **AI Workflow:** Prompt-Templates zur schnellen Umwandlung von Song-Quellen (lokal).

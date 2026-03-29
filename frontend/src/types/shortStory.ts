@@ -1,11 +1,8 @@
-export interface BlogPost {
+export interface ShortStory {
     id?: number;
     title: string;
-    slug: string;
     content: string;
     summary?: string;
     coverImageUrl?: string;
-    tags?: string[];
     createdAt?: string;
-    updatedAt?: string;
 }

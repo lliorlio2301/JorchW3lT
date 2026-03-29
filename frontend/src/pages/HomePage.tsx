@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import blogService from '../services/blogService';
 import songService from '../services/songService';
 import projectService from '../services/projectService';
+import galleryService from '../services/galleryService';
 import type { BlogPost } from '../types/blogPost';
 import type { Song } from '../types/song';
 import type { Project } from '../types/project';
+import type { GalleryImage } from '../types/galleryImage';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {
@@ -14,18 +16,21 @@ const HomePage: React.FC = () => {
     const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
     const [recentSongs, setRecentSongs] = useState<Song[]>([]);
     const [recentProjects, setRecentProjects] = useState<Project[]>([]);
+    const [highlight, setHighlight] = useState<GalleryImage | null>(null);
 
     useEffect(() => {
         const loadData = async () => {
             try {
-                const [posts, songs, projects] = await Promise.all([
+                const [posts, songs, projects, highlightImg] = await Promise.all([
                     blogService.getAllPosts(),
                     songService.getAllSongs(),
-                    projectService.getAllProjects()
+                    projectService.getAllProjects(),
+                    galleryService.getMonthlyHighlight()
                 ]);
                 setRecentPosts(posts.slice(0, 4));
                 setRecentSongs(songs.slice(0, 8));
                 setRecentProjects(projects.slice(0, 3));
+                setHighlight(highlightImg);
             } catch (err) {
                 console.error('Failed to load dashboard data', err);
             }
@@ -40,6 +45,18 @@ const HomePage: React.FC = () => {
                 <h1 className="hero-title">{t('welcome.title')}</h1>
                 {/* {<p className="hero-subtitle">{t('welcome.resumeDesc')}</p>} */}
             </header>
+
+            {/* MONTHLY HIGHLIGHT */}
+            {highlight && (
+                <section className="monthly-highlight-section">
+                    <div className={`highlight-container ${highlight.hasBackground ? 'with-bg' : 'no-bg'}`}>
+                        <img src={highlight.imageUrl} alt={highlight.title || 'Highlight of the month'} className="highlight-image" />
+                        {highlight.title && <h2 className="highlight-title">{highlight.title}</h2>}
+                        {highlight.description && <p className="highlight-description">{highlight.description}</p>}
+                        <Link to="/gallery" className="gallery-link">{t('nav.gallery', 'Gallery Archive')}</Link>
+                    </div>
+                </section>
+            )}
 
             {/* SONGS SECTION */}
             <section className="home-section songs-section">

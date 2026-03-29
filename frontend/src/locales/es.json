@@ -37,6 +37,8 @@
     },
     "common": {
       "viewAll": "Ver todo",
+      "all": "Todos",
+      "back": "Volver",
       "accessDenied": "Acceso denegado. Solo para administradores.",
       "confirmDelete": "¿Realmente quieres eliminar esta entrada?",
       "save": "Guardar",

@@ -29,8 +29,10 @@ describe('NotesPage', () => {
       isAuthenticated: false, 
       user: null, 
       token: null, 
-      login: vi.fn(), 
-      logout: vi.fn() 
+      login: vi.fn(),
+      logout: vi.fn(),
+      setUser: vi.fn()
+ 
     })
     
     render(
@@ -48,8 +50,10 @@ describe('NotesPage', () => {
       isAuthenticated: true, 
       user: { username: 'admin' }, 
       token: 'fake-token', 
-      login: vi.fn(), 
-      logout: vi.fn() 
+      login: vi.fn(),
+      logout: vi.fn(),
+      setUser: vi.fn()
+ 
     })
     
     vi.mocked(noteService.getAllNotes).mockResolvedValue([

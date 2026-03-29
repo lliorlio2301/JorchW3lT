@@ -40,7 +40,15 @@ Das Design bricht bewusst mit den Regeln des sterilen, modernen Webdesigns. Es i
 *   Keine Skalierung beim Hovern, nur Rotation und Schatten-Verschiebung.
 *   Nutzen die Headline-Schriftart für einen markanten Look.
 
-## 5. Assets & Branding
+## 5. Spezielle Features & Visuals
+
+*   **Bild des Monats:** Monatliche Highlights werden prominent auf der Homepage präsentiert. 
+    *   Bilder *mit* Hintergrund erhalten einen klassischen weißen Fotorahmen.
+    *   Bilder *ohne* Hintergrund (transparent) stehen frei und erhalten im Dark Mode einen subtilen Glow für maximale Sichtbarkeit der schwarzen Linien.
+*   **Reader-Modus (Short Stories):** Fokus auf ablenkungsfreie Typografie. Nutzung von `Space Grotesk` (oder ähnlichen sauberen Fonts) mit großzügigem Zeilenabstand für ein angenehmes Leseerlebnis.
+*   **Modulare Sidebar (Songs):** Funktionale Trennung zwischen Navigation (Liste) und Inhalt (Viewer) für komplexe Daten wie Akkorde.
+
+## 6. Assets & Branding
 
 *   **Logo/Favicon:** Basierend auf dem "Bär"-Design.
 *   **Entry Point:** Die Homepage dient als zentrales Dashboard für alle Unterbereiche.

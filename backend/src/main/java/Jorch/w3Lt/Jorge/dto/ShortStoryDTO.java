@@ -11,14 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BlogPostDTO {
+public class ShortStoryDTO {
     private Long id;
     private String title;
-    private String slug;
     private String content;
     private String summary;
     private String coverImageUrl;
-    private java.util.List<String> tags;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

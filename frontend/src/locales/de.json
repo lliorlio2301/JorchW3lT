@@ -24,6 +24,15 @@
       "fileTooLarge": "Datei zu groß. Das Limit liegt bei 5 MB.",
       "backToList": "Zurück zur Übersicht"
     },
+    "gallery": {
+      "subtitle": "Eine Sammlung monatlicher Highlights und visueller Schnipsel.",
+      "empty": "Die Galerie ist derzeit leer."
+    },
+    "stories": {
+      "subtitle": "Eine Reise durch fiktive Welten und persönliche Erzählungen.",
+      "empty": "Noch keine Geschichten verfügbar.",
+      "readMore": "Mehr Geschichten lesen"
+    },
     "notes": {
       "title": "Private Notizen",
       "add": "Neue Notiz",
@@ -37,6 +46,8 @@
     },
     "common": {
       "viewAll": "Alle ansehen",
+      "all": "Alle",
+      "back": "Zurück",
       "accessDenied": "Zugriff verweigert. Nur für Admins.",
       "confirmDelete": "Möchtest du diesen Eintrag wirklich löschen?",
       "save": "Speichern",
@@ -57,7 +68,7 @@
       "noData": "Deine Liste ist leer."
     },
     "welcome": {
-      "title": "Willkommen in Jorch's W3lT",
+      "title": "Jorch's W3lT",
       "blogDesc": "Gedanken und technische Einblicke",
       "projectsDesc": "Meine Arbeiten und Experimente",
       "songsDesc": "Mein digitales Gitarren-Songbuch",

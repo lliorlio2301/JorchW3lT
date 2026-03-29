@@ -1,0 +1,98 @@
+.reader-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-contrast);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+
+.reader-header {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    border-bottom: 2px dashed var(--color-contrast);
+    margin-bottom: 4rem;
+}
+
+.back-link {
+    display: block;
+    margin-bottom: 2rem;
+    color: var(--color-muted);
+    text-decoration: none;
+    font-family: var(--font-ui);
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--color-primary);
+}
+
+.reader-cover {
+    width: 200px;
+    height: 300px;
+    margin: 0 auto 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    transform: rotate(-1.5deg);
+}
+
+.reader-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reader-header h1 {
+    font-size: 5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.reader-meta {
+    font-family: var(--font-ui);
+    color: var(--color-muted);
+    font-size: 1.1rem;
+}
+
+.reader-content {
+    padding: 0 2rem 4rem;
+    font-family: 'Zen Loop', cursive; /* Optional: very elegant or high quality serif */
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: var(--color-text);
+}
+
+/* Fallback if Zen Loop is too thin */
+.reader-content {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+}
+
+.reader-content p {
+    margin-bottom: 2rem;
+}
+
+.reader-content h2, .reader-content h3 {
+    font-family: var(--font-header);
+    color: var(--color-secondary);
+    margin: 3rem 0 1.5rem;
+}
+
+.reader-footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 2px dashed var(--color-contrast);
+}
+
+.reader-status {
+    text-align: center;
+    font-family: var(--font-header);
+    font-size: 3rem;
+    margin-top: 10rem;
+}
+
+@media (max-width: 768px) {
+    .reader-header h1 { font-size: 3.5rem; }
+    .reader-content { font-size: 1.1rem; padding: 0 1rem 3rem; }
+}

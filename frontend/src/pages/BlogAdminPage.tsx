@@ -15,6 +15,7 @@ const BlogAdminPage: React.FC = () => {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
     const [loading, setLoading] = useState(true);
+    const [newTag, setNewTag] = useState('');
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -43,7 +44,8 @@ const BlogAdminPage: React.FC = () => {
             slug: '',
             content: '',
             summary: '',
-            coverImageUrl: ''
+            coverImageUrl: '',
+            tags: []
         });
     };
 
@@ -69,6 +71,25 @@ const BlogAdminPage: React.FC = () => {
         } catch (err) {
             console.error('Failed to delete post', err);
         }
+    };
+
+    const addTag = () => {
+        if (!editingPost) return;
+        if (newTag.trim() && !(editingPost.tags || []).includes(newTag.trim())) {
+            setEditingPost({
+                ...editingPost,
+                tags: [...(editingPost.tags || []), newTag.trim()]
+            });
+            setNewTag('');
+        }
+    };
+
+    const removeTag = (tagToRemove: string) => {
+        if (!editingPost) return;
+        setEditingPost({
+            ...editingPost,
+            tags: (editingPost.tags || []).filter(t => t !== tagToRemove)
+        });
     };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,8 +161,28 @@ const BlogAdminPage: React.FC = () => {
                         </div>
 
                         <div className="form-group">
+                            <div className="tag-input-group">
+                                <input 
+                                    value={newTag}
+                                    onChange={e => setNewTag(e.target.value)}
+                                    placeholder="Add tag..."
+                                    onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                                />
+                                <button type="button" onClick={addTag} className="add-tag-btn">Add</button>
+                            </div>
+                            <div className="admin-tags-list">
+                                {(editingPost.tags || []).map(tag => (
+                                    <span key={tag} className="admin-tag-chip">
+                                        #{tag}
+                                        <button type="button" onClick={() => removeTag(tag)}>&times;</button>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="form-group">
                             <textarea 
-                                value={editingPost.summary}
+                                value={editingPost.summary || ''}
                                 onChange={e => setEditingPost({...editingPost, summary: e.target.value})}
                                 placeholder={t('blog.placeholderSummary')}
                                 rows={2}

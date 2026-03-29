@@ -30,7 +30,7 @@
 
 
 ## 6. Frontend-Konventionen
-* **Styles:** CSS-Variablen aus `index.css`. Font: "Zen Loop" (base), "Covered By Your Grace" (headlines).
+* **Styles:** CSS-Variablen aus `index.css`. Font: "Space Grotesk" (base), "Covered By Your Grace" (headlines).
 * **PWA & Offline:** Die App nutzt `vite-plugin-pwa` und `Dexie.js`. Daten werden lokal gepuffert und synchronisiert.
 * **Assets:** Projekt-Bilder in `frontend/public/projects/`. Blog-Bilder unter `/uploads/`.
 

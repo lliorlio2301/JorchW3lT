@@ -37,6 +37,8 @@
     },
     "common": {
       "viewAll": "View All",
+      "all": "All",
+      "back": "Back",
       "accessDenied": "Access denied. Admins only.",
       "confirmDelete": "Are you sure you want to delete this entry?",
       "save": "Save",
@@ -57,7 +59,7 @@
       "noData": "Your list is empty."
     },
     "welcome": {
-      "title": "Welcome to Jorch's W3lT",
+      "title": "Jorch's W3lT",
       "blogDesc": "Thoughts and technical insights",
       "projectsDesc": "My work and experiments",
       "songsDesc": "My digital guitar songbook",
