@@ -32,9 +32,11 @@ Das Design bricht bewusst mit den Regeln des sterilen, modernen Webdesigns. Es i
 *   **Shadow:** Subtile Schatten (`box-shadow: 0 4px 15px rgba(0,0,0,0.1)`).
 *   **Layout:** Linksbündig ausgerichtet innerhalb des Containers.
 
-### Blog-Stapel (Pile)
-*   Übereinander gestapelte Karten mit unterschiedlichen Rotationen.
-*   Interaktion: Hebt die Karte beim Hovern hervor und ordnet sie dynamisch an.
+### Blog-Stapel (Chaotic Pile)
+*   **Konzept:** Karten werden wie physische Magazine auf einem Tisch "verstreut" präsentiert.
+*   **Umsetzung:** Zufällige Rotationen (`rotate`) und Versätze (`translate`) innerhalb eines flexiblen Containers.
+*   **Responsivität:** Auf großen Bildschirmen herrscht "kreatives Chaos"; auf mobilen Geräten (unter 1100px) wird automatisch in eine saubere, vertikale Liste umgeschaltet, um die Lesbarkeit zu garantieren.
+*   **Interaktion:** Hover-Effekte heben Karten in den Vordergrund (`z-index`) und begradigen sie leicht.
 
 ### Retro-Buttons
 *   Keine Skalierung beim Hovern, nur Rotation und Schatten-Verschiebung.

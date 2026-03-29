@@ -35,6 +35,10 @@ Das Projekt nutzt eine moderne Test-Infrastruktur, die sowohl das Backend als au
     *   **Ziel:** Vollständiger Pfad (Controller -> Service -> Repository -> DB).
 *   **`ProjectServiceIntegrationTest.java`**
     *   **Ziel:** Validierung des vereinfachten Projektmodells und der CRUD-Operationen.
+*   **`GalleryImageIntegrationTest.java`**
+    *   **Ziel:** Test der monatlichen Highlights, Bild-Metadaten (hasBackground) und Persistenz.
+*   **`ShortStoryIntegrationTest.java`**
+    *   **Ziel:** Verifizierung der Kurzgeschichten-Speicherung und Markdown-Integrität.
 *   **`UserServiceIntegrationTest.java`**
     *   **Ziel:** Test der sicheren Account-Verwaltung (Username/Passwort-Update mit Encoding).
 

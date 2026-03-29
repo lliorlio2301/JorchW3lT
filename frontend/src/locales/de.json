@@ -1,11 +1,11 @@
 {
     "nav": {
-      "home": "Startseite",
+      "home": "⌂",
       "resume": "Lebenslauf",
       "songs": "Songbuch",
       "projects": "Projekte",
-      "shopping": "Einkaufsliste",
-      "notes": "Notizen",
+      "shopping": "Einkauf",
+      "notes": "✎",
       "blog": "Blog"
     },
     "blog": {

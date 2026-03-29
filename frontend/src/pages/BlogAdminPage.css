@@ -86,7 +86,7 @@
 }
 
 .add-tag-btn {
-    background: var(--color-secondary) !important;
+    background: var(--color-primary) !important;
     padding: 0 1.5rem !important;
 }
 
