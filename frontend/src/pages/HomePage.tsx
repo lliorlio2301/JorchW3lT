@@ -67,12 +67,9 @@ const HomePage: React.FC = () => {
             {/* MONTHLY HIGHLIGHT */}
             {highlight && (
                 <section className="monthly-highlight-section">
-                   {/*  <div className={`highlight-container ${highlight.hasBackground ? 'with-bg' : 'no-bg'}`}> */}
+                    <div className={`highlight-container ${highlight.monthlyHighlight ? (highlight.hasBackground ? 'with-bg' : 'no-bg') : ''}`}>
                         <img src={highlight.imageUrl} alt={highlight.title || 'Highlight of the month'} className="highlight-image" />
-{/*                         {highlight.title && <h2 className="highlight-title">{highlight.title}</h2>}
-                        {highlight.description && <p className="highlight-description">{highlight.description}</p>} */}
-{/*                         <Link to="/gallery" className="gallery-link">{t('nav.gallery', 'Gallery Archive')}</Link> */}
-                    {/* </div> */}
+                    </div>
                 </section>
             )}
 
@@ -121,6 +118,11 @@ const HomePage: React.FC = () => {
                                 className="project-card module-panel blog-post-card chaotic-pile-item" 
                                 style={chaoticStyles[index]}
                             >
+                                {post.coverImageUrl && (
+                                    <div className="project-image">
+                                        <img src={post.coverImageUrl} alt={post.title} />
+                                    </div>
+                                )}
                                 <div className="project-info">
                                     <h3>{post.title}</h3>
                                     <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>

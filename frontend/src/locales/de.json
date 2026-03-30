@@ -6,7 +6,8 @@
       "projects": "Projekte",
       "shopping": "Einkauf",
       "notes": "✎",
-      "blog": "Blog"
+      "blog": "Blog",
+      "stories": "Döneken"
     },
     "blog": {
       "title": "Gedankespielerei",
@@ -29,9 +30,10 @@
       "empty": "Die Galerie ist derzeit leer."
     },
     "stories": {
-      "subtitle": "Eine Reise durch fiktive Welten und persönliche Erzählungen.",
+      "subtitle": "Eine Reise :P",
       "empty": "Noch keine Geschichten verfügbar.",
-      "readMore": "Mehr Geschichten lesen"
+      "readMore": "Mehr Geschichten lesen",
+      "adminTitle": "Story-Verwaltung"
     },
     "notes": {
       "title": "Private Notizen",

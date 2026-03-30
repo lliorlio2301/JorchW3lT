@@ -50,9 +50,9 @@ const BlogPage: React.FC = () => {
             </header>
 
             {allTags.length > 0 && (
-                <div className="tag-filters">
+                <div className="filter-bar">
                     <button 
-                        className={`tag-filter ${selectedTag === null ? 'active' : ''}`}
+                        className={`filter-tag ${selectedTag === null ? 'active' : ''}`}
                         onClick={() => setSelectedTag(null)}
                     >
                         {t('common.all', 'All')}
@@ -60,7 +60,7 @@ const BlogPage: React.FC = () => {
                     {allTags.map(tag => (
                         <button 
                             key={tag}
-                            className={`tag-filter ${selectedTag === tag ? 'active' : ''}`}
+                            className={`filter-tag ${selectedTag === tag ? 'active' : ''}`}
                             onClick={() => setSelectedTag(tag)}
                         >
                             #{tag}

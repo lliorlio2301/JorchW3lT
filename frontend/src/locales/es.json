@@ -6,7 +6,8 @@
       "projects": "Proyectos",
       "shopping": "Lista de Compras",
       "notes": "Notas",
-      "blog": "Blog"
+      "blog": "Blog",
+      "stories": "R3l4t1t0s"
     },
     "blog": {
       "title": "Blogetariado",
@@ -34,6 +35,12 @@
       "noData": "No hay notas disponibles.",
       "lastEdited": "Última edición",
       "newItem": "Nuevo elemento"
+    },
+    "stories": {
+      "subtitle": "Ocurrencias",
+      "empty": "0 R3l4t1t0s",
+      "readMore": "L33r +?",
+      "adminTitle": "Story-Verwaltung"
     },
     "common": {
       "viewAll": "Ver todo",

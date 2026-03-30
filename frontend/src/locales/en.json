@@ -6,7 +6,8 @@
       "projects": "Projects",
       "shopping": "Shopping List",
       "notes": "Notes",
-      "blog": "Blog"
+      "blog": "Blog",
+      "stories": "short stories"
     },
     "blog": {
       "title": "Thoughts :P",
@@ -23,6 +24,12 @@
       "uploadImage": "Upload Image",
       "fileTooLarge": "File too large. The limit is 5 MB.",
       "backToList": "Back to overview"
+    },
+    "stories": {
+      "subtitle": "",
+      "empty": "",
+      "readMore": "",
+      "adminTitle": "Story-Verwaltung"
     },
     "notes": {
       "title": "Private Notes",

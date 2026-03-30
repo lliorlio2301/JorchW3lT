@@ -4,26 +4,26 @@
     padding: 2rem 4rem;
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 0rem;
     background-color: var(--color-bg);
 }
 
 /* HERO SECTION - Centered */
 .hero-section {
-    min-height: 35vh;
+    min-height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
     width: 100%;
 }
 
 .hero-title {
     font-size: 8rem;
     color: var(--color-primary);
-    margin: 0 0 1rem 0;
+    margin: 0 0 0 0;
     line-height: 0.9;
     font-family: var(--font-header);
     transform: rotate(-1deg);
@@ -40,64 +40,34 @@
 
 /* MONTHLY HIGHLIGHT */
 .monthly-highlight-section {
-    margin: 4rem 0;
     display: flex;
     justify-content: center;
     width: 100%;
-}
-
-.highlight-container {
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-    padding: 2rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-contrast);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
 }
 
 .highlight-image {
     max-width: 100%;
+    max-height: 450px; /* Crucial height limit */
     height: auto;
     display: block;
-    margin: 0 auto 1.5rem;
-    border-radius: 4px;
+    margin: 0 auto;
+    border: none !important;
+    box-shadow: none !important;
 }
 
-/* Stil für Bilder MIT Hintergrund: Weißer Rand und Schatten */
-.highlight-container.with-bg .highlight-image {
-    border: 10px solid #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    background: #fff;
-}
-
-/* Stil für Bilder OHNE Hintergrund (Transparent): Kein Rand */
+/* Special handling for no-bg images (Adaptive Theme Coloring) */
 .highlight-container.no-bg .highlight-image {
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    /* Dark Mode: Verwandelt Schwarz in dein Primary Pink (#ff5cb8) und fügt Glow hinzu */
+    filter: invert(52%) sepia(82%) saturate(2470%) hue-rotate(300deg) /* brightness(101%) */ contrast(101%) /* drop-shadow(0 0 8px var(--color-secondary)) */;
 }
 
-/* Dark Mode Anpassung für transparente Bilder */
-@media (prefers-color-scheme: dark) {
-    .highlight-container.no-bg .highlight-image {
-        /* Wenn das Bild schwarze Linien hat, fügen wir im Dark Mode einen hellen Schimmer hinzu */
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
-    }
+/* Light Mode: Verwandelt Schwarz in dein Primary Blue (#2a1ed2) */
+:root.light .highlight-container.no-bg .highlight-image {
+    filter: invert(14%) sepia(94%) saturate(5453%) hue-rotate(246deg) /* brightness(83%) */ contrast(106%) /* drop-shadow(0 0 2px rgba(42, 30, 210, 0.2)) */;
 }
 
-.highlight-title {
-    font-family: var(--font-header);
-    font-size: 3.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-primary);
-}
 
-.highlight-description {
-    font-size: 1.2rem;
-    color: var(--color-muted);
-    margin-bottom: 1.5rem;
-    font-family: var(--font-ui);
-}
 
 .gallery-link {
     font-family: var(--font-header);

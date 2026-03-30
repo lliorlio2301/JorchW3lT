@@ -35,7 +35,7 @@ const ShortStoriesPage: React.FC = () => {
                     <h1>{t('nav.stories', 'Short Stories')}</h1>
                     {isAuthenticated && (
                         <Link to="/stories/admin" className="admin-link">
-                            {t('blog.adminTitle', 'Manage')}
+                            {t('stories.adminTitle', 'Manage')}
                         </Link>
                     )}
                 </div>

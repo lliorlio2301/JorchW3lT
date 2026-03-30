@@ -74,18 +74,18 @@ function NavContent() {
         </div>
 
         <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-          <Link to="/" onClick={closeMenu}>⌂{/* {t('nav.home')} */}</Link>
+          <Link to="/" onClick={closeMenu}>J🌣rch{/* {t('nav.home')} */}</Link>
           <Link to="/projects" onClick={closeMenu}>{t('nav.projects')}</Link>
           <Link to="/resume" onClick={closeMenu}>{t('nav.resume')}</Link>
           <Link to="/songs" onClick={closeMenu}>{t('nav.songs')}</Link>
           <Link to="/blog" onClick={closeMenu}>{t('nav.blog')}</Link>
           <Link to="/gallery" onClick={closeMenu}>{t('nav.gallery', 'Gallery')}</Link>
-          <Link to="/stories" onClick={closeMenu}>{t('nav.stories', 'Stories')}</Link>
+          <Link to="/stories" onClick={closeMenu}>🗮{t('nav.stories', 'Stories')}🗮</Link>
           {isAuthenticated && (
             <>
-              <Link to="/shopping" onClick={closeMenu}>{t('nav.shopping')}</Link>
-              <Link to="/notes" onClick={closeMenu}>✎{/* {t('nav.notes')} */}</Link>
-              <Link to="/account" onClick={closeMenu}>Ω</Link>
+              <Link to="/shopping" onClick={closeMenu}>🛒{/* {t('nav.shopping')} */}</Link>
+              <Link to="/notes" onClick={closeMenu}>✎🗚{/* {t('nav.notes')} */}</Link>
+              <Link to="/account" onClick={closeMenu}>🧔🏿</Link>
             </>
           )}
         </div>
