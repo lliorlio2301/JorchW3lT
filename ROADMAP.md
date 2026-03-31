@@ -64,4 +64,6 @@
 ## Phase 11: Advanced Filtering & Content Refinement (Completed)
 - [x] **Multi-Tag Filtering:** Unterstützung für Mehrfachauswahl von Tags bei Projekten, Blogs und Kurzgeschichten.
 - [x] **Story Tags:** Backend- und Frontend-Support für Tags im Kurzgeschichten-Modul.
-- [x] **UI Polish:** Optimierung der Filterleisten für bessere Benutzerführung.
+- [x] **Database Integrity:** Einsatz von Composite Primary Keys für Tag-Tabellen zur Vermeidung von Duplikaten.
+- [x] **Flyway Best Practices:** Sicherstellung der Immutabilität von Migrationen durch Nutzung sequentieller Korrektur-Skripte.
+- [x] **UI Polish:** Optimierung der Filterleisten mit robusten Sentinel-Werten (`null` statt Strings) zur Vermeidung von Namenskollisionen.

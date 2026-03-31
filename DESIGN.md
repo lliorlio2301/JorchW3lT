@@ -48,7 +48,13 @@ Das Design bricht bewusst mit den Regeln des sterilen, modernen Webdesigns. Es i
     *   Bilder *mit* Hintergrund erhalten einen klassischen weißen Fotorahmen.
     *   Bilder *ohne* Hintergrund (transparent) stehen frei und erhalten im Dark Mode einen subtilen Glow für maximale Sichtbarkeit der schwarzen Linien.
 *   **Reader-Modus (Short Stories):** Fokus auf ablenkungsfreie Typografie. Nutzung von `Space Grotesk` (oder ähnlichen sauberen Fonts) mit großzügigem Zeilenabstand für ein angenehmes Leseerlebnis.
-*   **Modulare Sidebar (Songs):** Funktionale Trennung zwischen Navigation (Liste) und Inhalt (Viewer) für komplexe Daten wie Akkorde.
+### Modulare Sidebar (Songs):
+*   Funktionale Trennung zwischen Navigation (Liste) und Inhalt (Viewer) für komplexe Daten wie Akkorde.
+
+### Multi-Tag-Filterung
+*   **Logik:** Erlaubt die Auswahl mehrerer Kategorien gleichzeitig.
+*   **Verhalten:** Die Filterung arbeitet mit einer OR-Logik (Beiträge werden angezeigt, wenn sie mindestens einen der gewählten Tags besitzen).
+*   **UI:** Filter-Buttons wechseln den Status beim Klicken; ein dedizierter "Alle"-Button setzt die gesamte Auswahl zurück.
 
 ## 6. Assets & Branding
 

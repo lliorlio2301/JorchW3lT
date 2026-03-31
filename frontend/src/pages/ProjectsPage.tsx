@@ -112,8 +112,8 @@ const ProjectsPage: React.FC = () => {
         }
     };
 
-    const toggleTag = (tag: string) => {
-        if (tag === 'All') {
+    const toggleTag = (tag: string | null) => {
+        if (tag === null) {
             setSelectedTags([]);
         } else {
             setSelectedTags(prev => 
@@ -212,7 +212,7 @@ const ProjectsPage: React.FC = () => {
                 <div className="filter-bar">
                     <button 
                         className={`filter-tag ${selectedTags.length === 0 ? 'active' : ''}`}
-                        onClick={() => toggleTag('All')}
+                        onClick={() => toggleTag(null)}
                     >
                         {t('common.all', 'All')}
                     </button>
