@@ -11,6 +11,7 @@ const ShortStoriesPage: React.FC = () => {
     const { isAuthenticated } = useAuth();
     const [stories, setStories] = useState<ShortStory[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchStories = async () => {
@@ -25,6 +26,23 @@ const ShortStoriesPage: React.FC = () => {
         };
         fetchStories();
     }, []);
+
+    const toggleTag = (tag: string | null) => {
+        if (tag === null) {
+            setSelectedTags([]);
+        } else {
+            setSelectedTags(prev => 
+                prev.includes(tag) 
+                    ? prev.filter(t => t !== tag) 
+                    : [...prev, tag]
+            );
+        }
+    };
+
+    const allTags = Array.from(new Set(stories.flatMap(story => story.tags || [])));
+    const filteredStories = selectedTags.length === 0 
+        ? stories 
+        : stories.filter(story => selectedTags.some(tag => story.tags?.includes(tag)));
 
     if (loading) return <div className="stories-status">{t('common.loading', 'Loading stories...')}</div>;
 
@@ -42,8 +60,28 @@ const ShortStoriesPage: React.FC = () => {
                 <p>{t('stories.subtitle', 'A journey through fictional realms and personal narratives.')}</p>
             </header>
 
+            {allTags.length > 0 && (
+                <div className="filter-bar">
+                    <button 
+                        className={`filter-tag ${selectedTags.length === 0 ? 'active' : ''}`}
+                        onClick={() => toggleTag(null)}
+                    >
+                        {t('common.all', 'All')}
+                    </button>
+                    {allTags.map(tag => (
+                        <button 
+                            key={tag}
+                            className={`filter-tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+                            onClick={() => toggleTag(tag)}
+                        >
+                            #{tag}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <div className="stories-grid">
-                {stories.map((story) => (
+                {filteredStories.map((story) => (
                     <Link to={`/stories/${story.id}`} key={story.id} className="story-card chaos-card">
                         {story.coverImageUrl && (
                             <div className="story-cover">
@@ -52,6 +90,11 @@ const ShortStoriesPage: React.FC = () => {
                         )}
                         <div className="story-info">
                             <h3>{story.title}</h3>
+                            <div className="entry-tags" style={{marginBottom: '1rem'}}>
+                                {story.tags?.map(tag => (
+                                    <span key={tag} className="tag">#{tag}</span>
+                                ))}
+                            </div>
                             {story.summary && <p className="story-summary">{story.summary}</p>}
                             <span className="story-date">{new Date(story.createdAt!).toLocaleDateString()}</span>
                         </div>

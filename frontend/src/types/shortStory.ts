@@ -4,5 +4,6 @@ export interface ShortStory {
     content: string;
     summary?: string;
     coverImageUrl?: string;
+    tags?: string[];
     createdAt?: string;
 }
