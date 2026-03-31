@@ -31,9 +31,9 @@ public class ShortStory {
 
     private String coverImageUrl;
 
-    @jakarta.persistence.ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
-    @jakarta.persistence.CollectionTable(name = "short_story_tags", joinColumns = @jakarta.persistence.JoinColumn(name = "short_story_id"))
-    @jakarta.persistence.Column(name = "tag")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "short_story_tags", joinColumns = @JoinColumn(name = "short_story_id"))
+    @Column(name = "tag")
     private java.util.List<String> tags;
 
     @CreationTimestamp
