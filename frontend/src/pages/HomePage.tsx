@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
                 setRecentPosts(posts.slice(0, 15)); // Zeige bis zu 15 Blogs
                 setRecentSongs(songs.slice(0, 8));
                 setRecentProjects(projects.slice(0, 3));
-                setRecentStories(stories.slice(0, 3));
+                setRecentStories(stories.slice(0, 10)); // Zeige bis zu 10 Stories für das Mosaik
                 setHighlight(highlightImg);
             } catch (err) {
                 console.error('Failed to load dashboard data', err);
@@ -140,19 +140,14 @@ const HomePage: React.FC = () => {
             {/* STORIES SECTION */}
             <section className="home-section stories-section">
                 <h2 className="section-label">{t('nav.stories')}</h2>
-                <div className="projects-grid">
+                <div className="stories-mosaic">
                     {recentStories.map((story) => (
-                        <Link to={`/stories/${story.id}`} key={story.id} className="project-card module-panel" style={{textDecoration: 'none'}}>
-                            {story.coverImageUrl && (
-                                <div className="project-image">
-                                    <img src={story.coverImageUrl} alt={story.title} />
-                                </div>
+                        <Link to={`/stories/${story.id}`} key={story.id} className="mosaic-item">
+                            {story.coverImageUrl ? (
+                                <img src={story.coverImageUrl} alt={story.title} className="mosaic-image" />
+                            ) : (
+                                <div className="mosaic-placeholder">{story.title}</div>
                             )}
-                            <div className="project-info">
-                                <h3>{story.title}</h3>
-                                <p>{story.summary}</p>
-                                <span className="post-date">{new Date(story.createdAt!).toLocaleDateString()}</span>
-                            </div>
                         </Link>
                     ))}
                 </div>
