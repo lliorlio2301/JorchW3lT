@@ -60,3 +60,8 @@
 - [x] **Modell-Erweiterung:** Unterstützung für Akkorde, Tuning, Capo und Tonarten.
 - [x] **Responsive Viewer:** Sidebar-Layout mit dediziertem Chord-Viewer für alle Endgeräte.
 - [x] **AI Workflow:** Prompt-Templates zur schnellen Umwandlung von Song-Quellen (lokal).
+
+## Phase 11: Advanced Filtering & Content Refinement (Completed)
+- [x] **Multi-Tag Filtering:** Unterstützung für Mehrfachauswahl von Tags bei Projekten, Blogs und Kurzgeschichten.
+- [x] **Story Tags:** Backend- und Frontend-Support für Tags im Kurzgeschichten-Modul.
+- [x] **UI Polish:** Optimierung der Filterleisten für bessere Benutzerführung.
