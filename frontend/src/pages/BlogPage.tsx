@@ -13,7 +13,7 @@ const BlogPage: React.FC = () => {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedTag, setSelectedTag] = useState<string | null>(null);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -30,10 +30,22 @@ const BlogPage: React.FC = () => {
         fetchPosts();
     }, [t]);
 
+    const toggleTag = (tag: string | null) => {
+        if (tag === null) {
+            setSelectedTags([]);
+        } else {
+            setSelectedTags(prev => 
+                prev.includes(tag) 
+                    ? prev.filter(t => t !== tag) 
+                    : [...prev, tag]
+            );
+        }
+    };
+
     const allTags = Array.from(new Set(posts.flatMap(post => post.tags || [])));
-    const filteredPosts = selectedTag 
-        ? posts.filter(post => post.tags?.includes(selectedTag))
-        : posts;
+    const filteredPosts = selectedTags.length === 0 
+        ? posts 
+        : posts.filter(post => selectedTags.some(tag => post.tags?.includes(tag)));
 
     if (loading) return <div className="blog-status">{t('blog.loading')}</div>;
     if (error) return <div className="blog-status error">{error}</div>;
@@ -52,16 +64,16 @@ const BlogPage: React.FC = () => {
             {allTags.length > 0 && (
                 <div className="filter-bar">
                     <button 
-                        className={`filter-tag ${selectedTag === null ? 'active' : ''}`}
-                        onClick={() => setSelectedTag(null)}
+                        className={`filter-tag ${selectedTags.length === 0 ? 'active' : ''}`}
+                        onClick={() => toggleTag(null)}
                     >
                         {t('common.all', 'All')}
                     </button>
                     {allTags.map(tag => (
                         <button 
                             key={tag}
-                            className={`filter-tag ${selectedTag === tag ? 'active' : ''}`}
-                            onClick={() => setSelectedTag(tag)}
+                            className={`filter-tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+                            onClick={() => toggleTag(tag)}
                         >
                             #{tag}
                         </button>

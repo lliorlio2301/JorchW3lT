@@ -11,7 +11,7 @@ const ProjectsPage: React.FC = () => {
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [filter, setFilter] = useState<string>('All');
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     // Admin state
     const [isFormOpen, setIsFormOpen] = useState(false);
@@ -112,10 +112,22 @@ const ProjectsPage: React.FC = () => {
         }
     };
 
-    const allTags = ['All', ...new Set(projects.flatMap(p => p.techTags))];
-    const filteredProjects = filter === 'All' 
+    const toggleTag = (tag: string) => {
+        if (tag === 'All') {
+            setSelectedTags([]);
+        } else {
+            setSelectedTags(prev => 
+                prev.includes(tag) 
+                    ? prev.filter(t => t !== tag) 
+                    : [...prev, tag]
+            );
+        }
+    };
+
+    const allTags = Array.from(new Set(projects.flatMap(p => p.techTags)));
+    const filteredProjects = selectedTags.length === 0 
         ? projects 
-        : projects.filter(p => p.techTags.includes(filter));
+        : projects.filter(p => selectedTags.some(tag => p.techTags.includes(tag)));
 
     if (loading) return <div className="projects-status">{t('projects.loading')}</div>;
     if (error) return <div className="projects-status error">{error}</div>;
@@ -198,11 +210,17 @@ const ProjectsPage: React.FC = () => {
 
             {!isFormOpen && (
                 <div className="filter-bar">
+                    <button 
+                        className={`filter-tag ${selectedTags.length === 0 ? 'active' : ''}`}
+                        onClick={() => toggleTag('All')}
+                    >
+                        {t('common.all', 'All')}
+                    </button>
                     {allTags.map(tag => (
                         <button 
                             key={tag} 
-                            className={`filter-tag ${filter === tag ? 'active' : ''}`}
-                            onClick={() => setFilter(tag)}
+                            className={`filter-tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+                            onClick={() => toggleTag(tag)}
                         >
                             {tag}
                         </button>

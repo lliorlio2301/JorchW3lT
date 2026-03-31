@@ -14,6 +14,7 @@ const AdminShortStoriesPage: React.FC = () => {
     
     const [stories, setStories] = useState<ShortStory[]>([]);
     const [editingStory, setEditingStory] = useState<ShortStory | null>(null);
+    const [newTag, setNewTag] = useState('');
 
     useEffect(() => {
         if (!isAuthenticated) navigate('/login');
@@ -37,7 +38,8 @@ const AdminShortStoriesPage: React.FC = () => {
             title: '',
             content: '',
             summary: '',
-            coverImageUrl: ''
+            coverImageUrl: '',
+            tags: []
         });
     };
 
@@ -61,6 +63,25 @@ const AdminShortStoriesPage: React.FC = () => {
         } catch (err) {
             console.error('Failed to delete story', err);
         }
+    };
+
+    const addTag = () => {
+        if (!editingStory) return;
+        if (newTag.trim() && !(editingStory.tags || []).includes(newTag.trim())) {
+            setEditingStory({
+                ...editingStory,
+                tags: [...(editingStory.tags || []), newTag.trim()]
+            });
+            setNewTag('');
+        }
+    };
+
+    const removeTag = (tagToRemove: string) => {
+        if (!editingStory) return;
+        setEditingStory({
+            ...editingStory,
+            tags: (editingStory.tags || []).filter(t => t !== tagToRemove)
+        });
     };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,6 +133,27 @@ const AdminShortStoriesPage: React.FC = () => {
                     <div className="form-group">
                         <label>Summary</label>
                         <textarea value={editingStory.summary} onChange={e => setEditingStory({...editingStory, summary: e.target.value})} rows={3} />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Tags</label>
+                        <div className="tag-input-group">
+                            <input 
+                                value={newTag}
+                                onChange={e => setNewTag(e.target.value)}
+                                placeholder="Add tag..."
+                                onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                            />
+                            <button type="button" onClick={addTag} className="add-tag-btn">Add</button>
+                        </div>
+                        <div className="admin-tags-list">
+                            {(editingStory.tags || []).map(tag => (
+                                <span key={tag} className="admin-tag-chip">
+                                    #{tag}
+                                    <button type="button" onClick={() => removeTag(tag)}>&times;</button>
+                                </span>
+                            ))}
+                        </div>
                     </div>
 
                     <div className="form-group">
