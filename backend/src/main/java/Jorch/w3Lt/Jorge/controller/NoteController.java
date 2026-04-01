@@ -33,6 +33,12 @@ public class NoteController {
         return ResponseEntity.ok(noteService.saveNote(noteDTO));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<NoteDTO> updateNote(@PathVariable Long id, @RequestBody NoteDTO noteDTO) {
+        noteDTO.setId(id);
+        return ResponseEntity.ok(noteService.saveNote(noteDTO));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
         noteService.deleteNote(id);

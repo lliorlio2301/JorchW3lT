@@ -27,6 +27,12 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getProjectById(id));
     }
 
+    @GetMapping("/{id}/edit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ProjectDTO> getProjectForEdit(@PathVariable Long id) {
+        return getProjectById(id);
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProjectDTO> saveProject(@RequestBody ProjectDTO projectDTO) {

@@ -22,6 +22,11 @@ public class SongController {
         return ResponseEntity.ok(songService.getAllSongs());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<SongDTO> getSongById(@PathVariable Long id) {
+        return ResponseEntity.ok(songService.getSongById(id));
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SongDTO> saveSong(@RequestBody SongDTO songDTO) {

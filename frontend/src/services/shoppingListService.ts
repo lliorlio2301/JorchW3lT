@@ -2,7 +2,7 @@ import api from './api';
 import type { ListItem } from '../types/listItem';
 import { db } from '../db';
 
-const ENDPOINT = '/shopping-list';
+const ENDPOINT = '/shopping';
 
 export const shoppingListService = {
     getAllItems: async (): Promise<ListItem[]> => {
@@ -39,7 +39,7 @@ export const shoppingListService = {
     },
 
     toggleCompleted: async (id: number): Promise<ListItem> => {
-        const response = await api.patch<ListItem>(`${ENDPOINT}/${id}/toggle`);
+        const response = await api.put<ListItem>(`${ENDPOINT}/${id}/toggle`);
         const updatedItem = response.data;
         
         await db.listItems.put(updatedItem);

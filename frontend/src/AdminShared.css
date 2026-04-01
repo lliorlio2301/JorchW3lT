@@ -55,6 +55,40 @@
     font-size: 0.9rem;
 }
 
+/* Form Layout & Cards */
+.admin-form-card {
+    margin-bottom: 4rem;
+    padding: 3rem;
+}
+
+.admin-form-card h3 {
+    margin-bottom: 2rem;
+    color: var(--color-primary);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Specific Buttons */
+.btn-save {
+    background: var(--color-secondary);
+    color: white;
+    font-weight: bold;
+}
+
+.btn-delete-final {
+    background: #e74c3c;
+    color: white;
+    border: 1px solid #c0392b;
+}
+
+.btn-delete-final:hover {
+    background: #c0392b;
+}
+
 /* Form Styles */
 .admin-form, .blog-editor-form {
     display: flex;
