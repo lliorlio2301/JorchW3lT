@@ -3,6 +3,7 @@ package Jorch.w3Lt.Jorge.controller;
 import Jorch.w3Lt.Jorge.dto.NoteDTO;
 import Jorch.w3Lt.Jorge.service.NoteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,28 +19,29 @@ public class NoteController {
     private final NoteService noteService;
 
     @GetMapping
-    public List<NoteDTO> getAllNotes() {
-        return noteService.getAllNotes();
+    public ResponseEntity<List<NoteDTO>> getAllNotes() {
+        return ResponseEntity.ok(noteService.getAllNotes());
     }
 
     @GetMapping("/{id}")
-    public NoteDTO getNoteById(@PathVariable Long id) {
-        return noteService.getNoteById(id);
+    public ResponseEntity<NoteDTO> getNoteById(@PathVariable Long id) {
+        return ResponseEntity.ok(noteService.getNoteById(id));
     }
 
     @PostMapping
-    public NoteDTO saveNote(@RequestBody NoteDTO noteDTO) {
-        return noteService.saveNote(noteDTO);
+    public ResponseEntity<NoteDTO> saveNote(@RequestBody NoteDTO noteDTO) {
+        return ResponseEntity.ok(noteService.saveNote(noteDTO));
     }
 
     @PutMapping("/{id}")
-    public NoteDTO updateNote(@PathVariable Long id, @RequestBody NoteDTO noteDTO) {
+    public ResponseEntity<NoteDTO> updateNote(@PathVariable Long id, @RequestBody NoteDTO noteDTO) {
         noteDTO.setId(id);
-        return noteService.saveNote(noteDTO);
+        return ResponseEntity.ok(noteService.saveNote(noteDTO));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteNote(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
         noteService.deleteNote(id);
+        return ResponseEntity.ok().build();
     }
 }

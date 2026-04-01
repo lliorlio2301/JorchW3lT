@@ -14,10 +14,8 @@ const ResumePage: React.FC = () => {
         const fetchResume = async () => {
             setLoading(true);
             try {
-                const resumes = await resumeService.getAllResumes();
-                if (resumes.length > 0) {
-                    setResume(resumes[0]);
-                }
+                const data = await resumeService.getResume(i18n.language);
+                setResume(data);
             } catch (err) {
                 console.error('Failed to fetch resume:', err);
                 setError(t('resume.error'));

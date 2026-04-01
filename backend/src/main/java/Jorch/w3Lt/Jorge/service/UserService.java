@@ -17,10 +17,10 @@ public class UserService {
     @Transactional
     public void updateUsername(String currentUsername, String newUsername) {
         User user = userRepository.findByUsername(currentUsername)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
         
         if (userRepository.findByUsername(newUsername).isPresent()) {
-            throw new RuntimeException("Username already taken");
+            throw new IllegalArgumentException("Username already taken");
         }
         
         user.setUsername(newUsername);
@@ -30,7 +30,7 @@ public class UserService {
     @Transactional
     public void updatePassword(String username, String newPassword) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
         
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);

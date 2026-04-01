@@ -4,13 +4,14 @@ import type { Resume } from '../types/resume';
 const ENDPOINT = '/resume';
 
 export const resumeService = {
-    getAllResumes: async (): Promise<Resume[]> => {
-        const response = await api.get<Resume[]>(ENDPOINT);
+    getResume: async (locale: string): Promise<Resume> => {
+        const response = await api.get<Resume>(`${ENDPOINT}?locale=${locale}`);
         return response.data;
     },
 
-    getResumeById: async (id: number): Promise<Resume> => {
-        const response = await api.get<Resume>(`${ENDPOINT}/${id}`);
+    // Kept for API completeness if needed later, but backend currently focused on single resume
+    getResumeById: async (id: number, locale: string): Promise<Resume> => {
+        const response = await api.get<Resume>(`${ENDPOINT}/${id}?locale=${locale}`);
         return response.data;
     },
 

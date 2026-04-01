@@ -16,40 +16,6 @@
     color: white;
 }
 
-.admin-form-card {
-    margin-bottom: 4rem;
-    padding: 3rem;
-}
-
-.admin-form-card h3 {
-    color: var(--color-primary);
-    margin-bottom: 2rem;
-}
-
-.form-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2rem;
-    border-top: 1px solid var(--color-contrast);
-    padding-top: 2rem;
-}
-
-.btn-save {
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-}
-
-.btn-delete-final {
-    background: #e74c3c;
-    color: white;
-    border-color: #c0392b;
-}
-
-.btn-delete-final:hover {
-    background: #c0392b;
-}
-
 .filter-bar {
     display: flex;
     flex-wrap: wrap;
@@ -180,10 +146,6 @@
     }
 
     .project-info {
-        padding: 1.5rem;
-    }
-
-    .admin-form-card {
         padding: 1.5rem;
     }
 }
