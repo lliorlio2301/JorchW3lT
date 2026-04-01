@@ -105,38 +105,41 @@ const HomePage: React.FC = () => {
             </section>
 
             {/* BLOG SECTION */}
-            <section className="home-section blog-section">
-                <div className='blog-protected-header'>
-                    <h2 className="section-label">{t('nav.blog')}</h2>
-                </div>
-                <div className="blog-pile-container">
-                    <div className="blog-pile">
-                        {recentPosts.map((post, index) => (
-                            <Link 
-                                to={`/blog/${post.slug}`} 
-                                key={post.id} 
-                                className="project-card module-panel blog-post-card chaotic-pile-item" 
-                                style={chaoticStyles[index]}
-                            >
-                                {post.coverImageUrl && (
-                                    <div className="project-image">
-                                        <img src={post.coverImageUrl} alt={post.title} />
+              <section className="home-section blog-section">
+                  <div className='blog-protected-header'>
+                      <h2 className="section-label">{t('nav.blog')}</h2>
+                  </div>
+                  {recentPosts.length > 0 && (
+                      <>
+                      <div className="blog-pile-container">
+                        <div className="blog-pile">
+                            {recentPosts.map((post, index) => (
+                                <Link 
+                                    to={`/blog/${post.slug}`} 
+                                    key={post.id} 
+                                    className="project-card module-panel blog-post-card chaotic-pile-item" 
+                                    style={chaoticStyles[index]}
+                                >
+                                    {post.coverImageUrl && (
+                                        <div className="project-image">
+                                            <img src={post.coverImageUrl} alt={post.title} />
+                                        </div>
+                                    )}
+                                    <div className="project-info">
+                                        <h3>{post.title}</h3>
+                                        <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>
+                                        <p className="post-excerpt">{post.content.substring(0, 150)}...</p>
                                     </div>
-                                )}
-                                <div className="project-info">
-                                    <h3>{post.title}</h3>
-                                    <span className="post-date">{new Date(post.createdAt!).toLocaleDateString()}</span>
-                                    <p className="post-excerpt">{post.content.substring(0, 150)}...</p>
-                                </div>
-                            </Link>
-                        ))}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                <div className="blog-protected-footer">
-                    <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
-                </div>
-            </section>
-
+                  </>
+                  )}
+                  <div className="blog-protected-footer">
+                      <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
+                  </div>
+              </section>
             {/* STORIES SECTION */}
             <section className="home-section stories-section">
                 <h2 className="section-label">{t('nav.stories')}</h2>
