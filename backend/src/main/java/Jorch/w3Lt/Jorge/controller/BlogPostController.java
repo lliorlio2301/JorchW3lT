@@ -3,6 +3,7 @@ package Jorch.w3Lt.Jorge.controller;
 import Jorch.w3Lt.Jorge.dto.BlogPostDTO;
 import Jorch.w3Lt.Jorge.service.BlogPostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,31 +18,32 @@ public class BlogPostController {
     private final BlogPostService blogPostService;
 
     @GetMapping
-    public List<BlogPostDTO> getAllPosts() {
-        return blogPostService.getAllPosts();
+    public ResponseEntity<List<BlogPostDTO>> getAllPosts() {
+        return ResponseEntity.ok(blogPostService.getAllPosts());
     }
 
     @GetMapping("/{slug}")
-    public BlogPostDTO getPostBySlug(@PathVariable String slug) {
-        return blogPostService.getPostBySlug(slug);
+    public ResponseEntity<BlogPostDTO> getPostBySlug(@PathVariable String slug) {
+        return ResponseEntity.ok(blogPostService.getPostBySlug(slug));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public BlogPostDTO savePost(@RequestBody BlogPostDTO blogPostDTO) {
-        return blogPostService.savePost(blogPostDTO);
+    public ResponseEntity<BlogPostDTO> savePost(@RequestBody BlogPostDTO blogPostDTO) {
+        return ResponseEntity.ok(blogPostService.savePost(blogPostDTO));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public BlogPostDTO updatePost(@PathVariable Long id, @RequestBody BlogPostDTO blogPostDTO) {
+    public ResponseEntity<BlogPostDTO> updatePost(@PathVariable Long id, @RequestBody BlogPostDTO blogPostDTO) {
         blogPostDTO.setId(id);
-        return blogPostService.savePost(blogPostDTO);
+        return ResponseEntity.ok(blogPostService.savePost(blogPostDTO));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void deletePost(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         blogPostService.deletePost(id);
+        return ResponseEntity.ok().build();
     }
 }

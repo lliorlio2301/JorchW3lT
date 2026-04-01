@@ -1,6 +1,7 @@
 package Jorch.w3Lt.Jorge.service;
 
 import Jorch.w3Lt.Jorge.dto.NoteDTO;
+import Jorch.w3Lt.Jorge.exception.ResourceNotFoundException;
 import Jorch.w3Lt.Jorge.mapper.NoteMapper;
 import Jorch.w3Lt.Jorge.model.Note;
 import Jorch.w3Lt.Jorge.repository.NoteRepository;
@@ -26,7 +27,7 @@ public class NoteService {
 
     public NoteDTO getNoteById(Long id) {
         Note note = noteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Note not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Note not found with id: " + id));
         return noteMapper.toDto(note);
     }
 

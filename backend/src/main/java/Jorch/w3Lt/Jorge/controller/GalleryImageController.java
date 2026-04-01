@@ -18,24 +18,24 @@ public class GalleryImageController {
     private final GalleryImageService service;
 
     @GetMapping
-    public List<GalleryImageDTO> getAllImages() {
-        return service.getAllImages();
+    public ResponseEntity<List<GalleryImageDTO>> getAllImages() {
+        return ResponseEntity.ok(service.getAllImages());
     }
 
     @GetMapping("/highlight")
-    public GalleryImageDTO getMonthlyHighlight() {
-        return service.getMonthlyHighlight();
+    public ResponseEntity<GalleryImageDTO> getMonthlyHighlight() {
+        return ResponseEntity.ok(service.getMonthlyHighlight());
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public GalleryImageDTO saveImage(@RequestBody GalleryImageDTO dto) {
-        return service.saveImage(dto);
+    public ResponseEntity<GalleryImageDTO> saveImage(@RequestBody GalleryImageDTO dto) {
+        return ResponseEntity.ok(service.saveImage(dto));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteImage(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteImage(@PathVariable Long id) {
         service.deleteImage(id);
         return ResponseEntity.ok().build();
     }

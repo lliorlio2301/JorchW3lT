@@ -1,6 +1,7 @@
 package Jorch.w3Lt.Jorge.service;
 
 import Jorch.w3Lt.Jorge.dto.BlogPostDTO;
+import Jorch.w3Lt.Jorge.exception.ResourceNotFoundException;
 import Jorch.w3Lt.Jorge.mapper.BlogPostMapper;
 import Jorch.w3Lt.Jorge.model.BlogPost;
 import Jorch.w3Lt.Jorge.repository.BlogPostRepository;
@@ -26,7 +27,7 @@ public class BlogPostService {
 
     public BlogPostDTO getPostBySlug(String slug) {
         BlogPost post = blogPostRepository.findBySlug(slug)
-                .orElseThrow(() -> new RuntimeException("Post not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found with slug: " + slug));
         return blogPostMapper.toDto(post);
     }
 

@@ -25,7 +25,7 @@ class NoteIntegrationTest extends AbstractIntegrationTest {
     @Test
     void shouldReturn403WhenAccessingNotesWithoutAuth() {
         // When
-        ResponseEntity<Object[]> response = restTemplate.getForEntity("/api/notes", Object[].class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/api/notes", String.class);
 
         // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);

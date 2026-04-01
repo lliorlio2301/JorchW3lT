@@ -203,45 +203,10 @@
     font-size: 2.5rem;
 }
 
-/* Form Styles */
-.admin-form-card {
-    margin-bottom: 4rem;
-    padding: 2rem;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.admin-form input, .admin-form textarea {
-    padding: 0.8rem;
-    border: 1px solid var(--color-contrast);
-    border-radius: 6px;
-    background: var(--color-surface);
-    color: inherit;
-    font-family: inherit;
-}
-
 .chords-editor {
     width: 100%;
-}
-
-.form-actions {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.btn-save {
-    padding: 0.8rem 2rem;
-    background: var(--color-secondary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
+    min-height: 300px;
+    font-family: 'Fira Code', monospace;
 }
 
 @media (max-width: 900px) {
