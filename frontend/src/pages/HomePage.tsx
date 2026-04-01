@@ -74,44 +74,45 @@ const HomePage: React.FC = () => {
             )}
 
             {/* SONGS SECTION */}
-            <section className="home-section songs-section">
-                <h2 className="section-label">{t('nav.songs')}</h2>
-                <div className="project-card module-panel songs-list-card">
-                    <div className="project-info">
-                        <h3>Jorch's Songbook</h3>
-                        <div className="card-body">
-                            <table className="songs-table">
-                                <thead>
-                                    <tr>
-                                        <th>{t('songs.title', 'Titel')}</th>
-                                        <th>{t('songs.artist', 'Artist')}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {recentSongs.map(song => (
-                                        <tr key={song.id}>
-                                            <td>{song.title}</td>
-                                            <td>{song.artist}</td>
+            {recentSongs.length > 0 && (
+                <section className="home-section songs-section">
+                    <h2 className="section-label">{t('nav.songs')}</h2>
+                    <div className="project-card module-panel songs-list-card">
+                        <div className="project-info">
+                            <h3>Jorch's Songbook</h3>
+                            <div className="card-body">
+                                <table className="songs-table">
+                                    <thead>
+                                        <tr>
+                                            <th>{t('songs.title', 'Titel')}</th>
+                                            <th>{t('songs.artist', 'Artist')}</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {recentSongs.map(song => (
+                                            <tr key={song.id}>
+                                                <td>{song.title}</td>
+                                                <td>{song.artist}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="section-footer">
-                    <Link to="/songs" className="retro-btn">{t('common.viewAll')}</Link>
-                </div>
-            </section>
+                    <div className="section-footer">
+                        <Link to="/songs" className="retro-btn">{t('common.viewAll')}</Link>
+                    </div>
+                </section>
+            )}
 
             {/* BLOG SECTION */}
-              <section className="home-section blog-section">
-                  <div className='blog-protected-header'>
-                      <h2 className="section-label">{t('nav.blog')}</h2>
-                  </div>
-                  {recentPosts.length > 0 && (
-                      <>
-                      <div className="blog-pile-container">
+            {recentPosts.length > 0 && (
+                <section className="home-section blog-section">
+                    <div className='blog-protected-header'>
+                        <h2 className="section-label">{t('nav.blog')}</h2>
+                    </div>
+                    <div className="blog-pile-container">
                         <div className="blog-pile">
                             {recentPosts.map((post, index) => (
                                 <Link 
@@ -134,58 +135,62 @@ const HomePage: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                  </>
-                  )}
-                  <div className="blog-protected-footer">
-                      <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
-                  </div>
-              </section>
+                    <div className="blog-protected-footer">
+                        <Link to="/blog" className="retro-btn">{t('common.viewAll')}</Link>
+                    </div>
+                </section>
+            )}
+
             {/* STORIES SECTION */}
-            <section className="home-section stories-section">
-                <h2 className="section-label">{t('nav.stories')}</h2>
-                <div className="stories-mosaic">
-                    {recentStories.map((story) => (
-                        <Link to={`/stories/${story.id}`} key={story.id} className="mosaic-item">
-                            {story.coverImageUrl ? (
-                                <img src={story.coverImageUrl} alt={story.title} className="mosaic-image" />
-                            ) : (
-                                <div className="mosaic-placeholder">{story.title}</div>
-                            )}
-                        </Link>
-                    ))}
-                </div>
-                <div className="section-footer">
-                    <Link to="/stories" className="retro-btn">{t('common.viewAll')}</Link>
-                </div>
-            </section>
+            {recentStories.length > 0 && (
+                <section className="home-section stories-section">
+                    <h2 className="section-label">{t('nav.stories')}</h2>
+                    <div className="stories-mosaic">
+                        {recentStories.map((story) => (
+                            <Link to={`/stories/${story.id}`} key={story.id} className="mosaic-item">
+                                {story.coverImageUrl ? (
+                                    <img src={story.coverImageUrl} alt={story.title} className="mosaic-image" />
+                                ) : (
+                                    <div className="mosaic-placeholder">{story.title}</div>
+                                )}
+                            </Link>
+                        ))}
+                    </div>
+                    <div className="section-footer">
+                        <Link to="/stories" className="retro-btn">{t('common.viewAll')}</Link>
+                    </div>
+                </section>
+            )}
 
             {/* PROJECTS SECTION */}
-            <section className="home-section projects-section">
-                <h2 className="section-label">{t('nav.projects')}</h2>
-                <div className="projects-grid">
-                    {recentProjects.map((project) => (
-                        <div key={project.id} className="project-card module-panel">
-                            {project.imageUrl && (
-                                <div className="project-image">
-                                    <img src={project.imageUrl} alt={project.title} />
-                                </div>
-                            )}
-                            <div className="project-info">
-                                <h3>{project.title}</h3>
-                                <p>{project.description}</p>
-                                <div className="tech-tags">
-                                    {project.techTags?.map(tag => (
-                                        <span key={tag} className="tag">{tag}</span>
-                                    ))}
+            {recentProjects.length > 0 && (
+                <section className="home-section projects-section">
+                    <h2 className="section-label">{t('nav.projects')}</h2>
+                    <div className="projects-grid">
+                        {recentProjects.map((project) => (
+                            <div key={project.id} className="project-card module-panel">
+                                {project.imageUrl && (
+                                    <div className="project-image">
+                                        <img src={project.imageUrl} alt={project.title} />
+                                    </div>
+                                )}
+                                <div className="project-info">
+                                    <h3>{project.title}</h3>
+                                    <p>{project.description}</p>
+                                    <div className="tech-tags">
+                                        {project.techTags?.map(tag => (
+                                            <span key={tag} className="tag">{tag}</span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-                <div className="section-footer">
-                    <Link to="/projects" className="retro-btn">{t('common.viewAll')}</Link>
-                </div>
-            </section>
+                        ))}
+                    </div>
+                    <div className="section-footer">
+                        <Link to="/projects" className="retro-btn">{t('common.viewAll')}</Link>
+                    </div>
+                </section>
+            )}
         </div>
     );
 };
