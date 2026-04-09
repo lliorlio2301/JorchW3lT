@@ -11,7 +11,11 @@ test.describe('Account Management Journey', () => {
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify({ token: 'fake-jwt', username: 'admin', role: 'ADMIN' })
+          body: JSON.stringify({ 
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6NDEwMjQ0NDgwMH0.signature', 
+            username: 'admin', 
+            role: 'ADMIN' 
+          })
         });
       } else if (url.includes('/api/user/update-username') || url.includes('/api/user/update-password')) {
         await route.fulfill({ status: 200 });

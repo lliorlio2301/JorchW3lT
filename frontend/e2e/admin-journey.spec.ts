@@ -12,7 +12,7 @@ test.describe('Admin User Journey', () => {
           status: 200,
           contentType: 'application/json',
           body: JSON.stringify({
-            token: 'fake-jwt-token',
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6NDEwMjQ0NDgwMH0.signature',
             username: 'admin',
             role: 'ADMIN'
           })
@@ -31,7 +31,7 @@ test.describe('Admin User Journey', () => {
             body: JSON.stringify({
               id: 123,
               title: 'E2E Test Note',
-              noteItems: [{ text: 'Check me!', completed: false, isChecklist: true }],
+              content: '# Markdown Content\nCheck me!',
               createdAt: new Date().toISOString()
             })
           });
@@ -67,23 +67,26 @@ test.describe('Admin User Journey', () => {
     await expect(titleInput).toBeVisible();
     await titleInput.fill('E2E Test Note');
     
-    const itemInput = page.locator('.note-item-input').first();
-    await itemInput.fill('Check me!');
+    // Markdown Textarea
+    const textarea = page.locator('.note-textarea');
+    await textarea.fill('# Markdown Content\nCheck me!');
     
     // 6. Save and wait for Response
-    // We wait for the POST request to complete before checking the sidebar
     const saveResponsePromise = page.waitForResponse(response => 
         response.url().includes('/api/notes') && response.request().method() === 'POST'
     );
     
-    // The save button is the first button in editor-actions
-    await page.locator('.editor-actions button').first().click();
+    await page.locator('.save-btn').click();
     
     await saveResponsePromise;
 
     // 7. Verify the Sidebar
-    // Increase timeout and use a robust locator
     const sidebarNote = page.locator('.note-summary-card h3').filter({ hasText: 'E2E Test Note' });
     await expect(sidebarNote).toBeVisible({ timeout: 10000 });
+    
+    // 8. Verify Preview
+    // After saving, it should switch to view mode
+    await expect(page.locator('.note-preview')).toBeVisible();
+    await expect(page.locator('.note-preview')).toContainText('Markdown Content');
   });
 });
