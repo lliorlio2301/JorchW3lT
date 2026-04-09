@@ -81,13 +81,14 @@ In dieser Phase werden kritische Sicherheitslücken in der User Experience gesch
     - **Session Cleanup:** Automatischer Logout und Bereinigung des Speichers, falls Tokens ungültig oder nicht mehr erneuerbar sind.
 
 ### Notes System Refactoring (Markdown Document)
-- [ ] **Fundamental Model Refactoring:**
+- [x] **Fundamental Model Refactoring:**
     - Umstellung von `NoteItem`-Listen auf ein einzelnes **Markdown-Dokument** pro Notiz.
     - **Vorteil:** Nahtlose Nutzung der bestehenden `react-markdown` Logik und einfache PWA-Synchronisation.
-- [ ] **Unified Content Editor:**
+- [x] **Unified Content Editor:**
     - Integration eines Editors, der native Browser-Markierung und flüssiges Schreiben erlaubt (keine isolierten Input-Felder mehr).
-- [ ] **Mobile Touch-Targets:**
+- [x] **Mobile Touch-Targets:**
     - CSS-Anpassung der "Playful Chaos" Elemente: Vergrößerung der Klickflächen für mobile Geräte, ohne den chaotischen Look zu verlieren.
+    - **Neu:** Mobile-spezifische Navigation zwischen Liste und Editor.
 
 ---
 
@@ -95,8 +96,10 @@ In dieser Phase werden kritische Sicherheitslücken in der User Experience gesch
 
 Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
 
-- [ ] **Unified Upload Service:**
-    - Zentralisierung der Bildverarbeitung für Blogs, Projekte, Galerie und (neu) Resume.
+- [/] **Unified Upload Service:**
+    - [x] Zentralisierung der Bildverarbeitung für Blogs, Projekte und Galerie (Backend-Service implementiert).
+    - [x] Automatisches Löschen physischer Dateien bei Löschung von Einträgen.
+    - [ ] Anbindung des Resume-Moduls (in Phase 13).
 - [ ] **Image Optimization (WebP):**
     - Automatische Konvertierung von Uploads in das WebP-Format zur Reduzierung der PWA-Speicherlast und Verbesserung der Ladezeiten.
 - [ ] **Accessibility (Alt-Text):**

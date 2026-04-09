@@ -17,6 +17,7 @@ public class GalleryImageService {
 
     private final GalleryImageRepository repository;
     private final GalleryImageMapper mapper;
+    private final MediaService mediaService;
 
     @Transactional(readOnly = true)
     public List<GalleryImageDTO> getAllImages() {
@@ -50,6 +51,9 @@ public class GalleryImageService {
 
     @Transactional
     public void deleteImage(Long id) {
-        repository.deleteById(id);
+        repository.findById(id).ifPresent(image -> {
+            mediaService.deleteFile(image.getImageUrl());
+            repository.delete(image);
+        });
     }
 }
