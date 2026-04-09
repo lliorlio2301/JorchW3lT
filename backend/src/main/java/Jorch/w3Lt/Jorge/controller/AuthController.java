@@ -23,4 +23,15 @@ public class AuthController {
     ) {
         return ResponseEntity.ok(service.authenticate(request));
     }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<AuthenticationResponse> refreshToken(
+            @RequestBody java.util.Map<String, String> request
+    ) {
+        String refreshToken = request.get("refreshToken");
+        if (refreshToken == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(service.refreshToken(refreshToken));
+    }
 }

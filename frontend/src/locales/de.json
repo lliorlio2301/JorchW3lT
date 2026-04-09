@@ -99,5 +99,13 @@
       "error": "Fehler beim Laden der Songs.",
       "noData": "Keine Songs gefunden.",
       "youtube": "Auf YouTube öffnen"
+    },
+    "login": {
+      "title": "Login",
+      "username": "Benutzername",
+      "password": "Passwort",
+      "button": "Anmelden",
+      "error": "Ungültige Anmeldedaten",
+      "rememberMe": "Diesem Browser vertrauen"
     }
 }

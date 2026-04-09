@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.png', 'vite.svg'],
       manifest: {
-        name: "Jorch's Portfolio & OS",
-        short_name: "JorchOS",
+        name: "J0rch's W3lt",
+        short_name: "J0rch",
         description: "Personal Portfolio and Productivity Tools",
         theme_color: '#121212',
         background_color: '#121212',
