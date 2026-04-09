@@ -28,7 +28,6 @@ public class Note {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "note", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<NoteItem> noteItems = new ArrayList<>();
+    @Column(columnDefinition = "TEXT")
+    private String content;
 }

@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import noteService from '../services/noteService';
 import { useAuth } from '../hooks/useAuth';
-import type { Note, NoteItem } from '../types/note';
+import type { Note } from '../types/note';
 import './NotesPage.css';
 
 const NotesPage: React.FC = () => {
@@ -14,6 +15,7 @@ const NotesPage: React.FC = () => {
     const [notes, setNotes] = useState<Note[]>([]);
     const [selectedNote, setSelectedNote] = useState<Note | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isEditing, setIsEditing] = useState(true);
     const [, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -29,6 +31,7 @@ const NotesPage: React.FC = () => {
             setNotes(data);
             if (data.length > 0 && !selectedNote) {
                 setSelectedNote(data[0]);
+                setIsEditing(false); // Start in view mode for existing notes
             }
         } catch (err) {
             console.error('Failed to fetch notes', err);
@@ -45,25 +48,21 @@ const NotesPage: React.FC = () => {
     const handleAddNote = () => {
         const newNote: Note = {
             title: '',
-            noteItems: [{ text: '', completed: false, isChecklist: true }]
+            content: ''
         };
         setSelectedNote(newNote);
+        setIsEditing(true);
     };
 
     const handleSaveNote = async () => {
         if (!selectedNote) return;
         
-        const noteToSave = {
-            ...selectedNote,
-            noteItems: selectedNote.noteItems.filter(item => item.text.trim() !== '')
-        };
-
-        if (noteToSave.noteItems.length === 0 && !noteToSave.title) {
+        if (!selectedNote.content.trim() && !selectedNote.title.trim()) {
             return;
         }
 
         try {
-            const saved = await noteService.saveNote(noteToSave);
+            const saved = await noteService.saveNote(selectedNote);
             setNotes(prevNotes => {
                 const index = prevNotes.findIndex(n => n.id === saved.id);
                 if (index !== -1) {
@@ -75,6 +74,7 @@ const NotesPage: React.FC = () => {
                 }
             });
             setSelectedNote(saved);
+            setIsEditing(false);
         } catch (err) {
             console.error('Failed to save note', err);
         }
@@ -83,6 +83,7 @@ const NotesPage: React.FC = () => {
     const handleDeleteNote = async (id?: number) => {
         if (!id) {
             setSelectedNote(notes.length > 0 ? notes[0] : null);
+            setIsEditing(false);
             return;
         }
         if (!window.confirm(t('common.confirmDelete'))) return;
@@ -92,51 +93,9 @@ const NotesPage: React.FC = () => {
             const updatedNotes = notes.filter(n => n.id !== id);
             setNotes(updatedNotes);
             setSelectedNote(updatedNotes.length > 0 ? updatedNotes[0] : null);
+            setIsEditing(false);
         } catch (err) {
             console.error('Failed to delete note', err);
-        }
-    };
-
-    const updateNoteItem = (index: number, updates: Partial<NoteItem>) => {
-        if (!selectedNote) return;
-        const newItems = [...selectedNote.noteItems];
-        newItems[index] = { ...newItems[index], ...updates };
-        setSelectedNote({ ...selectedNote, noteItems: newItems });
-    };
-
-    const toggleMode = (e: React.MouseEvent, index: number) => {
-        e.preventDefault();
-        if (!selectedNote) return;
-        const current = selectedNote.noteItems[index].isChecklist;
-        updateNoteItem(index, { isChecklist: !current, completed: false });
-    };
-
-    const handleItemKeyDown = (e: React.KeyboardEvent, index: number) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            const currentItem = selectedNote?.noteItems[index];
-            const newItems = [...(selectedNote?.noteItems || [])];
-            newItems.splice(index + 1, 0, { 
-                text: '', 
-                completed: false, 
-                isChecklist: currentItem?.isChecklist ?? true 
-            });
-            setSelectedNote({ ...selectedNote!, noteItems: newItems });
-            
-            setTimeout(() => {
-                const inputs = document.querySelectorAll('.note-item-input');
-                (inputs[index + 1] as HTMLInputElement)?.focus();
-            }, 0);
-        } else if (e.key === 'Backspace' && selectedNote?.noteItems[index].text === '' && selectedNote.noteItems.length > 1) {
-            e.preventDefault();
-            const newItems = [...selectedNote.noteItems];
-            newItems.splice(index, 1);
-            setSelectedNote({ ...selectedNote, noteItems: newItems });
-            
-            setTimeout(() => {
-                const inputs = document.querySelectorAll('.note-item-input');
-                (inputs[index - 1] as HTMLInputElement)?.focus();
-            }, 0);
         }
     };
 
@@ -148,16 +107,21 @@ const NotesPage: React.FC = () => {
                 <button className="add-note-btn chaos-card" onClick={handleAddNote}>
                     + {t('notes.add')}
                 </button>
-                {notes.map(note => (
-                    <div 
-                        key={note.id} 
-                        className={`note-summary-card chaos-card ${selectedNote?.id === note.id ? 'active' : ''}`}
-                        onClick={() => setSelectedNote(note)}
-                    >
-                        <h3>{note.title || t('notes.newItem')}</h3>
-                        <p>{note.createdAt ? new Date(note.createdAt).toLocaleDateString() : ''}</p>
-                    </div>
-                ))}
+                <div className="notes-list">
+                    {notes.map(note => (
+                        <div 
+                            key={note.id} 
+                            className={`note-summary-card chaos-card ${selectedNote?.id === note.id ? 'active' : ''}`}
+                            onClick={() => {
+                                setSelectedNote(note);
+                                setIsEditing(false);
+                            }}
+                        >
+                            <h3>{note.title || t('notes.newItem')}</h3>
+                            <p className="note-date">{note.createdAt ? new Date(note.createdAt).toLocaleDateString() : ''}</p>
+                        </div>
+                    ))}
+                </div>
                 {notes.length === 0 && !loading && <p className="no-data">{t('notes.noData')}</p>}
             </div>
 
@@ -171,33 +135,47 @@ const NotesPage: React.FC = () => {
                                 onChange={(e) => setSelectedNote({...selectedNote, title: e.target.value})}
                                 placeholder={t('notes.placeholderTitle')}
                             />
+                            <div className="editor-mode-toggle">
+                                <button 
+                                    className={isEditing ? 'active' : ''} 
+                                    onClick={() => setIsEditing(true)}
+                                >
+                                    {t('common.edit')}
+                                </button>
+                                <button 
+                                    className={!isEditing ? 'active' : ''} 
+                                    onClick={() => setIsEditing(false)}
+                                >
+                                    {t('common.view')}
+                                </button>
+                            </div>
                         </div>
+                        
                         <div className="editor-content">
-                            {selectedNote.noteItems.map((item, index) => (
-                                <div key={index} className="note-item-row">
-                                    <div 
-                                        className={`note-item-checkbox ${item.completed ? 'completed' : ''} ${!item.isChecklist ? 'hidden' : ''}`}
-                                        onClick={() => item.isChecklist && updateNoteItem(index, { completed: !item.completed })}
-                                        onContextMenu={(e) => toggleMode(e, index)}
-                                        title="Click to toggle check, Right-click to toggle mode"
-                                    >
-                                        {item.isChecklist ? (item.completed ? '✓' : '') : '•'}
-                                    </div>
-                                    <input 
-                                        className={`note-item-input ${item.completed ? 'completed' : ''} ${!item.isChecklist ? 'paragraph' : ''}`}
-                                        value={item.text}
-                                        onChange={(e) => updateNoteItem(index, { text: e.target.value })}
-                                        onKeyDown={(e) => handleItemKeyDown(e, index)}
-                                        placeholder={t('notes.placeholderItem')}
-                                    />
+                            {isEditing ? (
+                                <textarea 
+                                    className="note-textarea"
+                                    value={selectedNote.content}
+                                    onChange={(e) => setSelectedNote({...selectedNote, content: e.target.value})}
+                                    placeholder={t('notes.placeholderItem')}
+                                    autoFocus
+                                />
+                            ) : (
+                                <div className="note-preview markdown-body">
+                                    {selectedNote.content ? (
+                                        <ReactMarkdown>{selectedNote.content}</ReactMarkdown>
+                                    ) : (
+                                        <p className="empty-content">{t('notes.noData')}</p>
+                                    )}
                                 </div>
-                            ))}
+                            )}
                         </div>
+                        
                         <div className="editor-actions">
-                            <button onClick={handleSaveNote}>{t('common.save')}</button>
+                            <button className="save-btn" onClick={handleSaveNote}>{t('common.save')}</button>
                             <button 
+                                className="delete-btn"
                                 onClick={() => handleDeleteNote(selectedNote.id)} 
-                                style={{ background: 'var(--color-primary)' }}
                             >
                                 {t('common.delete')}
                             </button>
@@ -205,8 +183,13 @@ const NotesPage: React.FC = () => {
                     </>
                 ) : (
                     <div className="no-selection">
-                        <h2>{t('notes.title')}</h2>
-                        <p>{t('notes.noData')}</p>
+                        <div className="no-selection-content">
+                            <h2>{t('notes.title')}</h2>
+                            <p>{t('notes.noData')}</p>
+                            <button className="add-note-btn-large" onClick={handleAddNote}>
+                                {t('notes.add')}
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
