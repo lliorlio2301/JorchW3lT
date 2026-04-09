@@ -18,6 +18,7 @@ public class BlogPostService {
 
     private final BlogPostRepository blogPostRepository;
     private final BlogPostMapper blogPostMapper;
+    private final MediaService mediaService;
 
     public List<BlogPostDTO> getAllPosts() {
         return blogPostRepository.findAllByOrderByCreatedAtDesc().stream()
@@ -54,7 +55,12 @@ public class BlogPostService {
 
     @Transactional
     public void deletePost(Long id) {
-        blogPostRepository.deleteById(id);
+        blogPostRepository.findById(id).ifPresent(post -> {
+            if (post.getCoverImageUrl() != null) {
+                mediaService.deleteFile(post.getCoverImageUrl());
+            }
+            blogPostRepository.delete(post);
+        });
     }
 
     private String generateSlug(String title) {

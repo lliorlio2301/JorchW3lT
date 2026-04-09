@@ -16,6 +16,7 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
+    private final MediaService mediaService;
 
     public List<ProjectDTO> getAllProjects() {
         return projectRepository.findAll().stream()
@@ -50,6 +51,11 @@ public class ProjectService {
     }
 
     public void deleteProject(Long id) {
-        projectRepository.deleteById(id);
+        projectRepository.findById(id).ifPresent(project -> {
+            if (project.getImageUrl() != null) {
+                mediaService.deleteFile(project.getImageUrl());
+            }
+            projectRepository.delete(project);
+        });
     }
 }

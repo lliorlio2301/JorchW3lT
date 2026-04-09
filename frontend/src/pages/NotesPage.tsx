@@ -16,6 +16,7 @@ const NotesPage: React.FC = () => {
     const [selectedNote, setSelectedNote] = useState<Note | null>(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(true);
+    const [showMobileEditor, setShowMobileEditor] = useState(false);
     const [, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -52,6 +53,7 @@ const NotesPage: React.FC = () => {
         };
         setSelectedNote(newNote);
         setIsEditing(true);
+        setShowMobileEditor(true);
     };
 
     const handleSaveNote = async () => {
@@ -75,6 +77,7 @@ const NotesPage: React.FC = () => {
             });
             setSelectedNote(saved);
             setIsEditing(false);
+            // On mobile, we might want to stay in editor to see the saved state
         } catch (err) {
             console.error('Failed to save note', err);
         }
@@ -84,6 +87,7 @@ const NotesPage: React.FC = () => {
         if (!id) {
             setSelectedNote(notes.length > 0 ? notes[0] : null);
             setIsEditing(false);
+            setShowMobileEditor(false);
             return;
         }
         if (!window.confirm(t('common.confirmDelete'))) return;
@@ -94,6 +98,7 @@ const NotesPage: React.FC = () => {
             setNotes(updatedNotes);
             setSelectedNote(updatedNotes.length > 0 ? updatedNotes[0] : null);
             setIsEditing(false);
+            setShowMobileEditor(false);
         } catch (err) {
             console.error('Failed to delete note', err);
         }
@@ -102,7 +107,7 @@ const NotesPage: React.FC = () => {
     if (!isAuthenticated) return null;
 
     return (
-        <div className="notes-container">
+        <div className={`notes-container ${showMobileEditor ? 'mobile-editor-active' : ''}`}>
             <div className="notes-sidebar">
                 <button className="add-note-btn chaos-card" onClick={handleAddNote}>
                     + {t('notes.add')}
@@ -115,6 +120,7 @@ const NotesPage: React.FC = () => {
                             onClick={() => {
                                 setSelectedNote(note);
                                 setIsEditing(false);
+                                setShowMobileEditor(true);
                             }}
                         >
                             <h3>{note.title || t('notes.newItem')}</h3>
@@ -129,6 +135,9 @@ const NotesPage: React.FC = () => {
                 {selectedNote ? (
                     <>
                         <div className="editor-header">
+                            <button className="mobile-back-btn" onClick={() => setShowMobileEditor(false)}>
+                                ←
+                            </button>
                             <input 
                                 className="editor-title-input"
                                 value={selectedNote.title}
