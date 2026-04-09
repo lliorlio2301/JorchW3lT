@@ -7,3 +7,8 @@ export const login = async (request: AuthenticationRequest): Promise<Authenticat
     const response = await api.post<AuthenticationResponse>(`${ENDPOINT}/login`, request);
     return response.data;
 };
+
+export const refreshAccessToken = async (refreshToken: string): Promise<AuthenticationResponse> => {
+    const response = await api.post<AuthenticationResponse>(`${ENDPOINT}/refresh-token`, { refreshToken });
+    return response.data;
+};

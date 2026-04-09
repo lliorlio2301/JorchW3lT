@@ -67,3 +67,66 @@
 - [x] **Database Integrity:** Einsatz von Composite Primary Keys für Tag-Tabellen zur Vermeidung von Duplikaten.
 - [x] **Flyway Best Practices:** Sicherstellung der Immutabilität von Migrationen durch Nutzung sequentieller Korrektur-Skripte.
 - [x] **UI Polish:** Optimierung der Filterleisten mit robusten Sentinel-Werten (`null` statt Strings) zur Vermeidung von Namenskollisionen.
+
+## Phase 12: Security & UX Foundations (Priorität: Hoch)
+
+In dieser Phase werden kritische Sicherheitslücken in der User Experience geschlossen und das Notiz-System auf ein robustes Fundament gestellt.
+
+### Security & Auth Evolution
+- [ ] **Persistent Auth (Refresh Tokens):**
+    - Implementierung einer zweistufigen JWT-Strategie: Kurzlebige Access-Tokens kombiniert mit langlebigen Refresh-Tokens.
+    - **Trust-Device Logic:** Einführung einer "Diesem Browser vertrauen"-Option im Login-Formular.
+    - **Backend-Speicherung:** Refresh-Tokens werden verschlüsselt in der Datenbank (User-Entity Erweiterung) gespeichert.
+    - **Automatischer Refresh:** Der `Axios Interceptor` erkennt abgelaufene Access-Tokens und erneuert diese im Hintergrund.
+    - **Session Cleanup:** Automatischer Logout und Bereinigung des Speichers, falls Tokens ungültig oder nicht mehr erneuerbar sind.
+
+### Notes System Refactoring (Markdown Document)
+- [ ] **Fundamental Model Refactoring:**
+    - Umstellung von `NoteItem`-Listen auf ein einzelnes **Markdown-Dokument** pro Notiz.
+    - **Vorteil:** Nahtlose Nutzung der bestehenden `react-markdown` Logik und einfache PWA-Synchronisation.
+- [ ] **Unified Content Editor:**
+    - Integration eines Editors, der native Browser-Markierung und flüssiges Schreiben erlaubt (keine isolierten Input-Felder mehr).
+- [ ] **Mobile Touch-Targets:**
+    - CSS-Anpassung der "Playful Chaos" Elemente: Vergrößerung der Klickflächen für mobile Geräte, ohne den chaotischen Look zu verlieren.
+
+---
+
+## Phase 12.5: Central Media & Asset Management (Priorität: Mittel)
+
+Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
+
+- [ ] **Unified Upload Service:**
+    - Zentralisierung der Bildverarbeitung für Blogs, Projekte, Galerie und (neu) Resume.
+- [ ] **Image Optimization (WebP):**
+    - Automatische Konvertierung von Uploads in das WebP-Format zur Reduzierung der PWA-Speicherlast und Verbesserung der Ladezeiten.
+- [ ] **Accessibility (Alt-Text):**
+    - Nachrüsten von Alt-Text-Feldern in allen Admin-Modulen zur Verbesserung der Barrierefreiheit.
+
+---
+
+## Phase 13: Dynamic Resume & Document Export (Priorität: Mittel)
+
+Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-Funktionen.
+
+### Resume CRUD & Multilingual Editor
+- [ ] **Multilingual Admin-GUI:**
+    - Komplexes Formular zur parallelen Pflege von DE, EN und ES Inhalten.
+- [ ] **Dynamic List Management:**
+    - Drag-and-Drop Sortierung für Berufserfahrungen und Ausbildungsschritte.
+
+### Document Export
+- [ ] **PDF-Generator:**
+    - Implementierung einer "Download as PDF" Funktion für den Lebenslauf, die das aktuelle "Playful Chaos" Design in ein druckoptimiertes Format überführt.
+
+---
+
+## Phase 14: AI Intelligence & Song Evolution (Priorität: Zukunft)
+
+Intelligente Features zur Produktivitätssteigerung.
+
+- [ ] **AI Assistant (Notes):**
+    - Integration eines LLM-Dienstes (OpenAI oder lokal) zur Zusammenfassung und Stil-Optimierung von Notizen.
+- [ ] **Song Engine Pro:**
+    - Automatisierte Erkennung von Tonarten und Tuning-Vorschlägen basierend auf Songtexten.
+- [ ] **Smart Undo:**
+    - Snapshot-Mechanismus für KI-generierte Änderungen.
