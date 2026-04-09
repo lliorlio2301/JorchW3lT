@@ -34,10 +34,6 @@ public class NoteService {
     @Transactional
     public NoteDTO saveNote(NoteDTO noteDTO) {
         Note note = noteMapper.toEntity(noteDTO);
-        // Ensure parent reference is set (handled by mapper @AfterMapping, but let's be safe)
-        if (note.getNoteItems() != null) {
-            note.getNoteItems().forEach(item -> item.setNote(note));
-        }
         return noteMapper.toDto(noteRepository.save(note));
     }
 

@@ -57,7 +57,7 @@ describe('NotesPage', () => {
     })
     
     vi.mocked(noteService.getAllNotes).mockResolvedValue([
-      { id: 1, title: 'My Test Note', noteItems: [], createdAt: '2026-03-18T10:00:00Z' }
+      { id: 1, title: 'My Test Note', content: 'Test Content', createdAt: '2026-03-18T10:00:00Z' }
     ])
     
     render(
