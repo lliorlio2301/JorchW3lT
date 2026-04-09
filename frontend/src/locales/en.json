@@ -95,5 +95,13 @@
       "error": "Error loading songs.",
       "noData": "No songs found.",
       "youtube": "Open on YouTube"
+    },
+    "login": {
+      "title": "Login",
+      "username": "Username",
+      "password": "Password",
+      "button": "Login",
+      "error": "Invalid credentials",
+      "rememberMe": "Trust this browser"
     }
 }

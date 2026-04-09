@@ -28,6 +28,12 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
+    @Column(name = "refresh_token_expiration")
+    private java.time.LocalDateTime refreshTokenExpiration;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
