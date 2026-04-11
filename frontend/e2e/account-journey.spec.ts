@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-
 test.describe('Account Management Journey', () => {
   test('should allow changing username and password', async ({ page }) => {
     // 1. Mock API

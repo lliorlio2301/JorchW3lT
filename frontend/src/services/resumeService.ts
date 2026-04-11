@@ -1,5 +1,5 @@
 import api from './api';
-import type { Resume } from '../types/resume';
+import type { Resume, ResumeFull } from '../types/resume';
 
 const ENDPOINT = '/resume';
 
@@ -9,14 +9,13 @@ export const resumeService = {
         return response.data;
     },
 
-    // Kept for API completeness if needed later, but backend currently focused on single resume
-    getResumeById: async (id: number, locale: string): Promise<Resume> => {
-        const response = await api.get<Resume>(`${ENDPOINT}/${id}?locale=${locale}`);
+    getFullResume: async (): Promise<ResumeFull> => {
+        const response = await api.get<ResumeFull>(`${ENDPOINT}/full`);
         return response.data;
     },
 
-    saveResume: async (resume: Resume): Promise<Resume> => {
-        const response = await api.post<Resume>(ENDPOINT, resume);
+    saveResume: async (resume: ResumeFull): Promise<ResumeFull> => {
+        const response = await api.post<ResumeFull>(ENDPOINT, resume);
         return response.data;
     },
 };

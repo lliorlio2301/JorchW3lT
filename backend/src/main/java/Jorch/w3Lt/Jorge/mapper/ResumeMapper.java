@@ -1,8 +1,6 @@
 package Jorch.w3Lt.Jorge.mapper;
 
-import Jorch.w3Lt.Jorge.dto.EducationDTO;
-import Jorch.w3Lt.Jorge.dto.ExperienceDTO;
-import Jorch.w3Lt.Jorge.dto.ResumeDTO;
+import Jorch.w3Lt.Jorge.dto.*;
 import Jorch.w3Lt.Jorge.model.Education;
 import Jorch.w3Lt.Jorge.model.Experience;
 import Jorch.w3Lt.Jorge.model.Resume;
@@ -16,6 +14,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ResumeMapper {
 
+    // Language specific mappings (Public API)
     @Mapping(target = "location", source = "resume", qualifiedByName = "mapLocation")
     @Mapping(target = "summary", source = "resume", qualifiedByName = "mapSummary")
     @Mapping(target = "experiences", expression = "java(mapExperiences(resume.getExperiences(), locale))")
@@ -121,4 +120,14 @@ public interface ResumeMapper {
             default -> education.getDescriptionEn();
         };
     }
+
+    // Full Mappings (Admin API)
+    ResumeFullDTO toFullDto(Resume resume);
+    Resume toEntity(ResumeFullDTO dto);
+    
+    ExperienceFullDTO toFullDto(Experience experience);
+    Experience toEntity(ExperienceFullDTO dto);
+    
+    EducationFullDTO toFullDto(Education education);
+    Education toEntity(EducationFullDTO dto);
 }

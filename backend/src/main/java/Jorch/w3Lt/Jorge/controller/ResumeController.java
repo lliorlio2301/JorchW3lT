@@ -1,9 +1,11 @@
 package Jorch.w3Lt.Jorge.controller;
 
 import Jorch.w3Lt.Jorge.dto.ResumeDTO;
+import Jorch.w3Lt.Jorge.dto.ResumeFullDTO;
 import Jorch.w3Lt.Jorge.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,10 +18,21 @@ public class ResumeController {
 
     @GetMapping
     public ResponseEntity<ResumeDTO> getResume(@RequestParam(defaultValue = "de") String locale) {
-        // Assuming there is only one resume in the system for now
         ResumeDTO resume = resumeService.getAllResumes(locale).stream()
                 .findFirst()
                 .orElse(null);
         return ResponseEntity.ok(resume);
+    }
+
+    @GetMapping("/full")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ResumeFullDTO> getFullResume() {
+        return ResponseEntity.ok(resumeService.getFullResume());
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ResumeFullDTO> saveResume(@RequestBody ResumeFullDTO dto) {
+        return ResponseEntity.ok(resumeService.saveResume(dto));
     }
 }

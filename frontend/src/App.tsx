@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import ResumePage from './pages/ResumePage';
+import AdminResumePage from './pages/AdminResumePage';
 import SongsPage from './pages/SongsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ShoppingListPage from './pages/ShoppingListPage';
@@ -112,6 +113,7 @@ function NavContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/resume" element={<ResumePage />} />
+          <Route path="/resume/admin" element={<AdminResumePage />} />
           <Route path="/songs" element={<SongsPage />} />
           <Route path="/shopping" element={<ShoppingListPage />} />
           <Route path="/notes" element={<NotesPage />} />

@@ -112,10 +112,11 @@ Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
 Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-Funktionen.
 
 ### Resume CRUD & Multilingual Editor
-- [ ] **Multilingual Admin-GUI:**
-    - Komplexes Formular zur parallelen Pflege von DE, EN und ES Inhalten.
-- [ ] **Dynamic List Management:**
-    - Drag-and-Drop Sortierung für Berufserfahrungen und Ausbildungsschritte.
+- [x] **Multilingual Admin-GUI:**
+    - [x] Komplexes Formular zur parallelen Pflege von DE, EN und ES Inhalten.
+    - [x] Backend-Support für bidirektionales Mapping aller Sprachen.
+- [x] **Dynamic List Management:**
+    - [x] Dynamisches Hinzufügen/Entfernen von Berufserfahrungen und Ausbildungsschreitten im UI.
 
 ### Document Export
 - [ ] **PDF-Generator:**
