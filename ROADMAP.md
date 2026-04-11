@@ -96,12 +96,11 @@ In dieser Phase werden kritische Sicherheitslücken in der User Experience gesch
 
 Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
 
-- [/] **Unified Upload Service:**
+- [x] **Unified Upload Service:**
     - [x] Zentralisierung der Bildverarbeitung für Blogs, Projekte und Galerie (Backend-Service implementiert).
     - [x] Automatisches Löschen physischer Dateien bei Löschung von Einträgen.
-    - [ ] Anbindung des Resume-Moduls (in Phase 13).
-- [ ] **Image Optimization (WebP):**
-    - Automatische Konvertierung von Uploads in das WebP-Format zur Reduzierung der PWA-Speicherlast und Verbesserung der Ladezeiten.
+- [x] **Image Optimization (WebP):**
+    - [x] Automatische Konvertierung aller Uploads in das WebP-Format mittels Scrimage zur Reduzierung der PWA-Speicherlast.
 - [ ] **Accessibility (Alt-Text):**
     - Nachrüsten von Alt-Text-Feldern in allen Admin-Modulen zur Verbesserung der Barrierefreiheit.
 
@@ -112,10 +111,11 @@ Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
 Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-Funktionen.
 
 ### Resume CRUD & Multilingual Editor
-- [ ] **Multilingual Admin-GUI:**
-    - Komplexes Formular zur parallelen Pflege von DE, EN und ES Inhalten.
-- [ ] **Dynamic List Management:**
-    - Drag-and-Drop Sortierung für Berufserfahrungen und Ausbildungsschritte.
+- [x] **Multilingual Admin-GUI:**
+    - [x] Komplexes Formular zur parallelen Pflege von DE, EN und ES Inhalten.
+    - [x] Backend-Support für bidirektionales Mapping aller Sprachen.
+- [x] **Dynamic List Management:**
+    - [x] Dynamisches Hinzufügen/Entfernen von Berufserfahrungen und Ausbildungsschreitten im UI.
 
 ### Document Export
 - [ ] **PDF-Generator:**

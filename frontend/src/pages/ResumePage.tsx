@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import resumeService from '../services/resumeService';
 import type { Resume } from '../types/resume';
+import { useAuth } from '../hooks/useAuth';
 import './ResumePage.css';
 
 const ResumePage: React.FC = () => {
     const { t, i18n } = useTranslation();
+    const { isAuthenticated } = useAuth();
     const [resume, setResume] = useState<Resume | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -90,6 +93,12 @@ const ResumePage: React.FC = () => {
                         ))}
                     </div>
                 </section>
+
+                {isAuthenticated && (
+                    <div className="admin-link-container">
+                        <Link to="/resume/admin" className="admin-edit-link">✎ Edit Resume</Link>
+                    </div>
+                )}
             </main>
         </div>
     );
