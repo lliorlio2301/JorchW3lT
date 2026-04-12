@@ -106,6 +106,20 @@ Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
 
 ---
 
+## Phase 12.8: Local Dev-Experience & Speedup (Abgeschlossen)
+
+Maximale Beschleunigung des lokalen Workflows.
+
+- [x] **Spring Boot DevTools:** Integration für automatische Restarts bei Codeänderungen.
+- [x] **Spring Dev-Profile:**
+    - [x] Trennung der Konfiguration: `application-dev.properties` für lokale Entwicklung.
+    - [x] H2 In-Memory DB als Standard für ultraschnelle Startups.
+    - [x] `spring.main.lazy-initialization=true` für Sekunden-Startup (Beans werden bei Bedarf geladen).
+- [x] **JVM Speedup:** Konfiguration von Tiered Compilation (`-XX:TieredStopAtLevel=1`) im Maven-Plugin.
+- [x] **Hibernate/Flyway Sync:** Flyway führt Migrationen aus, Hibernate validiert das Schema (sicherer und schneller).
+
+---
+
 ## Phase 13: Dynamic Resume & Document Export (Priorität: Mittel)
 
 Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-Funktionen.
