@@ -1,4 +1,4 @@
-/* Shared Styles for Admin Pages */
+/* Shared Styles for Admin Pages - JorchOS */
 
 .admin-container, .blog-admin-container {
     max-width: 1000px;
@@ -11,7 +11,7 @@
     max-width: 1600px;
 }
 
-/* Header & Create Button */
+/* Header & Navigation */
 .admin-header {
     display: flex;
     justify-content: space-between;
@@ -19,19 +19,34 @@
     margin-bottom: 3rem;
 }
 
+.admin-header h1 {
+    font-family: var(--font-header);
+    font-size: 4rem;
+    color: var(--color-primary);
+    margin: 0;
+}
+
+/* Base Buttons */
 .create-btn {
     margin-bottom: 3rem;
     padding: 1rem 2rem;
     font-family: var(--font-header);
     font-size: 1.8rem;
     background: var(--color-secondary);
-    color: white;
-    border: none;
+    color: var(--color-on-secondary);
+    border: 2px solid var(--color-contrast);
     cursor: pointer;
     width: auto;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
-/* List Items */
+.create-btn:hover {
+    transform: rotate(-1deg) scale(1.02);
+    box-shadow: 4px 4px 0 var(--color-contrast);
+}
+
+/* List Items (Gallery, Blog, etc.) */
 .admin-list, .admin-posts-list {
     display: flex;
     flex-direction: column;
@@ -43,6 +58,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 2rem;
+    background: var(--color-surface);
+    border: 2px solid var(--color-contrast);
+    border-radius: 12px;
 }
 
 .admin-actions {
@@ -51,98 +69,120 @@
 }
 
 .admin-actions button {
-    padding: 0.5rem 1.2rem;
-    font-size: 0.9rem;
-}
-
-/* Form Layout & Cards */
-.admin-form-card {
-    margin-bottom: 4rem;
-    padding: 3rem;
-}
-
-.admin-form-card h3 {
-    margin-bottom: 2rem;
-    color: var(--color-primary);
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
-
-/* Specific Buttons */
-.btn-save {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    font-family: var(--font-ui);
     background: var(--color-secondary);
-    color: white;
-    font-weight: bold;
+    color: var(--color-on-secondary);
+    border: 1px solid var(--color-contrast);
 }
 
-.btn-delete-final {
-    background: #e74c3c;
-    color: white;
-    border: 1px solid #c0392b;
+.admin-actions button:last-child {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
 }
 
-.btn-delete-final:hover {
-    background: #c0392b;
-}
-
-/* Form Styles */
-.admin-form, .blog-editor-form {
+/* Form Layouts */
+.admin-form-card, .blog-editor-form {
+    padding: 3rem;
+    background: var(--color-surface);
+    border: 2px solid var(--color-contrast);
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 2.5rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
 }
 
 .form-group label {
     font-family: var(--font-ui);
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--color-muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-primary); /* Labels always in primary color */
 }
 
 .form-group input, 
 .form-group textarea, 
 .form-group select {
-    padding: 0.8rem;
-    border: 1px solid var(--color-contrast);
+    padding: 0.9rem;
+    border: 2px solid var(--color-contrast);
     border-radius: 6px;
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-ui);
+    font-size: 1rem;
 }
 
-.editor-buttons, .form-actions {
-    margin-top: 2rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 92, 184, 0.1);
 }
 
-/* Image Upload Preview */
-.preview-img, .project-image-preview {
-    margin-top: 1rem;
-    max-width: 300px;
+/* Image Upload Component */
+.image-upload-label {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border: 2px solid var(--color-contrast);
     border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--color-contrast);
+    cursor: pointer;
+    font-family: var(--font-header);
+    font-size: 1.4rem;
+    transition: all 0.2s ease;
+    text-align: center;
 }
 
-.preview-img img, .project-image-preview img {
+.image-upload-label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.image-upload-label input {
+    display: none;
+}
+
+.preview-img {
+    margin-top: 1.5rem;
+    max-width: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid var(--color-contrast);
+}
+
+.preview-img img {
     width: 100%;
     display: block;
 }
 
-/* Responsive Reset */
+.editor-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-end;
+}
+
+.editor-buttons button[type="submit"] {
+    background: var(--color-secondary);
+    color: var(--color-on-secondary);
+    font-size: 1.2rem;
+    padding: 0.8rem 3rem;
+}
+
+.editor-buttons button[type="button"] {
+    background: var(--color-muted);
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.8rem 2rem;
+}
+
+/* Responsive */
 @media (max-width: 800px) {
     .admin-container, .blog-admin-container {
         margin: 2rem auto;
@@ -152,6 +192,12 @@
     .admin-item, .admin-post-item {
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 1.5rem;
+    }
+    
+    .admin-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
     }
 }

@@ -32,11 +32,12 @@
     font-weight: bold;
     border-radius: 5px;
     transition: all 0.2s;
+    color: var(--color-text);
 }
 
 .lang-tabs button.active {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-on-primary);
 }
 
 .form-section {
@@ -68,12 +69,14 @@
     font-weight: 600;
     font-size: 0.9rem;
     opacity: 0.8;
+    color: var(--color-contrast);
 }
 
 .form-group input, .form-group textarea {
     padding: 0.8rem;
     border: 2px solid var(--color-contrast);
-    background: white;
+    background: var(--color-surface);
+    color: var(--color-text);
     font-family: var(--font-ui);
     border-radius: 4px;
 }
@@ -93,6 +96,7 @@
 
 .add-btn {
     background: var(--color-secondary);
+    color: var(--color-on-secondary);
     padding: 0.5rem 1.5rem;
     font-family: var(--font-headlines);
     font-size: 1.2rem;
@@ -102,7 +106,7 @@
     border: 2px solid var(--color-contrast);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    background: rgba(255,255,255,0.5);
+    background: var(--color-surface);
     position: relative;
 }
 
@@ -115,7 +119,7 @@
 
 .remove-btn {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-on-primary);
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -140,6 +144,7 @@
 
 .save-btn {
     background: var(--color-secondary);
+    color: var(--color-on-secondary);
     padding: 1rem 4rem;
     font-size: 1.5rem;
     font-family: var(--font-headlines);
@@ -147,6 +152,7 @@
 
 .cancel-btn {
     background: var(--color-muted);
+    color: var(--color-on-accent);
     padding: 1rem 3rem;
     font-size: 1.5rem;
     font-family: var(--font-headlines);
