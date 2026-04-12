@@ -8,6 +8,8 @@
   --color-contrast: #2a2a2a;
   --color-primary: #ff5cb8; 
   --color-secondary: #ffffff;
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #121212;
   --color-accent: #b6b6c6;
   --color-muted: #91a5e3;
   
@@ -33,6 +35,8 @@
   --color-contrast: #e8e4d9;
   --color-primary: #2a1ed2;
   --color-secondary: #338b13;
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
   --color-accent: #00b809;
   --color-muted: #7a7569;
   

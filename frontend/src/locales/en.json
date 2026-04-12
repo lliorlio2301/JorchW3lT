@@ -51,6 +51,7 @@
       "save": "Save",
       "cancel": "Cancel",
       "edit": "Edit",
+      "view": "View",
       "delete": "Delete",
       "offlineMode": "You are offline",
       "offlineDataAvailable": "Local data is still available",

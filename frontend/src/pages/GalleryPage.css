@@ -70,8 +70,8 @@
 
 /* Background Handling in Gallery Grid */
 .gallery-item.with-bg .gallery-image-wrapper img {
-    border: 6px solid #fff;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
     background: #fff;
 }
 

@@ -51,6 +51,7 @@
       "save": "Guardar",
       "cancel": "Cancelar",
       "edit": "Editar",
+      "view": "Ver",
       "delete": "Eliminar",
       "offlineMode": "Estás desconectado",
       "offlineDataAvailable": "Los datos locales siguen disponibles",
