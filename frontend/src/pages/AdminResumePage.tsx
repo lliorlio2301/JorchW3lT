@@ -12,7 +12,6 @@ const AdminResumePage: React.FC = () => {
     const { isAuthenticated } = useAuth();
     
     const [resume, setResume] = useState<ResumeFull | null>(null);
-    const [loading, setLoading] = useState(true);
     const [activeLang, setActiveLang] = useState<'de' | 'en' | 'es'>('de');
 
     useEffect(() => {
@@ -27,8 +26,6 @@ const AdminResumePage: React.FC = () => {
             setResume(data);
         } catch (err) {
             console.error('Failed to fetch resume', err);
-        } finally {
-            setLoading(false);
         }
     };
 
