@@ -33,6 +33,7 @@ Detaillierte Informationen findest du in den spezialisierten Guides:
 *   [Infrastruktur & VPS](./docs/infrastructure.md)
 *   [Testing & QA](./docs/testing.md)
 *   [PWA & Offline-Strategie](./docs/pwa-offline.md)
+*   [Security & Auth Hardening](./docs/security-auth-hardening.md)
 *   [Projekt-Roadmap](./ROADMAP.md)
 
 ## 📄 Lizenz
