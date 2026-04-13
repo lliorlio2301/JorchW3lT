@@ -77,7 +77,7 @@ Das Projekt nutzt eine moderne Test-Infrastruktur, die sowohl das Backend als au
 Die Qualitätssicherung ist fest in die CI/CD-Pipeline integriert.
 
 ### A. Automatisierte CI-Tests (`ci-tests.yml`)
-Bei jedem **Push** oder **Pull Request** auf den `master`-Branch wird automatisch der QA-Workflow gestartet. Dieser Workflow muss erfolgreich abgeschlossen werden ("Green Build"), bevor ein manuelles Deployment gestartet werden kann.
+Bei jedem **Push** auf den `master`-Branch wird automatisch der QA-Workflow gestartet. Dieser Workflow muss erfolgreich abgeschlossen werden ("Green Build"), bevor ein manuelles Deployment gestartet werden kann.
 
 ---
 
