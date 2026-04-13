@@ -3,6 +3,7 @@ export interface Project {
     title: string;
     description: string;
     imageUrl: string;
+    imageAlt?: string;
     githubUrl: string;
     demoUrl: string;
     techTags: string[];

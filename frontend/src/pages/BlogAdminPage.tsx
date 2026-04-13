@@ -45,6 +45,7 @@ const BlogAdminPage: React.FC = () => {
             content: '',
             summary: '',
             coverImageUrl: '',
+            coverImageAlt: '',
             tags: []
         });
     };
@@ -194,9 +195,14 @@ const BlogAdminPage: React.FC = () => {
                                 {t('blog.uploadImage')}
                                 <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
                             </label>
+                            <input
+                                value={editingPost.coverImageAlt || ''}
+                                onChange={e => setEditingPost({ ...editingPost, coverImageAlt: e.target.value })}
+                                placeholder={t('blog.coverImageAlt', 'Bildbeschreibung (Alt-Text)')}
+                            />
                             {editingPost.coverImageUrl && (
                                 <div className="preview-img">
-                                    <img src={editingPost.coverImageUrl} alt="Preview" />
+                                    <img src={editingPost.coverImageUrl} alt={editingPost.coverImageAlt || editingPost.title || 'Preview'} />
                                 </div>
                             )}
                         </div>

@@ -79,7 +79,7 @@ In dieser Phase werden kritische Sicherheitslücken in der User Experience gesch
     - **Backend-Speicherung:** Refresh-Tokens werden in der Datenbank in der User-Entity gespeichert.
     - **Automatischer Refresh:** Der `Axios Interceptor` erkennt abgelaufene Access-Tokens und erneuert diese im Hintergrund.
     - **Session Cleanup:** Automatischer Logout und Bereinigung des Speichers, falls Tokens ungültig oder nicht mehr erneuerbar sind.
-- [ ] **Refresh-Token Hardening (Follow-up):**
+- [x] **Refresh-Token Hardening (Follow-up):**
     - Gehashte Persistenz statt Klartextspeicherung in der Datenbank.
     - Rotierende Refresh-Tokens mit Invalidierung beim Reuse.
     - Einheitliche API-Fehlerantworten statt generischer Runtime-Exceptions.
@@ -105,7 +105,7 @@ Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
     - [x] Automatisches Löschen physischer Dateien bei Löschung von Einträgen.
 - [x] **Image Optimization (WebP):**
     - [x] Automatische Konvertierung aller Uploads in das WebP-Format mittels Scrimage zur Reduzierung der PWA-Speicherlast.
-- [ ] **Accessibility (Alt-Text):**
+- [x] **Accessibility (Alt-Text):**
     - Nachrüsten von Alt-Text-Feldern in allen Admin-Modulen zur Verbesserung der Barrierefreiheit.
 
 ---

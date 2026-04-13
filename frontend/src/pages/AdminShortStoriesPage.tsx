@@ -39,6 +39,7 @@ const AdminShortStoriesPage: React.FC = () => {
             content: '',
             summary: '',
             coverImageUrl: '',
+            coverImageAlt: '',
             tags: []
         });
     };
@@ -161,9 +162,14 @@ const AdminShortStoriesPage: React.FC = () => {
                             {t('blog.uploadImage')}
                             <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
                         </label>
+                        <input
+                            value={editingStory.coverImageAlt || ''}
+                            onChange={e => setEditingStory({ ...editingStory, coverImageAlt: e.target.value })}
+                            placeholder="Bildbeschreibung (Alt-Text)"
+                        />
                         {editingStory.coverImageUrl && (
                             <div className="preview-img">
-                                <img src={editingStory.coverImageUrl} alt="Preview" />
+                                <img src={editingStory.coverImageUrl} alt={editingStory.coverImageAlt || editingStory.title || 'Preview'} />
                             </div>
                         )}
                     </div>

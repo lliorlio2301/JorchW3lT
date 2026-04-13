@@ -27,6 +27,7 @@ public class GalleryImage {
 
     @Column(nullable = false)
     private String imageUrl;
+    private String imageAlt;
 
     private boolean monthlyHighlight;
     private boolean hasBackground;

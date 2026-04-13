@@ -30,6 +30,7 @@ public class ShortStory {
     private String summary;
 
     private String coverImageUrl;
+    private String coverImageAlt;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "short_story_tags", joinColumns = @JoinColumn(name = "short_story_id"))

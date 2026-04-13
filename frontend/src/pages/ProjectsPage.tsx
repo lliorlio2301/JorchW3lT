@@ -20,6 +20,7 @@ const ProjectsPage: React.FC = () => {
         title: '',
         description: '',
         imageUrl: '',
+        imageAlt: '',
         githubUrl: '',
         demoUrl: '',
         techTags: []
@@ -145,6 +146,7 @@ const ProjectsPage: React.FC = () => {
                             title: '',
                             description: '',
                             imageUrl: '',
+                            imageAlt: '',
                             githubUrl: '',
                             demoUrl: '',
                             techTags: []
@@ -179,11 +181,12 @@ const ProjectsPage: React.FC = () => {
                                     </label>
                                     {formData.imageUrl && (
                                         <div className="project-image-preview" style={{ marginBottom: '1rem', maxWidth: '200px' }}>
-                                            <img src={formData.imageUrl} alt="Preview" style={{ width: '100%', borderRadius: '4px' }} />
+                                            <img src={formData.imageUrl} alt={formData.imageAlt || formData.title || 'Preview'} style={{ width: '100%', borderRadius: '4px' }} />
                                             <button type="button" onClick={() => setFormData({...formData, imageUrl: ''})} style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>Entfernen</button>
                                         </div>
                                     )}
                                 </div>
+                                <input placeholder="Image alt text" value={formData.imageAlt || ''} onChange={e => setFormData({...formData, imageAlt: e.target.value})} />
                                 <input placeholder="GitHub URL" value={formData.githubUrl} onChange={e => setFormData({...formData, githubUrl: e.target.value})} />
                                 <input placeholder="Demo URL" value={formData.demoUrl} onChange={e => setFormData({...formData, demoUrl: e.target.value})} />
                             </div>
@@ -233,7 +236,7 @@ const ProjectsPage: React.FC = () => {
                     <div key={project.id} className="project-card module-panel">
                         {project.imageUrl && (
                             <div className="project-image">
-                                <img src={project.imageUrl} alt={project.title} />
+                                <img src={project.imageUrl} alt={project.imageAlt || project.title} />
                             </div>
                         )}
                         <div className="project-info">

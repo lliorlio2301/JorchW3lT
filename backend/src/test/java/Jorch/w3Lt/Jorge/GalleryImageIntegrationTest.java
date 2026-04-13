@@ -25,6 +25,7 @@ public class GalleryImageIntegrationTest extends AbstractIntegrationTest {
                 .title("Test Highlight")
                 .description("Sample description")
                 .imageUrl("/uploads/test.jpg")
+                .imageAlt("Gallery image alt text")
                 .monthlyHighlight(true)
                 .hasBackground(false)
                 .build();
@@ -35,6 +36,7 @@ public class GalleryImageIntegrationTest extends AbstractIntegrationTest {
 
         assertThat(saved.getId()).isNotNull();
         assertThat(saved.getTitle()).isEqualTo("Test Highlight");
+        assertThat(saved.getImageAlt()).isEqualTo("Gallery image alt text");
 
         List<GalleryImageDTO> all = service.getAllImages();
         System.out.println("DEBUG: All images count: " + all.size());

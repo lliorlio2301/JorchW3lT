@@ -18,6 +18,7 @@ public class BlogPostDTO {
     private String content;
     private String summary;
     private String coverImageUrl;
+    private String coverImageAlt;
     private java.util.List<String> tags;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

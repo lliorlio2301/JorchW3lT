@@ -16,6 +16,7 @@ public class GalleryImageDTO {
     private String title;
     private String description;
     private String imageUrl;
+    private String imageAlt;
     private boolean monthlyHighlight;
     private boolean hasBackground;
     private LocalDateTime createdAt;

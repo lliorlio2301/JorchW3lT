@@ -29,6 +29,7 @@ class ProjectServiceIntegrationTest extends AbstractIntegrationTest {
         ProjectDTO dto = ProjectDTO.builder()
                 .title("My Awesome Project")
                 .description("Detailed description")
+                .imageAlt("Project image description")
                 .techTags(List.of("React", "Spring Boot"))
                 .build();
 
@@ -39,6 +40,7 @@ class ProjectServiceIntegrationTest extends AbstractIntegrationTest {
         List<ProjectDTO> all = projectService.getAllProjects();
         assertThat(all).hasSize(1);
         assertThat(all.get(0).getTitle()).isEqualTo("My Awesome Project");
+        assertThat(all.get(0).getImageAlt()).isEqualTo("Project image description");
     }
 
     @Test
@@ -50,12 +52,14 @@ class ProjectServiceIntegrationTest extends AbstractIntegrationTest {
         ProjectDTO saved = projectService.saveProject(dto);
 
         saved.setTitle("Updated Title");
+        saved.setImageAlt("Updated project image alt text");
         ProjectDTO updated = projectService.updateProject(saved.getId(), saved);
 
         assertThat(updated.getTitle()).isEqualTo("Updated Title");
         
         ProjectDTO fetched = projectService.getProjectById(saved.getId());
         assertThat(fetched.getTitle()).isEqualTo("Updated Title");
+        assertThat(fetched.getImageAlt()).isEqualTo("Updated project image alt text");
     }
 
     @Test

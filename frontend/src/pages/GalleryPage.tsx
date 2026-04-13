@@ -47,7 +47,7 @@ const GalleryPage: React.FC = () => {
                 {images.map((image) => (
                     <div key={image.id} className={`gallery-item chaos-card ${image.hasBackground ? 'with-bg' : 'no-bg'}`}>
                         <div className="gallery-image-wrapper">
-                            <img src={image.imageUrl} alt={image.title} />
+                            <img src={image.imageUrl} alt={image.imageAlt || image.title || 'Gallery image'} />
                         </div>
                         <div className="gallery-info">
                             <h3>{image.title}</h3>

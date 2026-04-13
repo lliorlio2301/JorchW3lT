@@ -68,7 +68,7 @@ const HomePage: React.FC = () => {
             {highlight && (
                 <section className="monthly-highlight-section">
                     <div className={`highlight-container ${highlight.monthlyHighlight ? (highlight.hasBackground ? 'with-bg' : 'no-bg') : ''}`}>
-                        <img src={highlight.imageUrl} alt={highlight.title || 'Highlight of the month'} className="highlight-image" />
+                        <img src={highlight.imageUrl} alt={highlight.imageAlt || highlight.title || 'Highlight of the month'} className="highlight-image" />
                     </div>
                 </section>
             )}
@@ -123,7 +123,7 @@ const HomePage: React.FC = () => {
                                 >
                                     {post.coverImageUrl && (
                                         <div className="project-image">
-                                            <img src={post.coverImageUrl} alt={post.title} />
+                                            <img src={post.coverImageUrl} alt={post.coverImageAlt || post.title} />
                                         </div>
                                     )}
                                     <div className="project-info">
@@ -171,7 +171,7 @@ const HomePage: React.FC = () => {
                             <div key={project.id} className="project-card module-panel">
                                 {project.imageUrl && (
                                     <div className="project-image">
-                                        <img src={project.imageUrl} alt={project.title} />
+                                        <img src={project.imageUrl} alt={project.imageAlt || project.title} />
                                     </div>
                                 )}
                                 <div className="project-info">
