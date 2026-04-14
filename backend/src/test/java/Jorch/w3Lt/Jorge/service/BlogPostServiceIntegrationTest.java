@@ -59,9 +59,11 @@ class BlogPostServiceIntegrationTest extends AbstractIntegrationTest {
         BlogPostDTO post = BlogPostDTO.builder()
                 .title("Hello!!!   World --- Test")
                 .content("Content")
+                .coverImageAlt("A descriptive alt text")
                 .build();
         
         BlogPostDTO saved = blogPostService.savePost(post);
         assertThat(saved.getSlug()).isEqualTo("hello-world-test");
+        assertThat(saved.getCoverImageAlt()).isEqualTo("A descriptive alt text");
     }
 }

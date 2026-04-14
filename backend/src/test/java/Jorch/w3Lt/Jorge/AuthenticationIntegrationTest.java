@@ -2,6 +2,7 @@ package Jorch.w3Lt.Jorge;
 
 import Jorch.w3Lt.Jorge.dto.auth.AuthenticationRequest;
 import Jorch.w3Lt.Jorge.dto.auth.AuthenticationResponse;
+import Jorch.w3Lt.Jorge.exception.InvalidRefreshTokenException;
 import Jorch.w3Lt.Jorge.model.Role;
 import Jorch.w3Lt.Jorge.model.User;
 import Jorch.w3Lt.Jorge.repository.UserRepository;
@@ -50,7 +51,8 @@ class AuthenticationIntegrationTest extends AbstractIntegrationTest {
         assertThat(response.getRefreshToken()).isNotNull();
 
         User user = userRepository.findByUsername("testuser").orElseThrow();
-        assertThat(user.getRefreshToken()).isEqualTo(response.getRefreshToken());
+        assertThat(user.getRefreshToken()).isNotEqualTo(response.getRefreshToken());
+        assertThat(passwordEncoder.matches(response.getRefreshToken(), user.getRefreshToken())).isTrue();
         assertThat(user.getRefreshTokenExpiration()).isAfter(java.time.LocalDateTime.now());
     }
 
@@ -66,12 +68,16 @@ class AuthenticationIntegrationTest extends AbstractIntegrationTest {
         AuthenticationResponse refreshResponse = authenticationService.refreshToken(loginResponse.getRefreshToken());
 
         assertThat(refreshResponse.getToken()).isNotNull();
-        assertThat(refreshResponse.getRefreshToken()).isEqualTo(loginResponse.getRefreshToken());
+        assertThat(refreshResponse.getRefreshToken()).isNotEqualTo(loginResponse.getRefreshToken());
+
+        User user = userRepository.findByUsername("testuser").orElseThrow();
+        assertThat(passwordEncoder.matches(refreshResponse.getRefreshToken(), user.getRefreshToken())).isTrue();
+        assertThat(passwordEncoder.matches(loginResponse.getRefreshToken(), user.getRefreshToken())).isFalse();
     }
 
     @Test
     void shouldFailWithInvalidRefreshToken() {
         assertThatThrownBy(() -> authenticationService.refreshToken("invalid-token"))
-                .isInstanceOf(Exception.class);
+                .isInstanceOf(InvalidRefreshTokenException.class);
     }
 }

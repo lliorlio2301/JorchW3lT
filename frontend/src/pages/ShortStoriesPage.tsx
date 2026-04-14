@@ -85,7 +85,7 @@ const ShortStoriesPage: React.FC = () => {
                     <Link to={`/stories/${story.id}`} key={story.id} className="story-card chaos-card">
                         {story.coverImageUrl && (
                             <div className="story-cover">
-                                <img src={story.coverImageUrl} alt={story.title} />
+                                <img src={story.coverImageUrl} alt={story.coverImageAlt || story.title} />
                             </div>
                         )}
                         <div className="story-info">

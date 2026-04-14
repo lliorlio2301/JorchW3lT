@@ -42,6 +42,7 @@ public class ProjectService {
                     existingProject.setTitle(dto.getTitle());
                     existingProject.setDescription(dto.getDescription());
                     existingProject.setImageUrl(dto.getImageUrl());
+                    existingProject.setImageAlt(dto.getImageAlt());
                     existingProject.setGithubUrl(dto.getGithubUrl());
                     existingProject.setDemoUrl(dto.getDemoUrl());
                     existingProject.setTechTags(dto.getTechTags());

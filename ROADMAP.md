@@ -73,12 +73,16 @@
 In dieser Phase werden kritische Sicherheitslücken in der User Experience geschlossen und das Notiz-System auf ein robustes Fundament gestellt.
 
 ### Security & Auth Evolution
-- [ ] **Persistent Auth (Refresh Tokens):**
+- [x] **Persistent Auth (Refresh Tokens):**
     - Implementierung einer zweistufigen JWT-Strategie: Kurzlebige Access-Tokens kombiniert mit langlebigen Refresh-Tokens.
     - **Trust-Device Logic:** Einführung einer "Diesem Browser vertrauen"-Option im Login-Formular.
-    - **Backend-Speicherung:** Refresh-Tokens werden verschlüsselt in der Datenbank (User-Entity Erweiterung) gespeichert.
+    - **Backend-Speicherung:** Refresh-Tokens werden in der Datenbank in der User-Entity gespeichert.
     - **Automatischer Refresh:** Der `Axios Interceptor` erkennt abgelaufene Access-Tokens und erneuert diese im Hintergrund.
     - **Session Cleanup:** Automatischer Logout und Bereinigung des Speichers, falls Tokens ungültig oder nicht mehr erneuerbar sind.
+- [x] **Refresh-Token Hardening (Follow-up):**
+    - Gehashte Persistenz statt Klartextspeicherung in der Datenbank.
+    - Rotierende Refresh-Tokens mit Invalidierung beim Reuse.
+    - Einheitliche API-Fehlerantworten statt generischer Runtime-Exceptions.
 
 ### Notes System Refactoring (Markdown Document)
 - [x] **Fundamental Model Refactoring:**
@@ -101,7 +105,7 @@ Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
     - [x] Automatisches Löschen physischer Dateien bei Löschung von Einträgen.
 - [x] **Image Optimization (WebP):**
     - [x] Automatische Konvertierung aller Uploads in das WebP-Format mittels Scrimage zur Reduzierung der PWA-Speicherlast.
-- [ ] **Accessibility (Alt-Text):**
+- [x] **Accessibility (Alt-Text):**
     - Nachrüsten von Alt-Text-Feldern in allen Admin-Modulen zur Verbesserung der Barrierefreiheit.
 
 ---
@@ -120,7 +124,7 @@ Maximale Beschleunigung des lokalen Workflows.
 
 ---
 
-## Phase 13: Dynamic Resume & Document Export (Priorität: Mittel)
+## Phase 13: Dynamic Resume & Document Export (Completed)
 
 Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-Funktionen.
 
@@ -132,7 +136,7 @@ Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-F
     - [x] Dynamisches Hinzufügen/Entfernen von Berufserfahrungen und Ausbildungsschreitten im UI.
 
 ### Document Export
-- [ ] **PDF-Generator:**
+- [x] **PDF-Generator:**
     - Implementierung einer "Download as PDF" Funktion für den Lebenslauf, die das aktuelle "Playful Chaos" Design in ein druckoptimiertes Format überführt.
 
 ---

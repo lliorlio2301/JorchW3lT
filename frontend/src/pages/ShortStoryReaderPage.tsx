@@ -36,7 +36,7 @@ const ShortStoryReaderPage: React.FC = () => {
                 <Link to="/stories" className="back-link">&larr; {t('common.back', 'Back to Stories')}</Link>
                 {story.coverImageUrl && (
                     <div className="reader-cover">
-                        <img src={story.coverImageUrl} alt={story.title} />
+                        <img src={story.coverImageUrl} alt={story.coverImageAlt || story.title} />
                     </div>
                 )}
                 <h1>{story.title}</h1>

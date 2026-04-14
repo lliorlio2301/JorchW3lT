@@ -39,7 +39,7 @@ const BlogPostPage: React.FC = () => {
             <article className="blog-article">
                 {post.coverImageUrl && (
                     <div className="article-cover">
-                        <img src={post.coverImageUrl} alt={post.title} />
+                        <img src={post.coverImageUrl} alt={post.coverImageAlt || post.title} />
                     </div>
                 )}
                 <div className="article-header">

@@ -37,6 +37,7 @@ const AdminGalleryPage: React.FC = () => {
             title: '',
             description: '',
             imageUrl: '',
+            imageAlt: '',
             monthlyHighlight: false,
             hasBackground: true
         });
@@ -96,7 +97,7 @@ const AdminGalleryPage: React.FC = () => {
                             <div key={img.id} className="admin-item">
                                 <div style={{display: 'flex', gap: '1.5rem', alignItems: 'center'}}>
                                     <div className="preview-img" style={{margin: 0, width: '60px', height: '60px'}}>
-                                        <img src={img.imageUrl} alt="" style={{height: '100%', objectFit: 'cover'}} />
+                                        <img src={img.imageUrl} alt={img.imageAlt || img.title || 'Gallery image'} style={{height: '100%', objectFit: 'cover'}} />
                                     </div>
                                     <div>
                                         <h3 style={{fontSize: '1.5rem', margin: 0}}>{img.title || 'Untitled'}</h3>
@@ -130,13 +131,18 @@ const AdminGalleryPage: React.FC = () => {
                     </div>
 
                     <div className="form-group">
+                        <label>Alt text</label>
+                        <input value={editingImage.imageAlt || ''} onChange={e => setEditingImage({...editingImage, imageAlt: e.target.value})} placeholder="Describe the image for screen readers..." />
+                    </div>
+
+                    <div className="form-group">
                         <label className="image-upload-label">
                             {t('blog.uploadImage')}
                             <input type="file" accept="image/*" onChange={handleImageUpload} />
                         </label>
                         {editingImage.imageUrl && (
                             <div className="preview-img">
-                                <img src={editingImage.imageUrl} alt="Preview" />
+                                <img src={editingImage.imageUrl} alt={editingImage.imageAlt || editingImage.title || 'Preview'} />
                             </div>
                         )}
                     </div>
