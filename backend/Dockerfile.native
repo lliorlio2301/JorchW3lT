@@ -19,15 +19,15 @@ WORKDIR /app
 
 # Create a non-root user
 RUN groupadd -r spring && useradd -r -g spring spring
-USER spring:spring
 
-# Copy the binary and all generated .so libraries from the build stage
-COPY --from=build /app/target/Jorge app
-COPY --from=build /app/target/*.so ./
+# Copy the binary and generated .so libraries from the build stage.
+# Native image loads AWT/ImageIO libs from ./lib (relative to binary location).
+COPY --from=build /app/target/Jorge /app/app
+RUN mkdir -p /app/lib
+COPY --from=build /app/target/*.so /app/lib/
 
 # Set permissions
-USER root
-RUN chmod +x /app/app
+RUN chmod +x /app/app && chown -R spring:spring /app
 USER spring:spring
 
 EXPOSE 8080
