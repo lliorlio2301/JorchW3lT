@@ -124,7 +124,7 @@ Maximale Beschleunigung des lokalen Workflows.
 
 ---
 
-## Phase 13: Dynamic Resume & Document Export (Priorität: Mittel)
+## Phase 13: Dynamic Resume & Document Export (Completed)
 
 Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-Funktionen.
 
@@ -136,7 +136,7 @@ Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-F
     - [x] Dynamisches Hinzufügen/Entfernen von Berufserfahrungen und Ausbildungsschreitten im UI.
 
 ### Document Export
-- [ ] **PDF-Generator:**
+- [x] **PDF-Generator:**
     - Implementierung einer "Download as PDF" Funktion für den Lebenslauf, die das aktuelle "Playful Chaos" Design in ein druckoptimiertes Format überführt.
 
 ---

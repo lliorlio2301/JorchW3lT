@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import resumeService from '../services/resumeService';
+import { generateResumePdf } from '../services/resumePdfService';
 import type { Resume } from '../types/resume';
 import { useAuth } from '../hooks/useAuth';
 import './ResumePage.css';
@@ -12,6 +13,8 @@ const ResumePage: React.FC = () => {
     const [resume, setResume] = useState<Resume | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [pdfError, setPdfError] = useState<string | null>(null);
+    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
     useEffect(() => {
         const fetchResume = async () => {
@@ -30,6 +33,36 @@ const ResumePage: React.FC = () => {
         fetchResume();
     }, [i18n.language, t]);
 
+    const handleDownloadPdf = () => {
+        if (!resume) {
+            return;
+        }
+
+        setPdfError(null);
+        setIsGeneratingPdf(true);
+
+        try {
+            generateResumePdf({
+                resume,
+                labels: {
+                    title: t('resume.title', 'Resume'),
+                    role: t('resume.role', 'Software Engineer'),
+                    summary: t('resume.summary'),
+                    experience: t('resume.experience'),
+                    education: t('resume.education'),
+                    email: t('resume.email', 'Email'),
+                    phone: t('resume.phone', 'Phone'),
+                    location: t('resume.location', 'Location')
+                }
+            });
+        } catch (pdfGenerationError) {
+            console.error('Failed to generate resume PDF:', pdfGenerationError);
+            setPdfError(t('resume.pdfError'));
+        } finally {
+            setIsGeneratingPdf(false);
+        }
+    };
+
     if (loading) return <div className="resume-status">{t('resume.loading')}</div>;
     if (error) return <div className="resume-status error">{error}</div>;
     if (!resume) return <div className="resume-status">{t('resume.noData')}</div>;
@@ -39,7 +72,7 @@ const ResumePage: React.FC = () => {
             <aside className="resume-sidebar">
                 <header className="resume-header">
                     <h1>{resume.name}</h1>
-                    <div className="title">Software Engineer</div>
+                    <div className="title">{t('resume.role', 'Software Engineer')}</div>
                 </header>
 
                 <div className="contact-info">
@@ -61,6 +94,16 @@ const ResumePage: React.FC = () => {
                     <h2>{t('resume.summary')}</h2>
                     <p>{resume.summary}</p>
                 </section>
+
+                <button
+                    type="button"
+                    className="resume-pdf-button"
+                    onClick={handleDownloadPdf}
+                    disabled={isGeneratingPdf}
+                >
+                    {isGeneratingPdf ? t('resume.generatingPdf') : t('resume.downloadPdf')}
+                </button>
+                {pdfError && <div className="resume-status error">{pdfError}</div>}
             </aside>
 
             <main className="resume-main">

@@ -86,12 +86,20 @@
       "demo": "Live Demo"
     },
     "resume": {
+      "title": "Lebenslauf",
+      "role": "Software Engineer",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "location": "Standort",
       "summary": "Zusammenfassung",
       "experience": "Erfahrung",
       "education": "Ausbildung",
       "loading": "Lebenslauf wird geladen...",
       "error": "Fehler beim Laden des Lebenslaufs. Läuft das Backend?",
-      "noData": "Keine Lebenslaufdaten gefunden."
+      "noData": "Keine Lebenslaufdaten gefunden.",
+      "downloadPdf": "Als PDF herunterladen",
+      "generatingPdf": "PDF wird erstellt...",
+      "pdfError": "PDF konnte nicht erstellt werden."
     },
     "songs": {
       "title": "Gitarren-Songbuch",

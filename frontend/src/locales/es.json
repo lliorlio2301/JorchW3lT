@@ -82,12 +82,20 @@
       "demo": "Demo en vivo"
     },
     "resume": {
+      "title": "Currículum",
+      "role": "Ingeniero de Software",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "location": "Ubicación",
       "summary": "Resumen",
       "experience": "Experiencia",
       "education": "Educación",
       "loading": "Cargando currículum...",
       "error": "Error al cargar el currículum. ¿Está funcionando el backend?",
-      "noData": "No se encontraron datos del currículum."
+      "noData": "No se encontraron datos del currículum.",
+      "downloadPdf": "Descargar como PDF",
+      "generatingPdf": "Generando PDF...",
+      "pdfError": "No se pudo generar el PDF."
     },
     "songs": {
       "title": "Canción",
