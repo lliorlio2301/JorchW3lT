@@ -95,6 +95,9 @@ jobs:
             grep "\${" docker-compose.yml
             exit 1
           fi
+          test -f scripts/observability/victoriametrics/prometheus.yml
+          test -f scripts/observability/loki/config.yml
+          test -f scripts/observability/promtail/config.yml
           echo "Docker-compose file prepared successfully."
 
       - name: Copy deployment files via SCP

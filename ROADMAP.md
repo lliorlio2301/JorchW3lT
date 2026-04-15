@@ -141,6 +141,26 @@ Vollständige Unabhängigkeit von statischen Dateien und Mehrwert durch Export-F
 
 ---
 
+## Phase 13.5: Lean Observability Stack (Priorität: Hoch)
+
+Ressourcenschonende Transparenz für Metriken, Logs und VPS-Gesundheit als Grundlage für kommende KI-Features in Phase 14.
+
+- [x] **Metriken & Visualisierung (VictoriaMetrics + Grafana):**
+    - Micrometer Prometheus Registry im Backend ergänzt.
+    - VictoriaMetrics (Single Node) als leichtgewichtiger Metrics-Store integriert.
+    - Grafana-Dashboards für JVM/HTTP/DB/Host-Metriken vorbereitet.
+- [x] **Log Aggregation (Loki + Promtail):**
+    - Loki als log-zentrierte, speichereffiziente Aggregationsschicht integriert.
+    - Promtail für Podman-Containerlogs angebunden.
+    - Logs und Metriken zentral in Grafana zusammengeführt.
+- [x] **System-Health Monitoring (Node + Postgres Exporter):**
+    - Node Exporter für CPU/RAM/Disk-Sichtbarkeit.
+    - Postgres Exporter für Datenbank-Metriken.
+- [x] **Security-Prinzip für Observability:**
+    - Grafana/Loki nicht öffentlich exponiert; Zugriff nur intern via SSH-Tunnel.
+
+---
+
 ## Phase 14: AI Intelligence & Song Evolution (Priorität: Zukunft)
 
 Intelligente Features zur Produktivitätssteigerung.
