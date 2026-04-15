@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.Normalizer;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -37,13 +39,14 @@ public class MediaService {
             Files.createDirectories(root);
         }
 
-        String originalFilename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        String originalFilename = StringUtils.cleanPath(Objects.requireNonNullElse(file.getOriginalFilename(), "upload"));
         String baseName = originalFilename.contains(".") ? 
                 originalFilename.substring(0, originalFilename.lastIndexOf('.')) : 
                 originalFilename;
+        String safeBaseName = sanitizeFileNameBase(baseName);
         
         // Always save as webp
-        String filename = UUID.randomUUID().toString() + "_" + baseName + ".webp";
+        String filename = UUID.randomUUID().toString() + "_" + safeBaseName + ".webp";
         Path targetPath = root.resolve(filename);
 
         try {
@@ -62,6 +65,18 @@ public class MediaService {
         }
 
         return "/uploads/" + filename;
+    }
+
+    private String sanitizeFileNameBase(String value) {
+        String normalized = Normalizer.normalize(value, Normalizer.Form.NFD);
+        String withoutDiacritics = normalized.replaceAll("\\p{M}+", "");
+        String safe = withoutDiacritics
+                .replaceAll("[^A-Za-z0-9._-]+", "-")
+                .replaceAll("-{2,}", "-")
+                .replaceAll("^[.-]+|[.-]+$", "")
+                .toLowerCase(Locale.ROOT);
+
+        return safe.isEmpty() ? "image" : safe;
     }
 
     /**
