@@ -107,6 +107,10 @@ Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
     - [x] Automatische Konvertierung aller Uploads in das WebP-Format mittels Scrimage zur Reduzierung der PWA-Speicherlast.
 - [x] **Accessibility (Alt-Text):**
     - Nachrüsten von Alt-Text-Feldern in allen Admin-Modulen zur Verbesserung der Barrierefreiheit.
+- [x] **Upload Robustness (Native Runtime):**
+    - ASCII-sichere Dateinamens-Normalisierung im `MediaService` (z. B. `BärIcon` -> `baricon`) zur Vermeidung von Charset/Path-Fehlern im Native Image.
+    - Explizites Handling von Multipart-Fehlern (`MaxUploadSizeExceededException`, `MultipartException`) mit klaren API-Responses und Logging.
+    - Frontend-Gallery-Upload auf denselben 5MB-Guard wie Blog/Projects gehärtet.
 
 ---
 

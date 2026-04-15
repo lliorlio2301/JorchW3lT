@@ -140,5 +140,16 @@ Danach lokal öffnen: `http://localhost:3001`
 
 ---
 
+## 9. Upload Runtime Hardening (VPS / Native)
+
+Für den Upload-Pfad wurden zusätzliche Stabilitätsmaßnahmen dokumentiert:
+
+- **Dateinamen-Normalisierung:** Upload-Dateinamen werden serverseitig ASCII-sicher normalisiert (Diakritika entfernt), um Charset-Probleme im Native Runtime-Kontext zu vermeiden.
+- **Explizite Multipart-Fehlerverträge:** Zu große Uploads liefern `413 Payload Too Large`; fehlerhafte Multipart-Requests liefern `400 Bad Request`.
+- **Diagnosefähigkeit:** Unerwartete Server-Exceptions werden im `GlobalExceptionHandler` mit Stacktrace geloggt, damit 500-Fehler nicht mehr still bleiben.
+- **Client-Guard:** Gallery-Admin nutzt denselben 5MB Upload-Check wie Blog/Projects, um unnötige Requests frühzeitig zu stoppen.
+
+---
+
 > [!IMPORTANT]
 > **Wichtiger Hinweis:** Durch die Umstellung auf `fetch = FetchType.EAGER` im `Resume-Model` wurde sichergestellt, dass der `Integration Test` nicht mehr an einer `LazyInitializationException` scheitert.
