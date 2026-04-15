@@ -107,5 +107,38 @@ gunzip -c backup_datei.sql.gz | podman exec -i jorge-db psql -U jorchos_user -d 
 
 ---
 
+## 8. Lean Observability Stack (Phase 13.5)
+
+Für Monitoring und Log-Analyse läuft ein ressourcenschonender Stack direkt im bestehenden Podman-Compose:
+
+- **VictoriaMetrics (Single Node):** Metrics Storage & Scraping
+- **Grafana:** Dashboards für JVM, HTTP-Latenz, DB-Connections, Host-Ressourcen
+- **Loki + Promtail:** Zentrale Container-Log-Aggregation
+- **node-exporter:** CPU/RAM/Disk Metriken des VPS
+- **postgres-exporter:** PostgreSQL Telemetrie
+
+### Zugriff (Sicherheitsmodell)
+
+Observability wird **nicht öffentlich** exponiert.
+
+- Grafana ist nur an `127.0.0.1:3001` gebunden.
+- Zugriff erfolgt per SSH-Tunnel:
+
+```bash
+ssh -L 3001:127.0.0.1:3001 jorchadmin@<VPS_IP>
+```
+
+Danach lokal öffnen: `http://localhost:3001`
+
+### Betriebs-Hinweis
+
+- Provisioning-Dateien liegen unter `scripts/observability/`.
+- Dashboard-Provisioning erfolgt automatisch beim Start von Grafana.
+- Standard-Retention:
+  - VictoriaMetrics: `14d`
+  - Loki: `168h` (7 Tage)
+
+---
+
 > [!IMPORTANT]
 > **Wichtiger Hinweis:** Durch die Umstellung auf `fetch = FetchType.EAGER` im `Resume-Model` wurde sichergestellt, dass der `Integration Test` nicht mehr an einer `LazyInitializationException` scheitert.
