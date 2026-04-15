@@ -1,12 +1,11 @@
 # Agent Interaction Guidelines (Universal)
 
-Diese Datei dient als verbindliche Richtlinie für alle KI-Agenten und LLM-basierten CLIs, die an diesem Repository arbeiten. Sie stellt die Konsistenz zwischen verschiedenen Modellen sicher.
+This document serves as a binding guideline for all AI agents and LLM-based CLIs working on this repository. It ensures consistency in quality, communication, and workflow across different models.
 
 ## 1. Core Workflow & Communication
-* **Primary Language:** Explanations and documentation in **German**.
-* **Technical Context:** Code, API definitions, and error messages strictly in **English**.
-* **Direct Action:** Follow a "Research -> Strategy -> Execution" cycle.
-* **Proactive PRs:** Agents are authorized and required to create Pull Requests via CLI (`gh pr create`) after completing and verifying a task.
+* **Primary Language:** All communication, explanations, and documentation are strictly in **English**.
+* **Direct Action:** Follow a "Research -> Strategy -> Execution" cycle. Be proactive and decisive.
+* **Proactive PRs:** Agents are authorized and required to create Pull Requests via CLI (`gh pr create`) immediately after completing and verifying a task.
 
 ## 2. Technical Stack
 * **Backend:** Spring Boot 3 (Java 21, Maven), PostgreSQL/H2, Flyway.
@@ -14,25 +13,25 @@ Diese Datei dient als verbindliche Richtlinie für alle KI-Agenten und LLM-basie
 * **Infra:** Podman (Rootless), GitHub Actions CI/CD.
 
 ## 3. Git & Branching Strategy
-* **Branching:** Every task starts in a dedicated `feature/` or `fix/` branch.
+* **Branching:** Every task MUST start in a dedicated `feature/` or `fix/` branch.
 * **Commits:** Follow **Conventional Commits** (e.g., `feat: ...`, `fix: ...`).
-* **Pull Requests:** Merging is only allowed via Pull Requests. No direct pushes to `master`.
-* **Verification:** Always run available tests/linters before pushing and creating a PR.
+* **Pull Requests:** Merging is only allowed via Pull Requests. Direct pushes to `master` are prohibited.
+* **Verification:** Always run available tests, linters, and type-checks before pushing and creating a PR.
 
 ## 4. Coding Standards
-* **TypeScript:** No usage of `any`. Strict typing is mandatory.
-* **Backend:** Use MapStruct for DTO mapping and Lombok for boilerplate.
-* **Security:** Never hardcode secrets. Use `.env` or GitHub Secrets.
-* **Quality:** Prioritize readability and maintainability over "clever" hacks.
+* **TypeScript:** Usage of `any` is strictly forbidden. Use precise interfaces and types.
+* **Backend:** Use MapStruct for DTO mapping and Lombok to reduce boilerplate.
+* **Security:** Never log or commit secrets. Use environment variables.
+* **Quality:** Prioritize clean, idiomatic code over complex workarounds.
 
 ## 5. Local Environment (Critical)
 * Use `DOCKER_HOST` for Podman compatibility.
-* Respect `AbstractIntegrationTest` singleton container strategy.
-* Use `application-dev.properties` for local development.
+* Respect the singleton container strategy in `AbstractIntegrationTest`.
+* Use the `dev` profile for local development to ensure fast startup times.
 
 ## 6. Documentation Hygiene
-* Update `ROADMAP.md` after completing significant milestones.
-* Document architectural decisions in `docs/` or `.md` files immediately.
+* Update `ROADMAP.md` immediately after completing significant milestones.
+* Document all architectural decisions or changes in `docs/` or relevant `.md` files.
 
 ---
-*Note: This file is a mirror of the core principles defined in GEMINI.md to ensure cross-model compatibility.*
+*Note: This file mirrors the core principles defined in GEMINI.md to ensure absolute cross-model compatibility and standard compliance.*
