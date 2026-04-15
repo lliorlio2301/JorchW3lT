@@ -16,6 +16,7 @@ services:
     container_name: jorge-backend
     hostname: backend
     restart: always
+    user: "0:0"
     ports:
       - "8080:8080"
     environment:
@@ -26,6 +27,7 @@ services:
       SPRING_JPA_DIALECT: org.hibernate.dialect.PostgreSQLDialect
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       SPRING_FLYWAY_LOCATIONS: classpath:db/migration
+      APP_UPLOAD_DIR: /app/uploads
     depends_on:
       - db
     volumes:

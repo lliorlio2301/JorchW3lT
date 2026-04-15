@@ -6,6 +6,7 @@ import blogService from '../services/blogService';
 import { useAuth } from '../hooks/useAuth';
 import type { GalleryImage } from '../types/galleryImage';
 import '../AdminShared.css';
+import './AdminGalleryPage.css';
 
 const AdminGalleryPage: React.FC = () => {
     const { t } = useTranslation();
@@ -79,7 +80,7 @@ const AdminGalleryPage: React.FC = () => {
     if (!isAuthenticated) return null;
 
     return (
-        <div className="admin-container">
+        <div className="admin-container admin-gallery-container">
             <header className="admin-header">
                 <h1>Gallery Admin</h1>
                 <Link to="/gallery" className="retro-btn">
@@ -95,14 +96,14 @@ const AdminGalleryPage: React.FC = () => {
                     <div className="admin-list">
                         {images.map(img => (
                             <div key={img.id} className="admin-item">
-                                <div style={{display: 'flex', gap: '1.5rem', alignItems: 'center'}}>
-                                    <div className="preview-img" style={{margin: 0, width: '60px', height: '60px'}}>
-                                        <img src={img.imageUrl} alt={img.imageAlt || img.title || 'Gallery image'} style={{height: '100%', objectFit: 'cover'}} />
+                                <div className="gallery-admin-item-main">
+                                    <div className="preview-img gallery-admin-preview">
+                                        <img src={img.imageUrl} alt={img.imageAlt || img.title || 'Gallery image'} />
                                     </div>
                                     <div>
-                                        <h3 style={{fontSize: '1.5rem', margin: 0}}>{img.title || 'Untitled'}</h3>
+                                        <h3 className="gallery-admin-item-title">{img.title || 'Untitled'}</h3>
                                         {img.monthlyHighlight && (
-                                            <span className="tag" style={{background: 'var(--color-primary)', color: 'var(--color-on-primary)'}}>
+                                            <span className="tag gallery-admin-featured-tag">
                                                 Featured
                                             </span>
                                         )}
@@ -147,25 +148,25 @@ const AdminGalleryPage: React.FC = () => {
                         )}
                     </div>
 
-                    <div className="form-group" style={{flexDirection: 'row', alignItems: 'center', gap: '1rem', border: '1px dashed var(--color-primary)', padding: '1.5rem', borderRadius: '12px'}}>
+                    <div className="form-group gallery-admin-check-row gallery-admin-check-highlight">
                         <input 
                             type="checkbox" 
                             checked={editingImage.monthlyHighlight} 
                             onChange={e => setEditingImage({...editingImage, monthlyHighlight: e.target.checked})} 
-                            style={{width: '24px', height: '24px'}}
+                            className="gallery-admin-checkbox"
                         />
                         <div>
-                            <label style={{fontWeight: 'bold'}}>Show as "Image of the Month" on Homepage</label>
-                            <p style={{margin: 0, fontSize: '0.85rem', opacity: 0.8, color: 'var(--color-text)'}}>Visible on Dashboard after title.</p>
+                            <label className="gallery-admin-check-label">Show as "Image of the Month" on Homepage</label>
+                            <p className="gallery-admin-check-help">Visible on Dashboard after title.</p>
                         </div>
                     </div>
 
-                    <div className="form-group" style={{flexDirection: 'row', alignItems: 'center', gap: '1rem'}}>
+                    <div className="form-group gallery-admin-check-row">
                         <input 
                             type="checkbox" 
                             checked={editingImage.hasBackground} 
                             onChange={e => setEditingImage({...editingImage, hasBackground: e.target.checked})} 
-                            style={{width: '24px', height: '24px'}}
+                            className="gallery-admin-checkbox"
                         />
                         <label>Add solid frame border</label>
                     </div>
