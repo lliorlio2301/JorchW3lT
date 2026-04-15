@@ -109,6 +109,7 @@ Vermeidung von Redundanz durch Konsolidierung aller Upload-Logiken.
     - Nachrüsten von Alt-Text-Feldern in allen Admin-Modulen zur Verbesserung der Barrierefreiheit.
 - [x] **Upload Robustness (Native Runtime):**
     - ASCII-sichere Dateinamens-Normalisierung im `MediaService` (z. B. `BärIcon` -> `baricon`) zur Vermeidung von Charset/Path-Fehlern im Native Image.
+    - Produktions-Fallback auf Originalformat-Uploads (`APP_UPLOAD_WEBP_ENABLED=false`), um `ImmutableImage` Initialisierungsfehler im Native Runtime-Kontext zu umgehen.
     - Explizites Handling von Multipart-Fehlern (`MaxUploadSizeExceededException`, `MultipartException`) mit klaren API-Responses und Logging.
     - Frontend-Gallery-Upload auf denselben 5MB-Guard wie Blog/Projects gehärtet.
 
