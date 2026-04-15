@@ -25,6 +25,7 @@ class MediaServiceTest {
         // Given
         MediaService mediaService = new MediaService();
         ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", true);
 
         // Create a dummy JPEG image
         BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
@@ -53,6 +54,7 @@ class MediaServiceTest {
     void shouldSanitizeUnicodeFilenameToAscii() throws IOException {
         MediaService mediaService = new MediaService();
         ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", true);
 
         BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -73,6 +75,7 @@ class MediaServiceTest {
         // Given
         MediaService mediaService = new MediaService();
         ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", true);
         
         Path testFile = tempDir.resolve("to-delete.webp");
         java.nio.file.Files.createFile(testFile);
@@ -83,5 +86,25 @@ class MediaServiceTest {
 
         // Then
         assertThat(testFile).doesNotExist();
+    }
+
+    @Test
+    void shouldStoreOriginalFormatWhenWebpDisabled() throws IOException {
+        MediaService mediaService = new MediaService();
+        ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", false);
+
+        BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", baos);
+
+        MockMultipartFile file = new MockMultipartFile(
+                "file", "native-fallback.png", "image/png", baos.toByteArray());
+
+        String resultUrl = mediaService.uploadFile(file);
+
+        assertThat(resultUrl).startsWith("/uploads/");
+        assertThat(resultUrl).endsWith(".png");
+        assertThat(tempDir.resolve(resultUrl.replace("/uploads/", ""))).exists();
     }
 }

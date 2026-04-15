@@ -28,6 +28,7 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       SPRING_FLYWAY_LOCATIONS: classpath:db/migration
       APP_UPLOAD_DIR: /app/uploads
+      APP_UPLOAD_WEBP_ENABLED: "false"
     depends_on:
       - db
     volumes:
