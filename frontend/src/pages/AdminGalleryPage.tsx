@@ -8,6 +8,8 @@ import type { GalleryImage } from '../types/galleryImage';
 import '../AdminShared.css';
 import './AdminGalleryPage.css';
 
+const MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+
 const AdminGalleryPage: React.FC = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -69,6 +71,12 @@ const AdminGalleryPage: React.FC = () => {
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file || !editingImage) return;
+
+        if (file.size > MAX_UPLOAD_SIZE) {
+            alert(t('blog.fileTooLarge'));
+            return;
+        }
+
         try {
             const url = await blogService.uploadImage(file);
             setEditingImage({ ...editingImage, imageUrl: url });
