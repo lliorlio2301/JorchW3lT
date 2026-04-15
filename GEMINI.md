@@ -1,8 +1,8 @@
 # Gemini Interaction Guidelines (Project: Personal Portfolio)
 
 ## 1. Communication & Style
-* **Language:** All explanations, concepts, and feedback are strictly in **English**.
-* **Technical Context:** Code examples, API definitions, and error messages are strictly in **English**.
+* **Language:** Explanations, concepts, and interaction are in **German** by default.
+* **Technical Context:** Code examples, API definitions, error messages, and technical feedback are strictly in **English**.
 * **Style:** Precise, solution-oriented, and direct (Senior Software Engineer level).
 * **Git Workflow:** Code must be committed and pushed in **small, logical, and self-contained groups**.
 * **Autonomous PRs:** Upon completion of a task, the AI is required to proactively prepare and create a Pull Request via the GitHub CLI (`gh pr create`).

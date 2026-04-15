@@ -3,7 +3,8 @@
 This document serves as a binding guideline for all AI agents and LLM-based CLIs working on this repository. It ensures consistency in quality, communication, and workflow across different models.
 
 ## 1. Core Workflow & Communication
-* **Primary Language:** All communication, explanations, and documentation are strictly in **English**.
+* **Primary Language:** Interaction, explanations, and concepts are in **German**.
+* **Technical Context:** Code, API definitions, error messages, and technical documentation are strictly in **English**.
 * **Direct Action:** Follow a "Research -> Strategy -> Execution" cycle. Be proactive and decisive.
 * **Proactive PRs:** Agents are authorized and required to create Pull Requests via CLI (`gh pr create`) immediately after completing and verifying a task.
 
