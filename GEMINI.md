@@ -4,7 +4,7 @@
 * **Sprache:** Erklärungen und Konzepte standardmäßig auf **Deutsch**.
 * **Technischer Kontext:** Code-Beispiele, API-Definitionen, Fehlermeldungen und technisches Feedback konsequent auf **Englisch**.
 * **Stil:** Präzise, lösungsorientiert und direkt (Senior Software Engineer Level).
-* **Git-Workflow:** Nach jeder größeren Änderung am Code muss dieser in **kleinen, sinnvollen und logischen Gruppen** committet und gepusht werden. Jede Änderungseinheit sollte in sich abgeschlossen sein.
+* **Git-Workflow:** Nach jeder größeren Änderung am Code muss dieser in **kleinen, sinnvollen und logischen Gruppen** committet und gepusht werden. Jede Änderungseinheit sollte in sich abgeschlossen sein. Die KI soll nach Abschluss einer Aufgabe proaktiv den Pull Request via GitHub CLI (`gh pr create`) vorbereiten.
 
 ## 2. Tech-Stack & Architektur
 * **Architektur:** Streng entkoppelter Stack. Kommunikation via REST-API.
@@ -27,11 +27,10 @@
 * **Feature-Isolierung:** Jede neue Entwicklung startet in einem eigenen **Feature-Branch**.
 * **Synchronisation:** Branch mit `master` synchronisieren (`git pull origin master`) vor Abschluss.
 * **Pull Requests:** Merge ausschließlich über Pull Requests.
-
+* **KI-Autonomie:** Die KI ist autorisiert und angewiesen, Pull Requests selbstständig über die Kommandozeile zu erstellen, sobald eine Aufgabe lokal abgeschlossen und getestet wurde. Der User übernimmt lediglich den Review und den finalen Merge.
 
 ## 6. Frontend-Konventionen
 * **Styles:** CSS-Variablen aus `index.css`. Font: "Space Grotesk" (base), "Covered By Your Grace" (headlines).
-
 * **PWA & Offline:** Die App nutzt `vite-plugin-pwa` und `Dexie.js`. Daten werden lokal gepuffert und synchronisiert.
 * **Assets:** Projekt-Bilder in `frontend/public/projects/`. Blog-Bilder unter `/uploads/`.
 
@@ -44,15 +43,15 @@
 * **Aktualität:** Technische Entscheidungen zeitnah in `.md`-Dateien dokumentieren.
 * **Bereinigung:** Veraltete Informationen proaktiv löscht oder als "Deprecated" markieren.
 
-## 10. Coding Standards & Qualität
+## 9. Coding Standards & Qualität
 * **TypeScript:** Die Verwendung von `any` ist streng untersagt.
 * **Commits:** Conventional Commits Standard (z. B. `feat: ...`, `fix: ...`).
 * **Sicherheit:** Secrets ausschließlich über `.env` (lokal) oder **GitHub Secrets** (Produktion).
 
-## 11. Deployment-Sicherheit
+## 10. Deployment-Sicherheit
 * **Automatisierung:** Deployments ausschließlich über die CI/CD-Pipeline.
 * **Rootless:** Container laufen unter dem User `jorchadmin`.
 
-## 12. Native Image Best Practices (GraalVM)
+## 11. Native Image Best Practices (GraalVM)
 * **AOT-Safety:** Vermeide stille Fehler in RuntimeHints. Nutze `TypeReference` für Runtime-Abhängigkeiten.
 * **Vollständigkeit:** Reflection-Klassen (z.B. für JJWT) müssen präzise und vollständig registriert werden.
