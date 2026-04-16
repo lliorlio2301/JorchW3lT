@@ -24,6 +24,7 @@ public class Project {
     private String description;
 
     private String imageUrl;
+    private String imageAlt;
     private String githubUrl;
     private String demoUrl;
 

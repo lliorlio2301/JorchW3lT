@@ -16,6 +16,7 @@ services:
     container_name: jorge-backend
     hostname: backend
     restart: always
+    user: "0:0"
     ports:
       - "8080:8080"
     environment:
@@ -26,6 +27,8 @@ services:
       SPRING_JPA_DIALECT: org.hibernate.dialect.PostgreSQLDialect
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       SPRING_FLYWAY_LOCATIONS: classpath:db/migration
+      APP_UPLOAD_DIR: /app/uploads
+      APP_UPLOAD_WEBP_ENABLED: "false"
     depends_on:
       - db
     volumes:
@@ -41,5 +44,100 @@ services:
     depends_on:
       - backend
 
+  victoriametrics:
+    image: docker.io/victoriametrics/victoria-metrics:v1.112.0
+    container_name: jorge-victoriametrics
+    hostname: victoriametrics
+    restart: always
+    command:
+      - -storageDataPath=/victoria-metrics-data
+      - -retentionPeriod=14d
+    volumes:
+      - victoriametrics_data:/victoria-metrics-data
+
+  vmagent:
+    image: docker.io/victoriametrics/vmagent:v1.112.0
+    container_name: jorge-vmagent
+    hostname: vmagent
+    restart: always
+    command:
+      - -promscrape.config=/etc/vmagent/prometheus.yml
+      - -remoteWrite.url=http://victoriametrics:8428/api/v1/write
+    volumes:
+      - ./scripts/observability/victoriametrics/prometheus.yml:/etc/vmagent/prometheus.yml:ro
+    depends_on:
+      - victoriametrics
+      - backend
+      - db
+
+  loki:
+    image: docker.io/grafana/loki:3.2.1
+    container_name: jorge-loki
+    hostname: loki
+    restart: always
+    command: -config.file=/etc/loki/config.yml
+    volumes:
+      - loki_data:/loki
+      - ./scripts/observability/loki/config.yml:/etc/loki/config.yml:ro
+
+  promtail:
+    image: docker.io/grafana/promtail:3.2.1
+    container_name: jorge-promtail
+    hostname: promtail
+    restart: always
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - ./scripts/observability/promtail/config.yml:/etc/promtail/config.yml:ro
+      - /home/jorchadmin/.local/share/containers/storage/overlay-containers:/var/log/podman:ro
+    depends_on:
+      - loki
+
+  node-exporter:
+    image: docker.io/prom/node-exporter:v1.8.2
+    container_name: jorge-node-exporter
+    hostname: node-exporter
+    restart: always
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/host/root
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc|run/credentials/.+)($$|/)
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/host/root:ro
+
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.15.0
+    container_name: jorge-postgres-exporter
+    hostname: postgres-exporter
+    restart: always
+    environment:
+      DATA_SOURCE_NAME: postgresql://jorchos_user:${POSTGRES_PASSWORD}@db:5432/jorchos_db?sslmode=disable
+    depends_on:
+      - db
+
+  grafana:
+    image: docker.io/grafana/grafana-oss:11.2.0
+    container_name: jorge-grafana
+    hostname: grafana
+    restart: always
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    ports:
+      - "127.0.0.1:3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./scripts/observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./scripts/observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - victoriametrics
+      - loki
+
 volumes:
   postgres_data:
+  victoriametrics_data:
+  loki_data:
+  grafana_data:

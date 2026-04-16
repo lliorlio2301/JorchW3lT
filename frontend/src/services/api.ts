@@ -44,9 +44,12 @@ api.interceptors.response.use(
                 try {
                     // Call refresh endpoint directly to avoid interceptor loop
                     const response = await axios.post('/api/auth/refresh-token', { refreshToken });
-                    const { token } = response.data;
+                    const { token, refreshToken: rotatedRefreshToken } = response.data;
 
                     localStorage.setItem('token', token);
+                    if (rotatedRefreshToken) {
+                        localStorage.setItem('refreshToken', rotatedRefreshToken);
+                    }
                     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                     originalRequest.headers.Authorization = `Bearer ${token}`;
 

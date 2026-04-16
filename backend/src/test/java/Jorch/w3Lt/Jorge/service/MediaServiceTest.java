@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,6 +25,7 @@ class MediaServiceTest {
         // Given
         MediaService mediaService = new MediaService();
         ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", true);
 
         // Create a dummy JPEG image
         BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
@@ -49,10 +51,31 @@ class MediaServiceTest {
     }
 
     @Test
+    void shouldSanitizeUnicodeFilenameToAscii() throws IOException {
+        MediaService mediaService = new MediaService();
+        ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", true);
+
+        BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", baos);
+
+        MockMultipartFile file = new MockMultipartFile(
+                "file", "BärIcon.jpg", "image/jpeg", baos.toByteArray());
+
+        String resultUrl = mediaService.uploadFile(file);
+        String filename = resultUrl.replace("/uploads/", "");
+
+        assertThat(Pattern.matches("[a-f0-9\\-]+_baricon\\.webp", filename)).isTrue();
+        assertThat(tempDir.resolve(filename)).exists();
+    }
+
+    @Test
     void shouldDeleteFile() throws IOException {
         // Given
         MediaService mediaService = new MediaService();
         ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", true);
         
         Path testFile = tempDir.resolve("to-delete.webp");
         java.nio.file.Files.createFile(testFile);
@@ -63,5 +86,25 @@ class MediaServiceTest {
 
         // Then
         assertThat(testFile).doesNotExist();
+    }
+
+    @Test
+    void shouldStoreOriginalFormatWhenWebpDisabled() throws IOException {
+        MediaService mediaService = new MediaService();
+        ReflectionTestUtils.setField(mediaService, "uploadDir", tempDir.toString());
+        ReflectionTestUtils.setField(mediaService, "webpEnabled", false);
+
+        BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", baos);
+
+        MockMultipartFile file = new MockMultipartFile(
+                "file", "native-fallback.png", "image/png", baos.toByteArray());
+
+        String resultUrl = mediaService.uploadFile(file);
+
+        assertThat(resultUrl).startsWith("/uploads/");
+        assertThat(resultUrl).endsWith(".png");
+        assertThat(tempDir.resolve(resultUrl.replace("/uploads/", ""))).exists();
     }
 }

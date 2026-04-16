@@ -15,5 +15,8 @@ public class NoteDTO {
     private Long id;
     private String title;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String content;
+    private boolean pinned;
+    private boolean archived;
 }

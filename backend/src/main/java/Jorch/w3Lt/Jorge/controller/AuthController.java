@@ -2,6 +2,7 @@ package Jorch.w3Lt.Jorge.controller;
 
 import Jorch.w3Lt.Jorge.dto.auth.AuthenticationRequest;
 import Jorch.w3Lt.Jorge.dto.auth.AuthenticationResponse;
+import Jorch.w3Lt.Jorge.exception.InvalidRefreshTokenException;
 import Jorch.w3Lt.Jorge.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class AuthController {
     ) {
         String refreshToken = request.get("refreshToken");
         if (refreshToken == null) {
-            return ResponseEntity.badRequest().build();
+            throw new InvalidRefreshTokenException();
         }
         return ResponseEntity.ok(service.refreshToken(refreshToken));
     }

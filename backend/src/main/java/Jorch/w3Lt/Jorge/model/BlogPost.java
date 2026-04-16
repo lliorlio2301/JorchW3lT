@@ -34,6 +34,7 @@ public class BlogPost {
     private String summary;
 
     private String coverImageUrl;
+    private String coverImageAlt;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "blog_post_tags", joinColumns = @JoinColumn(name = "blog_post_id"))

@@ -40,11 +40,24 @@
       "add": "Neue Notiz",
       "placeholderTitle": "Titel der Notiz",
       "placeholderItem": "Eintrag hinzufügen...",
+      "searchPlaceholder": "Notizen durchsuchen...",
       "loading": "Notizen werden geladen...",
       "error": "Fehler beim Laden der Notizen.",
       "noData": "Keine Notizen vorhanden.",
       "lastEdited": "Zuletzt bearbeitet",
-      "newItem": "Neuer Eintrag"
+      "newItem": "Neuer Eintrag",
+      "showArchived": "Archiv anzeigen",
+      "showActive": "Aktive anzeigen",
+      "pin": "Anpinnen",
+      "unpin": "Loslösen",
+      "archive": "Archivieren",
+      "unarchive": "Entarchivieren",
+      "insertImage": "Bild einfügen",
+      "saving": "Speichert...",
+      "saved": "Gespeichert",
+      "saveError": "Speichern fehlgeschlagen",
+      "imageUploadError": "Bild konnte nicht hochgeladen werden.",
+      "fileTooLarge": "Datei zu groß. Das Limit liegt bei 5 MB."
     },
     "common": {
       "viewAll": "Alle ansehen",
@@ -86,6 +99,11 @@
       "demo": "Live Demo"
     },
     "resume": {
+      "title": "Lebenslauf",
+      "role": "Software Engineer",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "location": "Standort",
       "summary": "Zusammenfassung",
       "experience": "Erfahrung",
       "education": "Ausbildung",

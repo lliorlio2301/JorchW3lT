@@ -36,11 +36,24 @@
       "add": "New Note",
       "placeholderTitle": "Note Title",
       "placeholderItem": "Add item...",
+      "searchPlaceholder": "Search notes...",
       "loading": "Loading notes...",
       "error": "Error loading notes.",
       "noData": "No notes available.",
       "lastEdited": "Last edited",
-      "newItem": "New item"
+      "newItem": "New item",
+      "showArchived": "Show archived",
+      "showActive": "Show active",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "archive": "Archive",
+      "unarchive": "Unarchive",
+      "insertImage": "Insert image",
+      "saving": "Saving...",
+      "saved": "Saved",
+      "saveError": "Save failed",
+      "imageUploadError": "Failed to upload image.",
+      "fileTooLarge": "File too large. The limit is 5 MB."
     },
     "common": {
       "viewAll": "View All",
@@ -82,6 +95,11 @@
       "demo": "Live Demo"
     },
     "resume": {
+      "title": "Resume",
+      "role": "Software Engineer",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
       "summary": "Summary",
       "experience": "Experience",
       "education": "Education",

@@ -24,15 +24,16 @@ Willkommen zu meinem persönlichen Portfolio und digitalen Workspace! Dieses Pro
 Das Projekt wird automatisch via GitHub Actions auf einen Debian 12 VPS deployt.
 
 ### Lokale Entwicklung
-1.  **Backend:** `./mvnw spring-boot:run`
+1.  **Backend (Dev-Profil):** `cd backend && ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev`
 2.  **Frontend:** `cd frontend && npm install && npm run dev`
-3.  **Docker-Compose:** `docker-compose up -d` (für Full-Stack Tests)
+3.  **Full-Stack via Podman Compose:** `podman-compose up -d` (alternativ: `docker compose up -d`, falls Docker lokal genutzt wird)
 
 ### Dokumentation
 Detaillierte Informationen findest du in den spezialisierten Guides:
 *   [Infrastruktur & VPS](./docs/infrastructure.md)
 *   [Testing & QA](./docs/testing.md)
 *   [PWA & Offline-Strategie](./docs/pwa-offline.md)
+*   [Security & Auth Hardening](./docs/security-auth-hardening.md)
 *   [Projekt-Roadmap](./ROADMAP.md)
 
 ## 📄 Lizenz
