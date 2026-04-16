@@ -111,7 +111,8 @@ gunzip -c backup_datei.sql.gz | podman exec -i jorge-db psql -U jorchos_user -d 
 
 Für Monitoring und Log-Analyse läuft ein ressourcenschonender Stack direkt im bestehenden Podman-Compose:
 
-- **VictoriaMetrics (Single Node):** Metrics Storage & Scraping
+- **VictoriaMetrics (Single Node):** Metrics Storage
+- **vmagent:** Scraping/Forwarding der Prometheus-kompatiblen Targets an VictoriaMetrics
 - **Grafana:** Dashboards für JVM, HTTP-Latenz, DB-Connections, Host-Ressourcen
 - **Loki + Promtail:** Zentrale Container-Log-Aggregation
 - **node-exporter:** CPU/RAM/Disk Metriken des VPS
