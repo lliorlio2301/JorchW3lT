@@ -19,8 +19,10 @@ public class NoteController {
     private final NoteService noteService;
 
     @GetMapping
-    public ResponseEntity<List<NoteDTO>> getAllNotes() {
-        return ResponseEntity.ok(noteService.getAllNotes());
+    public ResponseEntity<List<NoteDTO>> getAllNotes(
+            @RequestParam(value = "archived", required = false) Boolean archived,
+            @RequestParam(value = "query", required = false) String query) {
+        return ResponseEntity.ok(noteService.getAllNotes(archived, query));
     }
 
     @GetMapping("/{id}")
@@ -43,5 +45,15 @@ public class NoteController {
     public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
         noteService.deleteNote(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}/pin")
+    public ResponseEntity<NoteDTO> setPinned(@PathVariable Long id, @RequestParam("pinned") boolean pinned) {
+        return ResponseEntity.ok(noteService.setPinned(id, pinned));
+    }
+
+    @PatchMapping("/{id}/archive")
+    public ResponseEntity<NoteDTO> setArchived(@PathVariable Long id, @RequestParam("archived") boolean archived) {
+        return ResponseEntity.ok(noteService.setArchived(id, archived));
     }
 }

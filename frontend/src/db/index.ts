@@ -12,6 +12,10 @@ export class LocalDB extends Dexie {
             listItems: '++id, name, completed',
             notes: '++id, title, createdAt'
         });
+        this.version(2).stores({
+            listItems: '++id, name, completed',
+            notes: '++id, title, createdAt, updatedAt, pinned, archived'
+        });
     }
 }
 

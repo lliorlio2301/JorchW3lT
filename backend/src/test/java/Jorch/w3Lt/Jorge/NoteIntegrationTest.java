@@ -35,6 +35,7 @@ class NoteIntegrationTest extends AbstractIntegrationTest {
         Note note = Note.builder()
                 .title("Integration Database Note")
                 .content("# Markdown Content")
+                .pinned(true)
                 .build();
 
         // When
@@ -43,6 +44,9 @@ class NoteIntegrationTest extends AbstractIntegrationTest {
         // Then
         assertThat(saved.getId()).isNotNull();
         assertThat(saved.getContent()).isEqualTo("# Markdown Content");
+        assertThat(saved.getUpdatedAt()).isNotNull();
+        assertThat(saved.isPinned()).isTrue();
+        assertThat(saved.isArchived()).isFalse();
         
         // Cleanup
         noteRepository.delete(saved);
