@@ -50,13 +50,23 @@ services:
     hostname: victoriametrics
     restart: always
     command:
-      - --storageDataPath=/victoria-metrics-data
-      - --retentionPeriod=14d
-      - --promscrape.config=/etc/victoriametrics/prometheus.yml
+      - -storageDataPath=/victoria-metrics-data
+      - -retentionPeriod=14d
     volumes:
       - victoriametrics_data:/victoria-metrics-data
-      - ./scripts/observability/victoriametrics/prometheus.yml:/etc/victoriametrics/prometheus.yml:ro
+
+  vmagent:
+    image: docker.io/victoriametrics/vmagent:v1.112.0
+    container_name: jorge-vmagent
+    hostname: vmagent
+    restart: always
+    command:
+      - -promscrape.config=/etc/vmagent/prometheus.yml
+      - -remoteWrite.url=http://victoriametrics:8428/api/v1/write
+    volumes:
+      - ./scripts/observability/victoriametrics/prometheus.yml:/etc/vmagent/prometheus.yml:ro
     depends_on:
+      - victoriametrics
       - backend
       - db
 
