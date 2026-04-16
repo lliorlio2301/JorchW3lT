@@ -150,7 +150,9 @@
 
 .preview-img {
     margin-top: 1.5rem;
+    width: 100%;
     max-width: 400px;
+    max-height: min(60vh, 420px);
     border-radius: 10px;
     overflow: hidden;
     border: 3px solid var(--color-contrast);
@@ -158,12 +160,16 @@
 
 .preview-img img {
     width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
     display: block;
 }
 
 .editor-buttons {
     margin-top: 2rem;
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: flex-end;
 }
@@ -199,5 +205,25 @@
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr;
+    }
+
+    .image-upload-label {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .preview-img {
+        max-width: 100%;
+    }
+
+    .editor-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .editor-buttons button {
+        width: 100%;
     }
 }

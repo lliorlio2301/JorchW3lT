@@ -87,7 +87,8 @@
       "education": "Educación",
       "loading": "Cargando currículum...",
       "error": "Error al cargar el currículum. ¿Está funcionando el backend?",
-      "noData": "No se encontraron datos del currículum."
+      "noData": "No se encontraron datos del currículum.",
+      "createFirst": "Crear currículum"
     },
     "songs": {
       "title": "Canción",

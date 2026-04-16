@@ -13,6 +13,21 @@ const AdminResumePage: React.FC = () => {
     
     const [resume, setResume] = useState<ResumeFull | null>(null);
     const [activeLang, setActiveLang] = useState<'de' | 'en' | 'es'>('de');
+    const [loading, setLoading] = useState(true);
+
+    const createEmptyResume = (): ResumeFull => ({
+        name: '',
+        email: '',
+        phone: '',
+        locationDe: '',
+        locationEn: '',
+        locationEs: '',
+        summaryDe: '',
+        summaryEn: '',
+        summaryEs: '',
+        experiences: [],
+        education: []
+    });
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -26,6 +41,8 @@ const AdminResumePage: React.FC = () => {
             setResume(data);
         } catch (err) {
             console.error('Failed to fetch resume', err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -87,7 +104,29 @@ const AdminResumePage: React.FC = () => {
         setResume({ ...resume, education: updated });
     };
 
-    if (!isAuthenticated || !resume) return null;
+    if (!isAuthenticated) return null;
+
+    if (loading) {
+        return (
+            <div className="admin-resume-container">
+                <p>{t('resume.loading')}</p>
+            </div>
+        );
+    }
+
+    if (!resume) {
+        return (
+            <div className="admin-resume-container">
+                <div className="chaos-card resume-empty-state">
+                    <h1>{t('resume.adminTitle', 'Resume Admin')}</h1>
+                    <p>{t('resume.noData')}</p>
+                    <button className="create-btn" onClick={() => setResume(createEmptyResume())}>
+                        {t('resume.createFirst', 'Lebenslauf anlegen')}
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="admin-resume-container">

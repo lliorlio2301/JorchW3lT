@@ -91,7 +91,8 @@
       "education": "Ausbildung",
       "loading": "Lebenslauf wird geladen...",
       "error": "Fehler beim Laden des Lebenslaufs. Läuft das Backend?",
-      "noData": "Keine Lebenslaufdaten gefunden."
+      "noData": "Keine Lebenslaufdaten gefunden.",
+      "createFirst": "Lebenslauf anlegen"
     },
     "songs": {
       "title": "Gitarren-Songbuch",

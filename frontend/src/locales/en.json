@@ -87,7 +87,8 @@
       "education": "Education",
       "loading": "Loading resume...",
       "error": "Error loading resume. Is the backend running?",
-      "noData": "No resume data found."
+      "noData": "No resume data found.",
+      "createFirst": "Create resume"
     },
     "songs": {
       "title": "Guitar Songbook",
