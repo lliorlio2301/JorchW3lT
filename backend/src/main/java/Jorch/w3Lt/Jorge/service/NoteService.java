@@ -21,7 +21,12 @@ public class NoteService {
 
     public List<NoteDTO> getAllNotes(Boolean archived, String query) {
         boolean archivedFilter = archived != null && archived;
-        return noteRepository.findByArchivedAndQuery(archivedFilter, query).stream()
+        String normalizedQuery = query == null ? "" : query.trim();
+        List<Note> notes = normalizedQuery.isEmpty()
+                ? noteRepository.findByArchived(archivedFilter)
+                : noteRepository.findByArchivedAndQuery(archivedFilter, normalizedQuery);
+
+        return notes.stream()
                 .map(noteMapper::toDto)
                 .collect(Collectors.toList());
     }

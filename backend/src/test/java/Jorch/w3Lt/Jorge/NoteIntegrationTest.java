@@ -52,4 +52,25 @@ class NoteIntegrationTest extends AbstractIntegrationTest {
         noteRepository.delete(saved);
         assertThat(noteRepository.count()).isZero();
     }
+
+    @Test
+    @Transactional
+    void shouldFindNotesByArchivedWithoutSearchQuery() {
+        Note active = noteRepository.save(Note.builder()
+                .title("Active note")
+                .content("alpha")
+                .archived(false)
+                .pinned(true)
+                .build());
+        Note archived = noteRepository.save(Note.builder()
+                .title("Archived note")
+                .content("beta")
+                .archived(true)
+                .build());
+
+        assertThat(noteRepository.findByArchived(false))
+                .extracting(Note::getId)
+                .contains(active.getId())
+                .doesNotContain(archived.getId());
+    }
 }
