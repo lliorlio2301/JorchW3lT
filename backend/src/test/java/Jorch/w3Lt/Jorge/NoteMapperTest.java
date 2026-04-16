@@ -6,6 +6,8 @@ import Jorch.w3Lt.Jorge.model.Note;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class NoteMapperTest {
@@ -19,6 +21,10 @@ class NoteMapperTest {
                 .id(10L)
                 .title("Note Title")
                 .content("# Markdown Content")
+                .pinned(true)
+                .archived(false)
+                .createdAt(LocalDateTime.now().minusDays(1))
+                .updatedAt(LocalDateTime.now())
                 .build();
 
         // When
@@ -28,6 +34,9 @@ class NoteMapperTest {
         assertThat(dto.getId()).isEqualTo(10L);
         assertThat(dto.getTitle()).isEqualTo("Note Title");
         assertThat(dto.getContent()).isEqualTo("# Markdown Content");
+        assertThat(dto.isPinned()).isTrue();
+        assertThat(dto.isArchived()).isFalse();
+        assertThat(dto.getUpdatedAt()).isNotNull();
     }
 
     @Test
@@ -36,6 +45,8 @@ class NoteMapperTest {
         NoteDTO noteDto = NoteDTO.builder()
                 .title("New Note")
                 .content("New Content")
+                .pinned(true)
+                .archived(true)
                 .build();
 
         // When
@@ -44,5 +55,7 @@ class NoteMapperTest {
         // Then
         assertThat(note.getTitle()).isEqualTo("New Note");
         assertThat(note.getContent()).isEqualTo("New Content");
+        assertThat(note.isPinned()).isTrue();
+        assertThat(note.isArchived()).isTrue();
     }
 }

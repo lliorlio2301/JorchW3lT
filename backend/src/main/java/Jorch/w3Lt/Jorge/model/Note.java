@@ -6,10 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -28,6 +27,18 @@ public class Note {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean pinned = false;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean archived = false;
 }

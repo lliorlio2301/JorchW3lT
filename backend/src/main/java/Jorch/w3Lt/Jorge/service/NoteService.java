@@ -19,8 +19,9 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final NoteMapper noteMapper;
 
-    public List<NoteDTO> getAllNotes() {
-        return noteRepository.findAllByOrderByCreatedAtDesc().stream()
+    public List<NoteDTO> getAllNotes(Boolean archived, String query) {
+        boolean archivedFilter = archived != null && archived;
+        return noteRepository.findByArchivedAndQuery(archivedFilter, query).stream()
                 .map(noteMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -40,5 +41,24 @@ public class NoteService {
     @Transactional
     public void deleteNote(Long id) {
         noteRepository.deleteById(id);
+    }
+
+    @Transactional
+    public NoteDTO setPinned(Long id, boolean pinned) {
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Note not found with id: " + id));
+        note.setPinned(pinned);
+        return noteMapper.toDto(noteRepository.save(note));
+    }
+
+    @Transactional
+    public NoteDTO setArchived(Long id, boolean archived) {
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Note not found with id: " + id));
+        note.setArchived(archived);
+        if (archived) {
+            note.setPinned(false);
+        }
+        return noteMapper.toDto(noteRepository.save(note));
     }
 }
