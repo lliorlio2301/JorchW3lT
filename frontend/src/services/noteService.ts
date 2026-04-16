@@ -3,12 +3,51 @@ import type { Note } from '../types/note';
 import { db } from '../db';
 
 const ENDPOINT = '/notes';
+const UPLOAD_ENDPOINT = '/upload';
+
+interface GetNotesOptions {
+    archived?: boolean;
+    query?: string;
+}
+
+const sortNotes = (items: Note[]): Note[] => {
+    return [...items].sort((a, b) => {
+        const pinA = a.pinned ? 1 : 0;
+        const pinB = b.pinned ? 1 : 0;
+        if (pinA !== pinB) {
+            return pinB - pinA;
+        }
+
+        const dateA = a.updatedAt ?? a.createdAt ?? '';
+        const dateB = b.updatedAt ?? b.createdAt ?? '';
+        return new Date(dateB).getTime() - new Date(dateA).getTime();
+    });
+};
+
+const matchesQuery = (note: Note, query?: string): boolean => {
+    if (!query) {
+        return true;
+    }
+    const normalized = query.trim().toLowerCase();
+    if (!normalized) {
+        return true;
+    }
+
+    return `${note.title} ${note.content}`.toLowerCase().includes(normalized);
+};
 
 export const noteService = {
-    getAllNotes: async (): Promise<Note[]> => {
+    getAllNotes: async (options: GetNotesOptions = {}): Promise<Note[]> => {
+        const archived = options.archived ?? false;
+        const query = options.query?.trim() ?? '';
         try {
-            const response = await api.get<Note[]>(ENDPOINT);
-            const notes = response.data;
+            const response = await api.get<Note[]>(ENDPOINT, {
+                params: {
+                    archived,
+                    query: query || undefined
+                }
+            });
+            const notes = sortNotes(response.data);
             
             // Sync with local DB
             await db.notes.clear();
@@ -17,13 +56,11 @@ export const noteService = {
             return notes;
         } catch (error) {
             console.warn('Offline: Loading notes from local DB', error);
-            // Return sorted by createdAt desc just like backend
+            // Return filtered and sorted local data as backend fallback
             const localNotes = await db.notes.toArray();
-            return localNotes.sort((a, b) => {
-                const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-                const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-                return dateB - dateA;
-            });
+            return sortNotes(
+                localNotes.filter(note => (note.archived ?? false) === archived && matchesQuery(note, query))
+            );
         }
     },
 
@@ -54,6 +91,33 @@ export const noteService = {
         // Update local DB
         await db.notes.put(savedNote);
         return savedNote;
+    },
+
+    setPinned: async (id: number, pinned: boolean): Promise<Note> => {
+        const response = await api.patch<Note>(`${ENDPOINT}/${id}/pin`, undefined, {
+            params: { pinned }
+        });
+        await db.notes.put(response.data);
+        return response.data;
+    },
+
+    setArchived: async (id: number, archived: boolean): Promise<Note> => {
+        const response = await api.patch<Note>(`${ENDPOINT}/${id}/archive`, undefined, {
+            params: { archived }
+        });
+        await db.notes.put(response.data);
+        return response.data;
+    },
+
+    uploadImage: async (file: File): Promise<string> => {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await api.post<{ url: string }>(UPLOAD_ENDPOINT, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data.url;
     },
 
     deleteNote: async (id: number): Promise<void> => {
