@@ -12,10 +12,15 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     @Query("""
             SELECT n FROM Note n
             WHERE n.archived = :archived
+            ORDER BY n.pinned DESC, n.updatedAt DESC
+            """)
+    List<Note> findByArchived(boolean archived);
+
+    @Query("""
+            SELECT n FROM Note n
+            WHERE n.archived = :archived
             AND (
-                :query IS NULL
-                OR TRIM(:query) = ''
-                OR LOWER(n.title) LIKE LOWER(CONCAT('%', :query, '%'))
+                LOWER(n.title) LIKE LOWER(CONCAT('%', :query, '%'))
                 OR LOWER(COALESCE(n.content, '')) LIKE LOWER(CONCAT('%', :query, '%'))
             )
             ORDER BY n.pinned DESC, n.updatedAt DESC
