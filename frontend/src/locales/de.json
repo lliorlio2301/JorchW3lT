@@ -110,9 +110,7 @@
       "loading": "Lebenslauf wird geladen...",
       "error": "Fehler beim Laden des Lebenslaufs. Läuft das Backend?",
       "noData": "Keine Lebenslaufdaten gefunden.",
-      "downloadPdf": "Als PDF herunterladen",
-      "generatingPdf": "PDF wird erstellt...",
-      "pdfError": "PDF konnte nicht erstellt werden."
+      "createFirst": "Lebenslauf anlegen"
     },
     "songs": {
       "title": "Gitarren-Songbuch",

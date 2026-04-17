@@ -106,9 +106,7 @@
       "loading": "Cargando currículum...",
       "error": "Error al cargar el currículum. ¿Está funcionando el backend?",
       "noData": "No se encontraron datos del currículum.",
-      "downloadPdf": "Descargar como PDF",
-      "generatingPdf": "Generando PDF...",
-      "pdfError": "No se pudo generar el PDF."
+      "createFirst": "Crear currículum"
     },
     "songs": {
       "title": "Canción",

@@ -106,9 +106,7 @@
       "loading": "Loading resume...",
       "error": "Error loading resume. Is the backend running?",
       "noData": "No resume data found.",
-      "downloadPdf": "Download as PDF",
-      "generatingPdf": "Generating PDF...",
-      "pdfError": "Failed to generate PDF."
+      "createFirst": "Create resume"
     },
     "songs": {
       "title": "Guitar Songbook",
