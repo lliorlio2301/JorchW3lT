@@ -135,9 +135,25 @@ Danach lokal öffnen: `http://localhost:3001`
 
 - Provisioning-Dateien liegen unter `scripts/observability/`.
 - Dashboard-Provisioning erfolgt automatisch beim Start von Grafana.
+- Container-Logs werden via **Promtail Journald Scrape** ingestiert (Podman LogDriver `journald`).
 - Standard-Retention:
   - VictoriaMetrics: `14d`
   - Loki: `168h` (7 Tage)
+
+### Troubleshooting: Keine Container-Logs in Grafana
+
+Wenn in Grafana/Loki keine Container-Logs sichtbar sind:
+
+1. Prüfen, ob Podman auf dem Host `journald` nutzt:
+   ```bash
+   podman inspect jorge-backend --format '{{.HostConfig.LogConfig.Type}}'
+   ```
+2. Sicherstellen, dass Promtail die Journal-Mounts hat (`/var/log/journal`, `/run/log/journal`, `/etc/machine-id`).
+3. Promtail-Logs prüfen:
+   ```bash
+   podman logs jorge-promtail --tail 200
+   ```
+4. In Grafana Explore auf Labels `job=podman-journald` und `container=jorge-backend` filtern.
 
 ---
 
