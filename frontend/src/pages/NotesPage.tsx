@@ -387,7 +387,7 @@ const NotesPage: React.FC = () => {
                                 {t('notes.insertImage')}
                             </button>
                             <button
-                                className="delete-btn"
+                                className="cancel-btn"
                                 onClick={() => handleDeleteNote(selectedNote.id)}
                             >
                                 {t('common.delete')}

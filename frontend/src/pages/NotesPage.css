@@ -221,6 +221,16 @@
     line-height: 1.7;
     font-size: 1.15rem;
     color: var(--color-text);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.note-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid var(--color-contrast);
+    margin: 1rem 0;
 }
 
 .note-preview h1, .note-preview h2, .note-preview h3 {
@@ -243,7 +253,7 @@
     border-top: 2px dashed var(--color-contrast);
 }
 
-.save-btn, .delete-btn, .secondary-btn {
+.save-btn, .delete-btn, .secondary-btn, .cancel-btn {
     padding: 0.8rem 1.4rem;
     font-family: var(--font-headlines);
     font-size: 1.1rem;
@@ -262,12 +272,17 @@
     color: var(--color-on-primary);
 }
 
+.cancel-btn {
+    background-color: var(--color-muted);
+    color: var(--color-on-accent);
+}
+
 .secondary-btn {
     background-color: var(--color-surface);
     color: var(--color-text);
 }
 
-.save-btn:hover, .delete-btn:hover, .secondary-btn:hover {
+.save-btn:hover, .delete-btn:hover, .secondary-btn:hover, .cancel-btn:hover {
     transform: scale(1.05);
     box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
 }
