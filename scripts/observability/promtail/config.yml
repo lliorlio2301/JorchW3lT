@@ -9,10 +9,20 @@ clients:
   - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: podman-container-logs
-    static_configs:
-      - targets:
-          - localhost
-        labels:
-          job: podman-container-logs
-          __path__: /var/log/podman/*/userdata/ctr.log
+  - job_name: podman-journald
+    journal:
+      path: /var/log/journal
+      max_age: 12h
+      labels:
+        job: podman-journald
+    relabel_configs:
+      - source_labels: ['__journal__hostname']
+        target_label: host
+      - source_labels: ['__journal__container_name']
+        target_label: container
+      - source_labels: ['__journal__container_id_full']
+        target_label: container_id
+      - source_labels: ['__journal__systemd_unit']
+        target_label: systemd_unit
+      - source_labels: ['__journal_priority_keyword']
+        target_label: level
