@@ -12,22 +12,21 @@ scrape_configs:
   - job_name: podman-journald-rootless
     journal:
       path: /run/user/journal
-      max_age: 1h
+      max_age: 12h
       labels:
         job: podman-journald
     relabel_configs:
       - source_labels: ['__journal__hostname']
         target_label: host
       - source_labels: ['__journal_container_name']
-        target_label: container
+        target_label: container_name
+      # Fallback: Falls kein Container-Name da ist, nimm den Syslog-Identifier (oft die ID)
       - action: replace
         source_labels: ['__journal_syslog_identifier']
         regex: '(.+)'
         replacement: '$1'
-        target_label: container
+        target_label: container_name
       - source_labels: ['__journal_container_id_full']
         target_label: container_id
-      - source_labels: ['__journal__systemd_unit']
-        target_label: systemd_unit
       - source_labels: ['__journal_priority_keyword']
         target_label: level
