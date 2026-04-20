@@ -89,6 +89,7 @@ jobs:
           sed -i "s|\${GITHUB_REPOSITORY}|$REPO_LOWER|g" docker-compose.yml
           sed -i "s|\${POSTGRES_PASSWORD}|${{ secrets.POSTGRES_PASSWORD }}|g" docker-compose.yml
           sed -i "s|\${JWT_SECRET_KEY}|${{ secrets.JWT_SECRET_KEY }}|g" docker-compose.yml
+          sed -i "s|\${PODMAN_UID:-1000}|1000|g" docker-compose.yml
           
           if grep -q "\${" docker-compose.yml; then
             echo "Some placeholders were not replaced!"
@@ -122,6 +123,7 @@ jobs:
             echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
             echo "POSTGRES_USER=jorchos_user" >> .env
             echo "POSTGRES_DB=jorchos_db" >> .env
+            echo "PODMAN_UID=1000" >> .env
             
             echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u ${{ github.actor }} --password-stdin
             podman-compose pull
