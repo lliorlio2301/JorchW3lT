@@ -148,14 +148,14 @@ Wenn in Grafana/Loki keine Container-Logs sichtbar sind:
    ```bash
    podman inspect jorge-backend --format '{{.HostConfig.LogConfig.Type}}'
    ```
-2. Sicherstellen, dass Promtail die Journal-Mounts hat (`/var/log/journal`, `/run/log/journal`, `/etc/machine-id`).
+2. Sicherstellen, dass Promtail die Rootless-Journal-Mounts hat (`/run/user/<uid>/journal`, `/etc/machine-id`).
 3. Promtail-Logs prüfen:
    ```bash
    podman logs jorge-promtail --tail 200
    ```
 4. In Grafana Explore auf Labels `job=podman-journald` und `container=jorge-backend` filtern.
-5. Rootless Podman nutzt oft User-Journal unter `/run/user/<uid>/journal`.  
-   Setze bei Bedarf `PODMAN_UID` in `.env` (Standard: `1000`), damit Promtail den richtigen Pfad mountet.
+5. Rootless Podman nutzt User-Journal unter `/run/user/<uid>/journal`.  
+   Setze `PODMAN_UID` in `.env` passend zum Host-User (z. B. `id -u jorchadmin`), damit Promtail den richtigen Pfad mountet.
 6. Hinweis: `journal`-Scrapes zeigen in Promtail nicht zwingend `tailing`-Logs wie Dateiscrapes. Relevanter ist, ob `podman logs jorge-promtail` Push-/Scrape-Fehler zeigt.
 7. Bei `entry too far behind` von Loki:
    - Promtail-Journal-Scrape ist auf `max_age: 1h` begrenzt.
