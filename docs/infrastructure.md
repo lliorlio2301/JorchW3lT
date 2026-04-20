@@ -157,6 +157,9 @@ Wenn in Grafana/Loki keine Container-Logs sichtbar sind:
 5. Rootless Podman nutzt oft User-Journal unter `/run/user/<uid>/journal`.  
    Setze bei Bedarf `PODMAN_UID` in `.env` (Standard: `1000`), damit Promtail den richtigen Pfad mountet.
 6. Hinweis: `journal`-Scrapes zeigen in Promtail nicht zwingend `tailing`-Logs wie Dateiscrapes. Relevanter ist, ob `podman logs jorge-promtail` Push-/Scrape-Fehler zeigt.
+7. Bei `entry too far behind` von Loki:
+   - Promtail-Journal-Scrape ist auf `max_age: 1h` begrenzt.
+   - Promtail-Positionen werden persistent in `promtail_positions` gespeichert, damit bei Neustarts keine alten Logs erneut reingespielt werden.
 
 ---
 

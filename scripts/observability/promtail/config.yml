@@ -3,7 +3,7 @@ server:
   grpc_listen_port: 0
 
 positions:
-  filename: /tmp/positions.yml
+  filename: /var/lib/promtail/positions.yml
 
 clients:
   - url: http://loki:3100/loki/api/v1/push
@@ -12,7 +12,7 @@ scrape_configs:
   - job_name: podman-journald-system
     journal:
       path: /var/log/journal
-      max_age: 12h
+      max_age: 1h
       labels:
         job: podman-journald
     relabel_configs:
@@ -33,7 +33,7 @@ scrape_configs:
   - job_name: podman-journald-rootless
     journal:
       path: /run/user/journal
-      max_age: 12h
+      max_age: 1h
       labels:
         job: podman-journald
     relabel_configs:

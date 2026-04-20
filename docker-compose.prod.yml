@@ -95,6 +95,7 @@ services:
       - /run/log/journal:/run/log/journal:ro
       - /run/user/${PODMAN_UID:-1000}/journal:/run/user/journal:ro
       - /etc/machine-id:/etc/machine-id:ro
+      - promtail_positions:/var/lib/promtail
     depends_on:
       - loki
 
@@ -147,3 +148,4 @@ volumes:
   victoriametrics_data:
   loki_data:
   grafana_data:
+  promtail_positions:
