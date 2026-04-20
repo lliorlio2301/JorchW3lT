@@ -17,7 +17,7 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
   "id": null,
   "links": [],
   "panels": [
@@ -97,7 +97,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 8,
         "x": 0,
         "y": 8
@@ -128,7 +128,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 8,
         "x": 8,
         "y": 8
@@ -159,7 +159,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 8,
         "x": 16,
         "y": 8
@@ -181,23 +181,65 @@
         "uid": "loki"
       },
       "gridPos": {
-        "h": 10,
+        "h": 4,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 14
+      },
+      "id": 7,
+      "targets": [
+        {
+          "expr": "sum by (level) (count_over_time({job=\"podman-journald\"} [1m]))",
+          "refId": "A"
+        }
+      ],
+      "title": "Log Volume by Level",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 18
       },
       "id": 6,
       "targets": [
         {
-          "expr": "{job=\"podman-container-logs\"}",
+          "expr": "{job=\"podman-journald\"}",
           "refId": "A"
         }
       ],
-      "title": "Container Logs (Podman)",
+      "title": "Container Logs (All)",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki"
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 8,
+      "targets": [
+        {
+          "expr": "{job=\"podman-journald\"} |= \"error\" |~ \"(?i)error|warn|fail\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Error & Warning Logs",
       "type": "logs"
     }
   ],
-  "refresh": "30s",
+  "refresh": "15s",
   "schemaVersion": 39,
   "style": "dark",
   "tags": [
@@ -205,16 +247,36 @@
     "observability"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "loki",
+          "uid": "loki"
+        },
+        "definition": "label_values(container)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "container",
+        "options": [],
+        "query": "label_values(container)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "JorchOS Overview",
   "uid": "jorchos-overview",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
