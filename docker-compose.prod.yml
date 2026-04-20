@@ -49,6 +49,9 @@ services:
     container_name: jorge-victoriametrics
     hostname: victoriametrics
     restart: always
+    # Kein Zugriff von außen
+    # ports:
+    # - "8428:8428"
     command:
       - -storageDataPath=/victoria-metrics-data
       - -retentionPeriod=14d
