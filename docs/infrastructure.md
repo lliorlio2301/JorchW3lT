@@ -154,6 +154,9 @@ Wenn in Grafana/Loki keine Container-Logs sichtbar sind:
    podman logs jorge-promtail --tail 200
    ```
 4. In Grafana Explore auf Labels `job=podman-journald` und `container=jorge-backend` filtern.
+5. Rootless Podman nutzt oft User-Journal unter `/run/user/<uid>/journal`.  
+   Setze bei Bedarf `PODMAN_UID` in `.env` (Standard: `1000`), damit Promtail den richtigen Pfad mountet.
+6. Hinweis: `journal`-Scrapes zeigen in Promtail nicht zwingend `tailing`-Logs wie Dateiscrapes. Relevanter ist, ob `podman logs jorge-promtail` Push-/Scrape-Fehler zeigt.
 
 ---
 

@@ -93,6 +93,7 @@ services:
       - ./scripts/observability/promtail/config.yml:/etc/promtail/config.yml:ro
       - /var/log/journal:/var/log/journal:ro
       - /run/log/journal:/run/log/journal:ro
+      - /run/user/${PODMAN_UID:-1000}/journal:/run/user/journal:ro
       - /etc/machine-id:/etc/machine-id:ro
     depends_on:
       - loki

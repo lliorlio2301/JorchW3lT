@@ -9,18 +9,42 @@ clients:
   - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: podman-journald
+  - job_name: podman-journald-system
     journal:
       path: /var/log/journal
       max_age: 12h
       labels:
         job: podman-journald
     relabel_configs:
+      - action: keep
+        source_labels: ['__journal_container_name']
+        regex: .+
       - source_labels: ['__journal__hostname']
         target_label: host
-      - source_labels: ['__journal__container_name']
-        target_label: container_name
-      - source_labels: ['__journal__container_id_full']
+      - source_labels: ['__journal_container_name']
+        target_label: container
+      - source_labels: ['__journal_container_id_full']
+        target_label: container_id
+      - source_labels: ['__journal__systemd_unit']
+        target_label: systemd_unit
+      - source_labels: ['__journal_priority_keyword']
+        target_label: level
+
+  - job_name: podman-journald-rootless
+    journal:
+      path: /run/user/journal
+      max_age: 12h
+      labels:
+        job: podman-journald
+    relabel_configs:
+      - action: keep
+        source_labels: ['__journal_container_name']
+        regex: .+
+      - source_labels: ['__journal__hostname']
+        target_label: host
+      - source_labels: ['__journal_container_name']
+        target_label: container
+      - source_labels: ['__journal_container_id_full']
         target_label: container_id
       - source_labels: ['__journal__systemd_unit']
         target_label: systemd_unit
