@@ -12,19 +12,29 @@ scrape_configs:
   - job_name: podman-journald-rootless
     journal:
       path: /run/user/journal
-      max_age: 12h
+      max_age: 120h # Erhöht auf 5 Tage
       labels:
         job: podman-journald
     relabel_configs:
       - source_labels: ['__journal__hostname']
         target_label: host
+      # Erster Versuch: Echtes Container-Label von Podman
       - source_labels: ['__journal_container_name']
         target_label: container_name
-      - source_labels: ['__journal_container_name']
-        target_label: container
+      # Zweiter Versuch: Falls container_name leer ist, nimm den Syslog-Identifier
+      - source_labels: ['container_name']
+        action: replace
+        regex: '^$'
+        replacement: 'unknown'
+        target_label: container_name
       - source_labels: ['__journal_syslog_identifier']
         target_label: syslog_identifier
+      # WICHTIG: Wenn container_name noch 'unknown' ist, überschreibe es mit syslog_identifier
+      - source_labels: ['container_name', 'syslog_identifier']
+        separator: ';'
+        regex: 'unknown;(.+)'
+        replacement: '$1'
+        target_label: container_name
+      # Level-Extraktion
       - source_labels: ['__journal_priority_keyword']
         target_label: level
-      - source_labels: ['__journal_priority']
-        target_label: priority
