@@ -1,0 +1,67 @@
+.tiptap-editor-wrapper {
+    height: 100%;
+}
+
+.tiptap-editor {
+    min-height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-ui);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    padding: 1rem 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.tiptap-editor:focus {
+    outline: none;
+}
+
+.tiptap-editor p.is-editor-empty:first-child::before {
+    color: color-mix(in srgb, var(--color-text) 55%, transparent);
+    content: attr(data-placeholder);
+    pointer-events: none;
+    height: 0;
+    float: left;
+}
+
+.tiptap-editor img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    border: 2px solid var(--color-contrast);
+    margin: 1rem 0;
+}
+
+.tiptap-editor h1,
+.tiptap-editor h2,
+.tiptap-editor h3 {
+    font-family: var(--font-headlines);
+    margin-top: 1.5rem;
+    color: var(--color-primary);
+}
+
+.tiptap-editor ul[data-type='taskList'] {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tiptap-editor ul[data-type='taskList'] li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+}
+
+.tiptap-editor ul[data-type='taskList'] li > div {
+    flex: 1;
+}
+
+@media (max-width: 500px) {
+    .tiptap-editor {
+        font-size: 1.1rem;
+        padding: 0.5rem 0;
+    }
+}

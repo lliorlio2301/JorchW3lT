@@ -32,7 +32,9 @@ Das Projekt nutzt eine **"Cache-first with Remote-Sync"** Strategie für Lese-Op
 Die lokale Datenbank `JorchOS_LocalDB` enthält folgende Tabellen:
 
 *   `listItems`: `++id, name, completed`
-*   `notes`: `++id, title, createdAt`
+*   `notes`: `++id, title, content, pinned, archived, createdAt, updatedAt`
+
+Die Notes bleiben im Frontend und Backend weiterhin als **Markdown-String** gespeichert. Der neue Notes-Editor rendert formatiert, arbeitet intern aber kompatibel zum bestehenden `noteService`-Vertrag (`content: string`).
 
 ---
 

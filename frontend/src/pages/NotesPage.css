@@ -166,82 +166,16 @@
     border-bottom-color: var(--color-primary);
 }
 
-.editor-mode-toggle {
-    display: flex;
-    gap: 0.5rem;
-    background: rgba(0,0,0,0.1);
-    padding: 0.4rem;
-    border-radius: 8px;
-}
-
-.editor-mode-toggle button {
-    padding: 0.5rem 1.2rem;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-family: var(--font-ui);
-    font-weight: 600;
-    border-radius: 5px;
-    transition: all 0.2s;
-    color: var(--color-text);
-}
-
-.editor-mode-toggle button.active {
-    background: var(--color-primary);
-    color: var(--color-on-primary);
-}
-
 .editor-content {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     margin-bottom: 2rem;
     text-align: left;
 }
 
-.note-textarea {
-    width: 100%;
+.editor-content .tiptap-editor-wrapper {
     height: 100%;
-    min-height: 400px;
-    border: none;
-    background: transparent;
-    color: var(--color-text);
-    font-family: var(--font-ui);
-    font-size: 1.2rem;
-    line-height: 1.7;
-    resize: none;
-    padding: 1rem 0;
-}
-
-.note-textarea:focus {
-    outline: none;
-}
-
-.note-preview {
-    padding: 1rem 0;
-    line-height: 1.7;
-    font-size: 1.15rem;
-    color: var(--color-text);
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-}
-
-.note-preview img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    border: 2px solid var(--color-contrast);
-    margin: 1rem 0;
-}
-
-.note-preview h1, .note-preview h2, .note-preview h3 {
-    font-family: var(--font-headlines);
-    margin-top: 1.5rem;
-    color: var(--color-primary);
-}
-
-.empty-content {
-    opacity: 0.5;
-    font-style: italic;
 }
 
 .editor-actions {
@@ -414,9 +348,8 @@
     .editor-header {
         display: grid;
         grid-template-columns: auto 1fr;
-        grid-template-areas: 
-            "back toggle"
-            "title title";
+        grid-template-areas:
+            "back title";
         gap: 1rem;
         margin-bottom: 1.5rem;
         align-items: center;
@@ -427,23 +360,12 @@
         margin: 0;
     }
 
-    .editor-mode-toggle {
-        grid-area: toggle;
-        justify-self: end;
-        width: auto;
-    }
-
     .editor-title-input {
         grid-area: title;
         font-size: 1.8rem;
         width: 100%;
         padding: 0.2rem 0;
         margin-top: 0.5rem;
-    }
-
-    .editor-mode-toggle button {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
     }
 
     .editor-actions {
@@ -457,8 +379,4 @@
         padding: 0.7rem 0.5rem;
     }
     
-    .note-textarea {
-        font-size: 1.1rem;
-        padding: 0.5rem 0;
-    }
 }
