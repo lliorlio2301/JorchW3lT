@@ -67,9 +67,10 @@ test.describe('Admin User Journey', () => {
     await expect(titleInput).toBeVisible();
     await titleInput.fill('E2E Test Note');
     
-    // Markdown Textarea
-    const textarea = page.locator('.note-textarea');
-    await textarea.fill('# Markdown Content\nCheck me!');
+    // TipTap editor (contenteditable)
+    const editor = page.locator('.tiptap-editor');
+    await expect(editor).toBeVisible();
+    await editor.fill('# Markdown Content\nCheck me!');
     
     // 6. Save and wait for Response
     const saveResponsePromise = page.waitForResponse(response => 
@@ -84,9 +85,7 @@ test.describe('Admin User Journey', () => {
     const sidebarNote = page.locator('.note-summary-card h3').filter({ hasText: 'E2E Test Note' });
     await expect(sidebarNote).toBeVisible({ timeout: 10000 });
     
-    // 8. Verify Preview
-    // After saving, it should switch to view mode
-    await expect(page.locator('.note-preview')).toBeVisible();
-    await expect(page.locator('.note-preview')).toContainText('Markdown Content');
+    // 8. Verify editor still contains content
+    await expect(page.locator('.tiptap-editor')).toContainText('Markdown Content');
   });
 });
