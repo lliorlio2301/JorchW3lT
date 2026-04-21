@@ -189,7 +189,7 @@
       "id": 7,
       "targets": [
         {
-          "expr": "sum by (level) (count_over_time({job=\"podman-journald\"} [1m]))",
+          "expr": "sum by (level) (count_over_time({job=\"podman-journald\"} [5m]))",
           "refId": "A"
         }
       ],
