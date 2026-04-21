@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
 import noteService from '../services/noteService';
 import { useAuth } from '../hooks/useAuth';
 import type { Note } from '../types/note';
+import { MarkdownEditor } from '../components/notes/MarkdownEditor';
+import type { MarkdownEditorHandle } from '../components/notes/MarkdownEditor';
 import './NotesPage.css';
 
 type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
@@ -20,7 +21,6 @@ const NotesPage: React.FC = () => {
     const [notes, setNotes] = useState<Note[]>([]);
     const [selectedNote, setSelectedNote] = useState<Note | null>(null);
     const [loading, setLoading] = useState(true);
-    const [isEditing, setIsEditing] = useState(true);
     const [showMobileEditor, setShowMobileEditor] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
@@ -30,6 +30,7 @@ const NotesPage: React.FC = () => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const autoSaveTimeoutRef = useRef<number | null>(null);
     const lastSavedSnapshotRef = useRef<string>('');
+    const editorRef = useRef<MarkdownEditorHandle | null>(null);
 
     const snapshot = useCallback((note: Note): string => {
         return JSON.stringify({
@@ -82,7 +83,6 @@ const NotesPage: React.FC = () => {
                 }
                 return data.find(item => item.id === prevSelected.id) ?? data[0] ?? null;
             });
-            setIsEditing(false);
         } catch (err) {
             console.error('Failed to fetch notes', err);
             setError(t('notes.error'));
@@ -119,7 +119,7 @@ const NotesPage: React.FC = () => {
     }, [snapshot, updateNoteInState]);
 
     useEffect(() => {
-        if (!isEditing || !selectedNote) {
+        if (!selectedNote) {
             return;
         }
 
@@ -142,7 +142,7 @@ const NotesPage: React.FC = () => {
                 setSaveStatus('error');
             }
         }, AUTO_SAVE_DELAY_MS);
-    }, [isEditing, persistNote, selectedNote, snapshot]);
+    }, [persistNote, selectedNote, snapshot]);
 
     const saveStatusLabel = useMemo(() => {
         if (saveStatus === 'saving') return t('notes.saving');
@@ -159,7 +159,6 @@ const NotesPage: React.FC = () => {
             archived: showArchived
         };
         setSelectedNote(newNote);
-        setIsEditing(true);
         setShowMobileEditor(true);
         setSaveStatus('idle');
         lastSavedSnapshotRef.current = snapshot(newNote);
@@ -175,7 +174,6 @@ const NotesPage: React.FC = () => {
 
         try {
             await persistNote(selectedNote);
-            setIsEditing(false);
         } catch (err) {
             console.error('Failed to save note', err);
             setSaveStatus('error');
@@ -185,7 +183,6 @@ const NotesPage: React.FC = () => {
     const handleDeleteNote = async (id?: number) => {
         if (!id) {
             setSelectedNote(notes.length > 0 ? notes[0] : null);
-            setIsEditing(false);
             setShowMobileEditor(false);
             return;
         }
@@ -198,7 +195,6 @@ const NotesPage: React.FC = () => {
             const updatedNotes = notes.filter(note => note.id !== id);
             setNotes(updatedNotes);
             setSelectedNote(updatedNotes.length > 0 ? updatedNotes[0] : null);
-            setIsEditing(false);
             setShowMobileEditor(false);
             setSaveStatus('idle');
         } catch (err) {
@@ -257,12 +253,11 @@ const NotesPage: React.FC = () => {
         try {
             const url = await noteService.uploadImage(file);
             const markdown = `\n![${file.name}](${url})\n`;
-            const updatedNote = {
-                ...selectedNote,
-                content: `${selectedNote.content}${markdown}`
-            };
-            setSelectedNote(updatedNote);
-            setIsEditing(true);
+            if (editorRef.current) {
+                editorRef.current.insertMarkdownAtCursor(markdown);
+            } else {
+                setSelectedNote({ ...selectedNote, content: `${selectedNote.content}${markdown}` });
+            }
             setError(null);
         } catch (err) {
             console.error('Failed to upload image for note', err);
@@ -301,7 +296,6 @@ const NotesPage: React.FC = () => {
                             className={`note-summary-card chaos-card ${selectedNote?.id === note.id ? 'active' : ''}`}
                             onClick={() => {
                                 setSelectedNote(note);
-                                setIsEditing(false);
                                 setShowMobileEditor(true);
                                 lastSavedSnapshotRef.current = snapshot(note);
                             }}
@@ -329,47 +323,20 @@ const NotesPage: React.FC = () => {
                                 value={selectedNote.title}
                                 onChange={(event) => {
                                     setSelectedNote({ ...selectedNote, title: event.target.value });
-                                    setIsEditing(true);
                                 }}
                                 placeholder={t('notes.placeholderTitle')}
                             />
-                            <div className="editor-mode-toggle">
-                                <button
-                                    className={isEditing ? 'active' : ''}
-                                    onClick={() => setIsEditing(true)}
-                                >
-                                    {t('common.edit')}
-                                </button>
-                                <button
-                                    className={!isEditing ? 'active' : ''}
-                                    onClick={() => setIsEditing(false)}
-                                >
-                                    {t('common.view')}
-                                </button>
-                            </div>
                         </div>
 
                         <div className="editor-content">
-                            {isEditing ? (
-                                <textarea
-                                    className="note-textarea"
-                                    value={selectedNote.content}
-                                    onChange={(event) => {
-                                        setSelectedNote({ ...selectedNote, content: event.target.value });
-                                        setIsEditing(true);
-                                    }}
-                                    placeholder={t('notes.placeholderItem')}
-                                    autoFocus
-                                />
-                            ) : (
-                                <div className="note-preview markdown-body">
-                                    {selectedNote.content ? (
-                                        <ReactMarkdown>{selectedNote.content}</ReactMarkdown>
-                                    ) : (
-                                        <p className="empty-content">{t('notes.noData')}</p>
-                                    )}
-                                </div>
-                            )}
+                            <MarkdownEditor
+                                ref={editorRef}
+                                value={selectedNote.content}
+                                onChange={(nextMarkdown) => {
+                                    setSelectedNote({ ...selectedNote, content: nextMarkdown });
+                                }}
+                                placeholder={t('notes.placeholderItem')}
+                            />
                         </div>
 
                         <div className="editor-actions">
