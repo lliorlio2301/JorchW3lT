@@ -201,9 +201,27 @@ Produktivitäts-Upgrade des Notiz-Workspaces mit Fokus auf Priorisierung, Wieder
 
 ---
 
-## Phase 14: AI Intelligence & Song Evolution (Priorität: Zukunft)
+## Phase 13.7: Notes Editor Modernization (In Progress)
 
-Intelligente Features zur Produktivitätssteigerung.
+Modernisierung der Notes-Editor-Engine für direktes WYSIWYM-Schreiben mit Markdown-kompatibler Persistenz.
+
+- [ ] **Editor Engine Upgrade (TipTap + Markdown Adapter):**
+  - Ersetzen von `textarea + Preview` durch Editor-Kern mit direkter Formatierung.
+  - Persistenz bleibt ein reiner Markdown-String (`Note.content` unverändert).
+- [ ] **Smart Lists & Task Lists:**
+  - List-Continuation bei `Enter` für Bullet/Ordered Lists.
+  - Interaktive Task-List-Unterstützung (`[ ]`, `[x]`).
+- [ ] **State & UX Integration:**
+  - Auto-Save, Image-Upload und mobile Editor-Navigation beibehalten.
+  - Entfernen des Edit/View-Toggles für schnelleren Workflow.
+- [ ] **Backward Compatibility:**
+  - Bestehende Markdown-Notizen bleiben lad- und speicherbar.
+
+---
+
+## AI Initiative (ohne festen Zeitpunkt)
+
+Langfristige KI-Erweiterungen als strategische Vorhaben ohne feste Phasenbindung.
 
 - [ ] **AI Assistant (Notes):**
   - Integration eines LLM-Dienstes (OpenAI oder lokal) zur Zusammenfassung und Stil-Optimierung von Notizen.
