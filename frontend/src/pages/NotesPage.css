@@ -197,8 +197,8 @@
 }
 
 .save-btn {
-    background-color: var(--color-secondary);
-    color: var(--color-on-secondary);
+    background-color: var(--color-surface);
+    color: var(--color-text);
 }
 
 .delete-btn {
@@ -207,7 +207,7 @@
 }
 
 .cancel-btn {
-    background-color: var(--color-muted);
+    background-color: var(--color-surface);
     color: var(--color-on-accent);
 }
 
