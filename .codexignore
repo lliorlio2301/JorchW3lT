@@ -1,0 +1,59 @@
+# --- ABHÄNGIGKEITEN & BUILD ---
+node_modules/
+**/node_modules/
+**/target/
+**/dist/
+**/dist-ssr/
+**/build/
+**/out/
+**/.cache/
+**/venv/
+**/.venv/
+**/vendor/
+
+# --- LOCK-FILES (Sparen massiv Token) ---
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+**/*.tsbuildinfo
+
+# --- BINÄRDATEIEN & ASSETS ---
+*.exe
+*.dll
+*.so
+*.jar
+*.war
+*.class
+**/*.gif
+**/*.webp
+**/*.ico
+**/*.svg
+**/*.mp4
+**/*.pdf
+**/assets/
+**/public/projects/
+
+# --- JAVA / SPRING / MAVEN ---
+**/mvnw
+**/mvnw.cmd
+**/.mvn/
+.mavenrc
+**/.spring-boot-devtools-restart.txt
+**/bin/
+
+# --- IDE & SYSTEM ---
+.idea/
+**/.idea/
+*.iml
+.settings/
+.project
+.classpath
+.factorypath
+.vscode/
+.git/
+.svn/
+.DS_Store
+Thumbs.db
+*.log
+**/*.log
+.gitattributes
