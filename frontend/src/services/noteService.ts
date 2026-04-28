@@ -1,3 +1,4 @@
+import axios from 'axios';
 import api from './api';
 import type { Note } from '../types/note';
 import { db } from '../db';
@@ -36,6 +37,15 @@ const matchesQuery = (note: Note, query?: string): boolean => {
     return `${note.title} ${note.content}`.toLowerCase().includes(normalized);
 };
 
+const shouldUseOfflineFallback = (error: unknown): boolean => {
+    if (!axios.isAxiosError(error)) {
+        return true;
+    }
+
+    const status = error.response?.status;
+    return status == null || status >= 500;
+};
+
 export const noteService = {
     getAllNotes: async (options: GetNotesOptions = {}): Promise<Note[]> => {
         const archived = options.archived ?? false;
@@ -55,6 +65,9 @@ export const noteService = {
             
             return notes;
         } catch (error) {
+            if (!shouldUseOfflineFallback(error)) {
+                throw error;
+            }
             console.warn('Offline: Loading notes from local DB', error);
             // Return filtered and sorted local data as backend fallback
             const localNotes = await db.notes.toArray();
@@ -71,6 +84,9 @@ export const noteService = {
             await db.notes.put(note);
             return note;
         } catch (error) {
+            if (!shouldUseOfflineFallback(error)) {
+                throw error;
+            }
             console.warn('Offline: Loading single note from local DB', error);
             const localNote = await db.notes.get(id);
             if (!localNote) throw error;

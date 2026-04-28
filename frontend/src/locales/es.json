@@ -115,5 +115,14 @@
       "error": "Error al cargar las canciones.",
       "noData": "No se encontraron canciones.",
       "youtube": "Abrir en YouTube"
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "username": "Usuario",
+      "password": "Contraseña",
+      "button": "Entrar",
+      "error": "Credenciales inválidas",
+      "rememberMe": "Confiar en este navegador",
+      "sessionExpired": "Tu sesión ha expirado. Inicia sesión de nuevo."
     }
 }

@@ -67,6 +67,23 @@ describe('API Axios Interceptor', () => {
     expect(axiosPostSpy).toHaveBeenCalledWith('/api/auth/refresh-token', { refreshToken: 'old-refresh-token' })
   })
 
+  it('tries refresh flow on 403 and retries original request', async () => {
+    localStorage.setItem('token', 'expired-token')
+    localStorage.setItem('refreshToken', 'old-refresh-token')
+
+    mock.onGet('/protected').replyOnce(403)
+    mock.onGet('/protected').replyOnce(200, { ok: true })
+    axiosPostSpy.mockResolvedValue({
+      data: { token: 'new-access-token', refreshToken: 'new-refresh-token' }
+    } as never)
+
+    const response = await api.get('/protected')
+
+    expect(response.status).toBe(200)
+    expect(localStorage.getItem('token')).toBe('new-access-token')
+    expect(localStorage.getItem('refreshToken')).toBe('new-refresh-token')
+  })
+
   it('clears auth storage when refresh fails', async () => {
     localStorage.setItem('token', 'expired-token')
     localStorage.setItem('refreshToken', 'old-refresh-token')

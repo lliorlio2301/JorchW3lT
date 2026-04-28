@@ -4,6 +4,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
+import Image from '@tiptap/extension-image';
 import { markdownToHtml, htmlToMarkdown } from './markdownConversion';
 import './MarkdownEditor.css';
 
@@ -25,6 +26,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorPro
         const editor = useEditor({
             extensions: [
                 StarterKit,
+                Image,
                 TaskList,
                 TaskItem.configure({ nested: true }),
                 Placeholder.configure({ placeholder })

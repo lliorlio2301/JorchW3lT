@@ -77,6 +77,16 @@ describe('NoteService with Offline Persistence', () => {
     expect(result[1].id).toBe(1)
   })
 
+  it('does not use offline fallback for auth errors', async () => {
+    vi.mocked(api.get).mockRejectedValue({
+      isAxiosError: true,
+      response: { status: 403 }
+    })
+
+    await expect(noteService.getAllNotes()).rejects.toBeTruthy()
+    expect(db.notes.toArray).not.toHaveBeenCalled()
+  })
+
   it('updates pin state via API patch', async () => {
     const patched = { ...mockNotes[0], pinned: true }
     vi.mocked(api.patch).mockResolvedValue({ data: patched })

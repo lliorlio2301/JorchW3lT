@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './LoginPage.css';
 
@@ -12,6 +12,14 @@ const LoginPage: React.FC = () => {
     const [error, setError] = useState('');
     const { login } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const sessionMessage = useMemo(() => {
+        const reason = new URLSearchParams(location.search).get('reason');
+        if (reason === 'sessionExpired') {
+            return t('login.sessionExpired');
+        }
+        return '';
+    }, [location.search, t]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,7 +36,7 @@ const LoginPage: React.FC = () => {
         <div className="login-container">
             <div className="chaos-card login-card">
                 <h2>{t('login.title')}</h2>
-                {error && <p className="error-message">{error}</p>}
+                {(error || sessionMessage) && <p className="error-message">{error || sessionMessage}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">{t('login.username')}</label>
