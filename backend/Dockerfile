@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM eclipse-temurin:21-jdk-jammy AS build
+FROM docker.io/library/eclipse-temurin:21-jdk-jammy AS build
 WORKDIR /app
 
 # Copy maven wrapper and pom
@@ -12,7 +12,7 @@ COPY src ./src
 RUN ./mvnw package -DskipTests
 
 # Stage 2: Run
-FROM eclipse-temurin:21-jre-jammy
+FROM docker.io/library/eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
 # Create a non-root user for security

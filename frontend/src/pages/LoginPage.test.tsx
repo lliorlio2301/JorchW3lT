@@ -50,4 +50,16 @@ describe('LoginPage', () => {
     expect(usernameInput.value).toBe('admin')
     expect(passwordInput.value).toBe('password123')
   })
+
+  it('shows session expired message when redirected with reason query', () => {
+    window.history.pushState({}, '', '/login?reason=sessionExpired')
+
+    render(
+      <BrowserRouter>
+        <LoginPage />
+      </BrowserRouter>
+    )
+
+    expect(screen.getByText(/sessionExpired|Sitzung/i)).toBeInTheDocument()
+  })
 })

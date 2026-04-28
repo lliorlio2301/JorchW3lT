@@ -126,6 +126,7 @@
       "password": "Passwort",
       "button": "Anmelden",
       "error": "Ungültige Anmeldedaten",
-      "rememberMe": "Diesem Browser vertrauen"
+      "rememberMe": "Diesem Browser vertrauen",
+      "sessionExpired": "Deine Sitzung ist abgelaufen. Bitte melde dich erneut an."
     }
 }

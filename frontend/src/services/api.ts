@@ -10,6 +10,16 @@ const api = axios.create({
     },
 });
 
+const clearAuthState = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    delete api.defaults.headers.common['Authorization'];
+};
+
+const redirectToLogin = (reason: string) => {
+    window.location.href = `/login?reason=${encodeURIComponent(reason)}`;
+};
+
 // Interceptor to add Authorization and Language headers
 api.interceptors.request.use(
     (config) => {
@@ -34,34 +44,38 @@ api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
+        const status = error.response?.status;
+        const requestUrl: string = originalRequest?.url ?? '';
+        const isRefreshRequest = requestUrl.includes('/auth/refresh-token');
+        const isLoginRequest = requestUrl.includes('/auth/login');
+        const refreshToken = localStorage.getItem('refreshToken');
 
-        // If error is 401 and we haven't tried to refresh yet
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // Try token refresh once for auth errors before logging the user out.
+        if ((status === 401 || status === 403) && !isRefreshRequest && !isLoginRequest && refreshToken && !originalRequest._retry) {
             originalRequest._retry = true;
-            const refreshToken = localStorage.getItem('refreshToken');
+            try {
+                // Call refresh endpoint directly to avoid interceptor loop
+                const response = await axios.post('/api/auth/refresh-token', { refreshToken });
+                const { token, refreshToken: rotatedRefreshToken } = response.data;
 
-            if (refreshToken) {
-                try {
-                    // Call refresh endpoint directly to avoid interceptor loop
-                    const response = await axios.post('/api/auth/refresh-token', { refreshToken });
-                    const { token, refreshToken: rotatedRefreshToken } = response.data;
-
-                    localStorage.setItem('token', token);
-                    if (rotatedRefreshToken) {
-                        localStorage.setItem('refreshToken', rotatedRefreshToken);
-                    }
-                    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                    originalRequest.headers.Authorization = `Bearer ${token}`;
-
-                    return api(originalRequest);
-                } catch (refreshError) {
-                    // If refresh fails, logout
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('refreshToken');
-                    window.location.href = '/login';
-                    return Promise.reject(refreshError);
+                localStorage.setItem('token', token);
+                if (rotatedRefreshToken) {
+                    localStorage.setItem('refreshToken', rotatedRefreshToken);
                 }
+                api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                originalRequest.headers.Authorization = `Bearer ${token}`;
+
+                return api(originalRequest);
+            } catch (refreshError) {
+                clearAuthState();
+                redirectToLogin('sessionExpired');
+                return Promise.reject(refreshError);
             }
+        }
+
+        if ((status === 401 || status === 403) && !isRefreshRequest && !isLoginRequest) {
+            clearAuthState();
+            redirectToLogin('sessionExpired');
         }
 
         return Promise.reject(error);

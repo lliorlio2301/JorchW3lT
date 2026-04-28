@@ -122,6 +122,7 @@
       "password": "Password",
       "button": "Login",
       "error": "Invalid credentials",
-      "rememberMe": "Trust this browser"
+      "rememberMe": "Trust this browser",
+      "sessionExpired": "Your session has expired. Please log in again."
     }
 }

@@ -65,7 +65,20 @@ const ResumePage: React.FC = () => {
 
     if (loading) return <div className="resume-status">{t('resume.loading')}</div>;
     if (error) return <div className="resume-status error">{error}</div>;
-    if (!resume) return <div className="resume-status">{t('resume.noData')}</div>;
+    if (!resume) {
+        return (
+            <div className="resume-status">
+                <p>{t('resume.noData')}</p>
+                {isAuthenticated && (
+                    <div className="admin-link-container">
+                        <Link to="/resume/admin" className="admin-edit-link">
+                            {t('resume.createFirst', 'Lebenslauf anlegen')}
+                        </Link>
+                    </div>
+                )}
+            </div>
+        );
+    }
 
     return (
         <div className="resume-container chaos-card">

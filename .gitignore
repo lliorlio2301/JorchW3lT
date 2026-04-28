@@ -27,4 +27,6 @@ native-image-diagnostics/
 !ROADMAP.md
 !docs/*.md
 
+# Trash
 ai
+.markdownlint.json

@@ -12,6 +12,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@tiptap/extension-image": "^2.26.2",
     "@tiptap/extension-placeholder": "^2.26.2",
     "@tiptap/extension-task-item": "^2.26.2",
     "@tiptap/extension-task-list": "^2.26.2",
