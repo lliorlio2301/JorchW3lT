@@ -25,7 +25,10 @@ Das Projekt wird automatisch via GitHub Actions auf einen Debian 12 VPS deployt.
 
 ### Lokale Entwicklung
 
-1. **Backend (Dev-Profil):** `cd backend && ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev`
+**Voraussetzungen:** JDK 21 oder neuer (Backend-Ziel bleibt Java 21), Node.js 22 (per `.mise.toml` gepinnt), Podman oder Docker.
+
+0. **Umgebungsvariablen:** `cp .env.example .env` und Werte anpassen (wird für Compose benötigt).
+1. **Backend (Dev-Profil):** `cd backend && ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev` (H2 in-memory, keine DB nötig)
 2. **Frontend:** `cd frontend && npm install && npm run dev`
 3. **Full-Stack via Podman Compose:** `podman-compose up -d` (alternativ: `docker compose up -d`, falls Docker lokal genutzt wird)
 
