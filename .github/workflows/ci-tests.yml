@@ -33,6 +33,8 @@ jobs:
         run: cd frontend && npm ci
       - name: Run Frontend Vitest
         run: cd frontend && npm test
+      # Requires @playwright/test >= 1.61: older versions cannot install browsers on
+      # ubuntu-26.04-x64, which GitHub is rolling out to `ubuntu-latest` until 2026-11-19.
       - name: Install Playwright Browsers
         run: cd frontend && npx playwright install --with-deps chromium
       - name: Run Playwright E2E Tests
