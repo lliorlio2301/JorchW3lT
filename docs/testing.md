@@ -18,6 +18,12 @@ Das Projekt nutzt eine moderne Test-Infrastruktur, die sowohl das Backend als au
 *   **React Testing Library (RTL):** Fokus auf das Testen von Komponenten aus Benutzersicht.
 *   **jsdom:** Browser-Umgebung für Node.js zur Simulation des DOM.
 
+> **Node-Version:** Die Frontend-Tests laufen mit Node.js 22 (siehe `.mise.toml`).
+> Node.js 26 bringt ein experimentelles globales `localStorage` mit, das jsdom
+> überschattet – Tests, die `localStorage` nutzen, schlagen dort mit
+> `Cannot read properties of undefined` fehl.
+
+
 ---
 
 ## 2. Backend Test-Abdeckung

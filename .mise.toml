@@ -1,0 +1,5 @@
+# Tool-Versionen für dieses Projekt.
+# Java wird bewusst NICHT gepinnt: Das Backend baut mit jedem JDK >= 21
+# (Ziel-Bytecode bleibt Java 21 über <java.version> in backend/pom.xml).
+[tools]
+node = "22"

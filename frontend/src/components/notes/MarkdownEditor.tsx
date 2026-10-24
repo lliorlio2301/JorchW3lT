@@ -51,7 +51,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorPro
             if (value === lastEmittedMarkdownRef.current) {
                 return;
             }
-            editor.commands.setContent(markdownToHtml(value), false);
+            editor.commands.setContent(markdownToHtml(value), { emitUpdate: false });
             lastEmittedMarkdownRef.current = value;
         }, [editor, value]);
 
