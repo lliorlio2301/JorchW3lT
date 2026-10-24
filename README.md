@@ -35,6 +35,7 @@ Das Projekt wird automatisch via GitHub Actions auf einen Debian 12 VPS deployt.
 ### Dokumentation
 
 Detaillierte Informationen findest du in den spezialisierten Guides:
+- [Toolchain & Versionen](./docs/toolchain.md)
 - [Infrastruktur & VPS](./docs/infrastructure.md)
 - [Testing & QA](./docs/testing.md)
 - [PWA & Offline-Strategie](./docs/pwa-offline.md)
