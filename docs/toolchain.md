@@ -61,8 +61,8 @@ Playwright-Browser-Revisionen sind über das Lockfile gepinnt — `npm ci` repro
 | `oraclelinux:9-slim` | major-fixiert | `backend/Dockerfile.native:17` | OK |
 | `postgres:16-alpine` (dev/prod) | major-fixiert | `docker-compose.yml:3`, `docker-compose.prod.yml:3` | OK, Patch driftet |
 | `postgres:16-alpine` (Tests) | major-fixiert | `AbstractIntegrationTest.java:14` | OK, identisch zu dev/prod |
-| **`node:20-alpine`** | **falscher Major** | `frontend/Dockerfile:2` | **DRIFT → muss `22-alpine` sein** |
-| **`nginx:alpine`** | **gleitend (kein Versions-Tag)** | `frontend/Dockerfile:10` | **ungesteuert** |
+| `node:22-alpine` | major-fixiert | `frontend/Dockerfile:2` | OK — auf 22 korrigiert (war 20) |
+| **`nginx:alpine`** | **gleitend (kein Versions-Tag)** | `frontend/Dockerfile:10` | **ungesteuert** (siehe D3) |
 | `victoriametrics/victoria-metrics:v1.112.0` | exakt | `docker-compose.prod.yml:48` | OK |
 | `victoriametrics/vmagent:v1.112.0` | exakt | `docker-compose.prod.yml:62` | OK |
 | `grafana/loki:3.2.1`, `grafana/promtail:3.2.1` | exakt | `docker-compose.prod.yml:77,87` | OK |
@@ -89,8 +89,8 @@ Mindestversion dokumentieren + Preflight-Check, nicht pinnen.
 
 | # | Frage | Empfehlung |
 |---|---|---|
-| **D1** | `frontend/Dockerfile` baut mit Node 20, Projekt/CI nutzen 22 | **fixen** → `node:22-alpine`. Sonst kann ein Build grün sein, der lokal/CI rot ist (und umgekehrt) |
+| ~~**D1**~~ | `frontend/Dockerfile` baute mit Node 20 | **erledigt** → `node:22-alpine` |
 | **D2** | JDK pinnen? | **Nein, Policy behalten** (`>= 21`, Bytecode 21). Wer Verstöße hart brechen will: `maven-enforcer-plugin` mit `requireJavaVersion [21,)` — nicht mise |
-| **D3** | `nginx:alpine` ohne Version | **pinnen**, z. B. `nginx:1.29-alpine` (oder Digest) — ungetaggte Images sind ein Supply-Chain-Risiko |
+| **D3** | `nginx:alpine` ohne Version | **pinnen** → `nginx:1.30-alpine` (stable-Linie, Stand 2026-10: 1.30.6). `alpine` zeigt derzeit auf 1.31 (mainline) und springt künftig über Majors. Nur **eine** Stelle: `frontend/Dockerfile:10`. Host-Nginx (`scripts/`) ist davon unabhängig |
 | **D4** | `ubuntu-latest` in CI | optional auf `ubuntu-26.04` pinnen, sobald das Label in der Runner-Gruppe verfügbar ist |
 | **D5** | Patch-Tags der Postgres-/Temurin-Images | optional auf Digest pinnen (max. Reproduzierbarkeit, dafür manuelles Update) |
