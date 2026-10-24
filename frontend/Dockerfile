@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Run stage (Nginx)
-FROM docker.io/library/nginx:alpine
+FROM docker.io/library/nginx:1.30-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

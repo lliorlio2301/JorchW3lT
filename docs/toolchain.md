@@ -62,13 +62,26 @@ Playwright-Browser-Revisionen sind über das Lockfile gepinnt — `npm ci` repro
 | `postgres:16-alpine` (dev/prod) | major-fixiert | `docker-compose.yml:3`, `docker-compose.prod.yml:3` | OK, Patch driftet |
 | `postgres:16-alpine` (Tests) | major-fixiert | `AbstractIntegrationTest.java:14` | OK, identisch zu dev/prod |
 | `node:22-alpine` | major-fixiert | `frontend/Dockerfile:2` | OK — auf 22 korrigiert (war 20) |
-| **`nginx:alpine`** | **gleitend (kein Versions-Tag)** | `frontend/Dockerfile:10` | **ungesteuert** (siehe D3) |
+| `nginx:1.30-alpine` | stable-Linie | `frontend/Dockerfile:10` | OK — gepinnt (vorher gleitendes `nginx:alpine` = mainline) |
 | `victoriametrics/victoria-metrics:v1.112.0` | exakt | `docker-compose.prod.yml:48` | OK |
 | `victoriametrics/vmagent:v1.112.0` | exakt | `docker-compose.prod.yml:62` | OK |
 | `grafana/loki:3.2.1`, `grafana/promtail:3.2.1` | exakt | `docker-compose.prod.yml:77,87` | OK |
 | `prom/node-exporter:v1.8.2` | exakt | `docker-compose.prod.yml:102` | OK |
 | `prometheuscommunity/postgres-exporter:v0.15.0` | exakt | `docker-compose.prod.yml:117` | OK |
 | `grafana/grafana-oss:11.2.0` | exakt | `docker-compose.prod.yml:127` | OK |
+
+### Wo läuft Nginx? (Umgebungsmatrix)
+
+| Pfad | Nginx beteiligt? |
+|---|---|
+| Lokale Entwicklung (`npm run dev`) | **nein** — Vite-Dev-Server auf `:5173` |
+| CI-Tests (`npm test`, `npm run test:e2e`) | **nein** — Vite-Dev-Server, Runner-Prozess |
+| Lokal Full-Stack (`podman-compose up`) | **ja** — Container-Nginx, `5173:80` |
+| Produktion | **ja** — Container-Nginx (`3000:80`) **plus** Host-Nginx als TLS-Reverse-Proxy |
+
+Die Image-Version betrifft also beide Compose-Pfade gleichzeitig (gleiches Image), aber
+nicht den Vite-Dev-Flow und nicht die CI. Der Host-Nginx auf dem VPS ist ein
+Debian-Paket (`scripts/setup_ssl.sh`) und wird nicht aus diesem Repo gepinnt.
 
 ### Host-Dienste (nicht im Repo pinnbar)
 
@@ -91,7 +104,7 @@ Mindestversion dokumentieren + Preflight-Check, nicht pinnen.
 |---|---|---|
 | ~~**D1**~~ | `frontend/Dockerfile` baute mit Node 20 | **erledigt** → `node:22-alpine` |
 | **D2** | JDK pinnen? | **Nein, Policy behalten** (`>= 21`, Bytecode 21). Wer Verstöße hart brechen will: `maven-enforcer-plugin` mit `requireJavaVersion [21,)` — nicht mise |
-| **D3** | `nginx:alpine` ohne Version | **pinnen** → `nginx:1.30-alpine` (stable-Linie, Stand 2026-10: 1.30.6). `alpine` zeigt derzeit auf 1.31 (mainline) und springt künftig über Majors. Nur **eine** Stelle: `frontend/Dockerfile:10`. Host-Nginx (`scripts/`) ist davon unabhängig |
+| **D3** | `nginx:alpine` ohne Version | **erledigt** → `nginx:1.30-alpine` (stable-Linie, Stand 2026-10: 1.30.6). Nur **eine** Stelle: `frontend/Dockerfile:10`. Host-Nginx (`scripts/`) ist davon unabhängig |
 | **D4** | `ubuntu-latest` in CI | optional auf `ubuntu-26.04` pinnen, sobald das Label in der Runner-Gruppe verfügbar ist |
 | **D5** | Patch-Tags der Postgres-/Temurin-Images | optional auf Digest pinnen (max. Reproduzierbarkeit, dafür manuelles Update) |
 
