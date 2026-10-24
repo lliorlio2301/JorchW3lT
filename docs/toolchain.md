@@ -87,8 +87,8 @@ Debian-Paket (`scripts/setup_ssl.sh`) und wird nicht aus diesem Repo gepinnt.
 
 | Dienst | Version | Ort | Bewertung |
 |---|---|---|---|
-| Podman (lokal) | Host-Version (Omarchy/Arch) | System | **nicht** in `.mise.toml` pinnen (siehe unten) |
-| Podman (Produktion) | Debian 12 Host-Paket | VPS | Host-Verantwortung |
+| Container-Runtime (lokal) | Docker 29.9.1 | Host (Omarchy/Arch) | **nicht** in `.mise.toml` pinnen (siehe unten) |
+| Container-Runtime (Produktion) | Podman, Debian-12-Host-Paket | VPS | Host-Verantwortung |
 | Runner-Image | `ubuntu-latest` | `ci-tests.yml`, `deploy.yml` | gleitend — GitHub-Rollout 24.04 → 26.04 (bis 2026-11-19) |
 
 **Warum Docker/Podman nicht in `.mise.toml` gehört:** Podman ist ein rootless
