@@ -1,6 +1,4 @@
 
-# Gemini Interaction Guidelines (Project: Personal Portfolio)
-
 ## 1. Communication & Style
 * **Language:** Explanations, concepts, and interaction are in **German** by default.
 * **Technical Context:** Code examples, API definitions, error messages, and technical feedback are strictly in **English**.
