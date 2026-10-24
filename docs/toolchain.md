@@ -94,3 +94,16 @@ Mindestversion dokumentieren + Preflight-Check, nicht pinnen.
 | **D3** | `nginx:alpine` ohne Version | **pinnen** → `nginx:1.30-alpine` (stable-Linie, Stand 2026-10: 1.30.6). `alpine` zeigt derzeit auf 1.31 (mainline) und springt künftig über Majors. Nur **eine** Stelle: `frontend/Dockerfile:10`. Host-Nginx (`scripts/`) ist davon unabhängig |
 | **D4** | `ubuntu-latest` in CI | optional auf `ubuntu-26.04` pinnen, sobald das Label in der Runner-Gruppe verfügbar ist |
 | **D5** | Patch-Tags der Postgres-/Temurin-Images | optional auf Digest pinnen (max. Reproduzierbarkeit, dafür manuelles Update) |
+
+## 6. Bewusste Nicht-Entscheidungen
+
+Diese Punkte wurden diskutiert und **verworfen** — bitte nicht ohne neue Fakten erneut aufrollen:
+
+* **Kein `ARG NODE_VERSION`** im Dockerfile. Die `FROM`-Zeile bleibt lesbar und grep-bar
+  (`node:22-alpine`). Node steht damit an genau zwei Stellen (`.mise.toml` für L1,
+  `frontend/Dockerfile` für L3); dieses Inventar ist der Abgleich dafür.
+* **Kein Prüfskript / pre-commit-Hook** für Versions-Drift. Bei einer aktiv gepflegten
+  Version rechtfertigt der Aufwand kein eigenes Gate; Drift fällt beim nächsten Image-Build
+  oder über diese Tabelle auf.
+* **Kein Image-Bot** (Renovate/Dependabot) aktiviert — optional, siehe D3/D5.
+* **Kein Docker-/Podman-Pin** in `.mise.toml`, siehe §4.
